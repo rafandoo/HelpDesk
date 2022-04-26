@@ -8,6 +8,9 @@
   O presente projeto de sistema de Help Desk foi desenvolvido para a materia de Desenvolvimento WEB I do curso de Bacharel em Ciência da Computação no Instituto Federal Catarinense - IFC, tem como objetivo provisionar uma ferramenta de suporte, atuando na abertura e registro de tickets (chamados) e na gestão dos mesmos.
 </p>
 
+## Documentos :page_facing_up:
+[Projeto de Escopo]()
+
 ## Tecnologias Utilizadas :man_technologist:
 
 <p>
@@ -40,6 +43,6 @@
 
 ## Licença :key:
 
-The [MIT License]() (MIT)
+The [MIT License](https://github.com/rafandoo/HelpDesk/blob/8d524ce4f75316f660cb6e15084c3a64da69345c/LICENSE) (MIT)
 
-Copyright :copyright: 2022 - Help Desk
+Copyright :copyright: 2022 - Rafael Camargo
