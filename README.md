@@ -9,7 +9,7 @@
 </p>
 
 ## Documentos :page_facing_up:
-[Projeto de Escopo]()
+[Projeto de Escopo](https://github.com/rafandoo/HelpDesk/blob/d9b52f56d937e56034eb599c8b49a9f87479c4cb/docs/ESCOPO%20DO%20PROJETO%20-%20Help%20Desk.pdf)
 
 ## Tecnologias Utilizadas :man_technologist:
 
