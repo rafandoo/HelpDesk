@@ -20,7 +20,7 @@ The present Help Desk system project was developed for the WEB I Development cou
   <br/>
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
   <br/>
-  <img src="https://img.shields.io/badge/PHP-777BB4?style future enhancements =for-the-badge&logo=php&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"/>
   <br/>
   <img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/>
 </p>
