@@ -10,8 +10,10 @@ The present Help Desk system project was developed for the WEB I Development cou
 
 ## Documents :page_facing_up:
 [Scope Project (PT-BR)](https://github.com/rafandoo/HelpDesk/blob/d9b52f56d937e56034eb599c8b49a9f87479c4cb/docs/ESCOPO%20DO%20PROJETO%20-%20Help%20Desk.pdf)
-<br>
+<br/>
 [Software Requirements (PT-BR)](https://github.com/rafandoo/HelpDesk/blob/ff79a25fcd8f9a907f70aba5ffb30fc8394b9b40/docs/REQUISITO%20DE%20SOFTWARE%20-%20Help%20Desk.pdf)
+<br/>
+[Diagram Model Entity Relationship](https://github.com/rafandoo/HelpDesk/blob/aa5608a3548e8e375c55513deafda5e4b72302b4/docs/DIAGRAMA%20MODELO%20ENTIDADE%20RELACIONAMENTO%20-%20Help%20Desk.pdf)
 
 ## Technologies used :man_technologist:
 
