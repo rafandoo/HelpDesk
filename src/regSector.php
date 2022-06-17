@@ -51,7 +51,7 @@
                     <li class="nav-item"><a class="nav-link" href="regUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="regClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="regCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="regSector.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="regSector.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -153,15 +153,8 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Perfil</h3>
+                    <h3 class="text-dark mb-4">Cadastro de setor</h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Mudar foto</button></div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-lg-8">
                             <div class="row mb-3 d-none">
                                 <div class="col">
@@ -196,38 +189,20 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Dados do perfil</p>
-                                        </div>
                                         <div class="card-body">
-                                            <form>
+                                            <form method="post">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Usuário</strong></label>
-                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" placeholder="user.name" name="username" required="" minlength="3"></div>
-                                                        </div>
+                                                        <div class="mb-3"><label class="form-label" for="description"><strong>Descrição</strong><br></label><input class="form-control" type="text" id="description" name="description" required="" minlength="2"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required=""></div>
+                                                        <div class="mb-3"><label class="form-label" for="situation"><strong>Situação</strong><br></label><select class="form-select" id="situation" required="" name="situation">
+                                                                <option value="1" selected="">Ativo</option>
+                                                                <option value="0">Inativo</option>
+                                                            </select></div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="firstName"><strong>Nome</strong></label><input class="form-control" type="text" id="firstName" placeholder="John" name="firstName" required="" minlength="2"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="lastName"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="lastName" placeholder="Doe" name="lastName"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="password"><strong>Senha</strong><br></label><input class="form-control" type="password" id="password" name="password" placeholder="*******" minlength="8"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmPassword"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmPassword" placeholder="*******" name="confirmPassword" minlength="8"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Salvar</button></div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit">Salvar</button></div>
                                             </form>
                                         </div>
                                     </div>

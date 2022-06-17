@@ -49,7 +49,7 @@
                     <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="regUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="regClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="regClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="regCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="regSector.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
                 </ul>
@@ -153,16 +153,9 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Perfil</h3>
+                    <h3 class="text-dark mb-4">Cadastro de cliente</h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Mudar foto</button></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        <div class="col-11">
                             <div class="row mb-3 d-none">
                                 <div class="col">
                                     <div class="card textwhite bg-primary text-white shadow">
@@ -197,14 +190,48 @@
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Dados do perfil</p>
+                                            <p class="fs-4 text-primary m-0 fw-bold">Dados do cliente</p>
                                         </div>
                                         <div class="card-body">
-                                            <form>
+                                            <form method="post">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="name"><strong>Nome</strong></label><input class="form-control" type="text" id="name" name="name" required="" minlength="2"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="commercialName"><strong>Nome Fantasia</strong><br></label><input class="form-control" type="text" id="commercialName" name="commercialName"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="cnpjCpf"><strong>CNPJ/CPF</strong><br></label><input class="form-control" type="text" id="cnpjCpf" placeholder="00.000.000/0001-00" name="cnpjCpf" required="" minlength="11"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="telephone"><strong>Telefone</strong><br></label><input class="form-control" type="text" id="telephone" placeholder="(47) 90000-0000" name="telephone"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="address"><strong>Endereço</strong><br></label><input class="form-control" type="text" id="address" placeholder="Nome da rua e número" name="address" required="" minlength="10"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="state"><strong>Estado</strong><br></label><select class="form-select" id="state" required="" name="state">
+                                                                <option value="">Selecione uma opção</option>
+                                                            </select></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="city"><strong>Cidade</strong><br></label><select class="form-select" id="city" required="" name="city">
+                                                                <option value="">Selecione uma opção</option>
+                                                            </select></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>Usuário</strong></label>
-                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" placeholder="user.name" name="username" required="" minlength="3"></div>
+                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="username" placeholder="user.name" name="username" required="" minlength="3"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -213,21 +240,30 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="firstName"><strong>Nome</strong></label><input class="form-control" type="text" id="firstName" placeholder="John" name="firstName" required="" minlength="2"></div>
+                                                        <div class="mb-3"><label class="form-label" for="password"><strong>Senha</strong><br></label><input class="form-control" type="password" id="password" name="password" placeholder="*******" required="" minlength="8"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="lastName"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="lastName" placeholder="Doe" name="lastName"></div>
+                                                        <div class="mb-3"><label class="form-label" for="confirmPassword"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmPassword" placeholder="*******" name="confirmPassword" required="" minlength="8"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="comments"><strong>Observações</strong><br></label><textarea class="form-control" id="comments" name="comments" rows="3"></textarea></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="password"><strong>Senha</strong><br></label><input class="form-control" type="password" id="password" name="password" placeholder="*******" minlength="8"></div>
+                                                        <div class="mb-3"><label class="form-label" for="situation"><strong>Situação</strong><br></label><select class="form-select" id="situation" required="" name="situation">
+                                                                <option value="1" selected="">Ativo</option>
+                                                                <option value="0">Inativo</option>
+                                                            </select></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmPassword"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmPassword" placeholder="*******" name="confirmPassword" minlength="8"></div>
+                                                        <div class="mb-3"></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Salvar</button></div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit">Salvar</button></div>
                                             </form>
                                         </div>
                                     </div>

@@ -23,16 +23,16 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
-                        <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
-                            <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="#">Novo chamado</a><a class="collapse-item" href="#">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
+                        <div><a data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
+                            <div class="collapse show" id="collapse-3">
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="#">Novo chamado</a><a class="collapse-item" href="serviceQueue.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
                             <div class="collapse" id="collapse-1">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clients.html">Clientes</a><a class="collapse-item" href="users.html">Usuários</a><a class="collapse-item" href="categories.html">Categorias</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clients.html">Clientes</a><a class="collapse-item" href="users.html">Usuários</a><a class="collapse-item" href="categories.html">Categorias</a><a class="collapse-item" href="sector.html">Setores</a></div>
                             </div>
                         </div>
                     </li>
@@ -48,9 +48,10 @@
                     <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="regUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="regClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="regCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="regSector.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -174,7 +175,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="text-end"><a class="btn btn-success" role="button" href="cadClients.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
+                                    <div class="text-end"><a class="btn btn-success" role="button" href="regClients.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
                                 </div>
                             </div>
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
