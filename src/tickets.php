@@ -22,71 +22,36 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="clientes.html"><i class="fas fa-user-friends"></i><span>Clientes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
-                    <li class="nav-item"></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-user-circle"></i><span>Cadastros</span></a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="clientes.html"><i class="fas fa-user-friends"></i><span>&nbsp;Clientes</span></a><a class="dropdown-item" href="#"><i class="fas fa-user-cog"></i><span>&nbsp;Usuários</span></a><a class="dropdown-item" href="#"><i class="far fa-star"></i></a></div>
+                    <li class="nav-item">
+                        <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
+                            <div class="collapse" id="collapse-3">
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="#">Novo chamado</a><a class="collapse-item" href="#">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
+                            </div>
+                        </div>
                     </li>
+                    <li class="nav-item">
+                        <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
+                            <div class="collapse" id="collapse-1">
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clients.html">Clientes</a><a class="collapse-item" href="users.html">Usuários</a><a class="collapse-item" href="categories.html">Categorias</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button" class="nav-link"><i class="fas fa-chart-bar"></i>&nbsp;<span>Gerencial</span></a>
+                            <div class="collapse" id="collapse-2">
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="#">Dashboard</a><a class="collapse-item" href="#">Relatórios</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
                 </ul>
-                <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-                    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                            <div class="sidebar-brand-text mx-3"><span>BRAND</span></div>
-                        </a>
-                        <hr class="sidebar-divider my-0">
-                        <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>&nbsp;Dashboard</span></a></li>
-                            <hr class="sidebar-divider">
-                            <div class="sidebar-heading">
-                                <p class="mb-0">INTERFACE</p>
-                            </div>
-                            <li class="nav-item">
-                                <div><a class="btn btn-link nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-cog"></i>&nbsp;<span>Components</span></a>
-                                    <div class="collapse" id="collapse-1">
-                                        <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">CUSTOM COMPONENTS:</h6><a class="collapse-item" href="buttons.html">Buttons</a><a class="collapse-item" href="cards.html">Cards</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div><a class="btn btn-link nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-wrench"></i>&nbsp;<span>Utilities</span></a>
-                                    <div class="collapse" id="collapse-2">
-                                        <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">CUSTOM UTILITIES:</h6><a class="collapse-item" href="utilities-color.html">Colors</a><a class="collapse-item" href="utilities-border.html">Borders</a><a class="collapse-item" href="utilities-animation.html">Animations</a><a class="collapse-item" href="utilities-other.html">Other</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <hr class="sidebar-divider">
-                            <div class="sidebar-heading">
-                                <p class="mb-0">Addons</p>
-                            </div>
-                            <li class="nav-item">
-                                <div><a class="btn btn-link nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button"><i class="fas fa-folder"></i>&nbsp;<span>Pages</span></a>
-                                    <div class="collapse" id="collapse-3">
-                                        <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">LOGIN SCREENS:</h6><a class="collapse-item" href="login.html">Login</a><a class="collapse-item" href="register.html">Register</a><a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                                            <h6 class="collapse-header">OTHER PAGES:</h6><a class="collapse-item" href="404.html">404 Page</a><a class="collapse-item" href="blank.html">Blank Page</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="collapsePages" class="collapse" aria-labelledby="headingTwo" aria-controls="collapsePages" data-bs-parent="#accordionSidebar">
-                                    <div class="bg-white border rounded py-2 collapse-inner">
-                                        <h6 class="collapse-header">LOGIN SCREENS:</h6><a class="collapse-item" href="#">Login</a><a class="collapse-item" href="#">Register</a><a class="collapse-item" href="#">Forgot Password</a>
-                                        <h6 class="collapse-header">OTHER PAGES:</h6><a class="collapse-item" href="#">404 Page</a><a class="collapse-item" href="#">Blank Page</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="charts.html"><i class="fas fa-chart-area"></i><span>&nbsp;Charts</span></a></li>
-                            <li class="nav-item"><a class="nav-link" href="tables.html"><i class="fas fa-table"></i><span>&nbsp;Tables</span></a></li>
-                            <hr class="sidebar-divider">
-                        </ul>
-                        <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle-1" type="button"></button></div>
-                    </div>
-                </nav>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
@@ -187,112 +152,88 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Clientes</h3>
+                    <h3 class="text-dark mb-4">Minha fila de chamados</h3>
                     <div class="card shadow">
-                        <div class="card-body">
+                        <div class="card-body" style="font-size: 14px;">
                             <div class="row">
-                                <div class="col-md-4 col-lg-4 col-xl-4">
-                                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                                <div class="col-xl-4">
+                                    <div id="dataTable_filter" class="dataTables_filter">
                                         <form>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="search" aria-controls="dataTable" placeholder="Buscar"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group" style="width: 340px;"><span class="input-group-text">Ticket</span><input class="form-control me-5" type="text" id="ticketFilter" name="ticketFilter"></div>
+                                            </div>
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group" style="width: 340px;"><span class="input-group-text">Cliente</span><input class="form-control me-5" type="text" id="clientFilter" name="clientFilter"></div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div style="margin-right: 20px;"></div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-xl-8 offset-xl-0">
-                                    <div class="text-end"><button class="btn btn-success" type="button"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></button></div>
+                                <div class="col">
+                                    <div style="margin-bottom: 15px;">
+                                        <div class="input-group" style="width: 340px;"><span class="input-group-text">Prioridade</span><select class="form-select me-5" id="priority" style="width: 145px;" name="priority">
+                                                <option value="name" selected="">Nome</option>
+                                                <option value="id">Código</option>
+                                                <option value="cpfCnpj">CPF/CNPJ</option>
+                                                <option value="situation">Situação</option>
+                                            </select></div>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <div class="input-group" style="width: 340px;"><span class="input-group-text">Estado</span><select class="form-select me-5" id="status" style="width: 145px;" name="status">
+                                                <option value="name" selected="">Nome</option>
+                                                <option value="id">Código</option>
+                                                <option value="cpfCnpj">CPF/CNPJ</option>
+                                                <option value="situation">Situação</option>
+                                            </select></div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2">
+                                    <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-warning" role="button"><i class="fas fa-filter"></i><span>Filtrar</span></a></div>
+                                    <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-success" role="button"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body" style="font-size: 14px;">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Código</th>
-                                            <th>Nome</th>
-                                            <th>Telefone</th>
-                                            <th>CPF CNPJ</th>
-                                            <th>Situação</th>
+                                            <th>Ticket</th>
+                                            <th>Cliente</th>
+                                            <th>Título</th>
+                                            <th>Data de abertura</th>
+                                            <th>Prioridade</th>
+                                            <th>Estado</th>
+                                            <th>Técnico</th>
+                                            <th>Atualizado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="align-middle">1</td>
-                                            <td class="align-middle">Rafael Camargo</td>
-                                            <td class="align-middle">(47) 93300-0961</td>
-                                            <td class="align-middle">108.755.119-61</td>
-                                            <td class="align-middle">Ativo</td>
-                                            <td class="align-middle"><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;"><i class="fas fa-lock"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;"><i class="far fa-trash-alt"></i></a></td>
+                                        <tr class="align-middle">
+                                            <td>#1</td>
+                                            <td>Rafael Camargo</td>
+                                            <td>FISCAL - Bloco X pendente</td>
+                                            <td>05/06/2022</td>
+                                            <td class="text-nowrap">Alta</td>
+                                            <td>Em atendimento</td>
+                                            <td>Rafael</td>
+                                            <td>06/06/2022</td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
-                                        <tr>
-                                            <td>Angelica Ramos</td>
-                                            <td>Chief Executive Officer(CEO)</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2009/10/09<br></td>
-                                            <td>$1,200,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12<br></td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13<br></td>
-                                            <td>$132,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>28</td>
-                                            <td>2011/06/07<br></td>
-                                            <td>$206,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02<br></td>
-                                            <td>$372,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bruno Nash<br></td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>38</td>
-                                            <td>2011/05/03<br></td>
-                                            <td>$163,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12<br></td>
-                                            <td>$106,450</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cara Stevens</td>
-                                            <td>Sales Assistant</td>
-                                            <td>New York</td>
-                                            <td>46</td>
-                                            <td>2011/12/06<br></td>
-                                            <td>$145,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior JavaScript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29<br></td>
-                                            <td>$433,060</td>
+                                        <tr class="align-middle">
+                                            <td>#2</td>
+                                            <td>Fulano De Tal</td>
+                                            <td>PDV - Erro cupom</td>
+                                            <td>04/05/2022</td>
+                                            <td class="text-nowrap">Média</td>
+                                            <td>Pausado</td>
+                                            <td>Rafael</td>
+                                            <td>10/06/2022</td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye border-0" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -304,7 +245,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de 27</p>
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de 2</p>
                                 </div>
                                 <div class="col-md-6">
                                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">

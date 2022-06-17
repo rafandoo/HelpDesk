@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Page Not Found - Brand</title>
+    <title>Profile - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -45,12 +45,12 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="cadUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="cadClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cadCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -152,12 +152,62 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="text-center mt-5">
-                        <div class="error mx-auto" data-text="404">
-                            <p class="m-0">404</p>
+                    <h3 class="text-dark mb-4">Cadastro de categoria</h3>
+                    <div class="row mb-3">
+                        <div class="col-lg-8">
+                            <div class="row mb-3 d-none">
+                                <div class="col">
+                                    <div class="card textwhite bg-primary text-white shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card textwhite bg-success text-white shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-body">
+                                            <form method="post">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="description"><strong>Descrição</strong><br></label><input class="form-control" type="text" id="description" name="description" required="" minlength="2"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="situation"><strong>Situação</strong><br></label><select class="form-select" id="situation" required="" name="situation">
+                                                                <option value="1" selected="">Ativo</option>
+                                                                <option value="0">Inativo</option>
+                                                            </select></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit">Salvar</button></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-dark mb-5 lead">Page Not Found</p>
-                        <p class="text-black-50 mb-0">Parece que você encontrou uma falha na matriz...</p><a href="index.html">← Voltar ao inicio</a>
                     </div>
                 </div>
             </div>

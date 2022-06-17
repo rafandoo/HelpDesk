@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Page Not Found - Brand</title>
+    <title>Table - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -45,7 +45,7 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="cadUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
@@ -152,12 +152,72 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="text-center mt-5">
-                        <div class="error mx-auto" data-text="404">
-                            <p class="m-0">404</p>
+                    <h3 class="text-dark mb-4">Categorias</h3>
+                    <div class="card shadow" style="width: 660px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div id="dataTable_filter" class="dataTables_filter">
+                                        <form>
+                                            <div class="d-flex">
+                                                <div>
+                                                    <div class="input-group" style="width: 270px;"><input class="form-control form-control-sm" type="search" aria-controls="dataTable" placeholder="Buscar descrição"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="text-end"><a class="btn btn-success" role="button" href="cadCategories.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
+                                </div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Descrição</th>
+                                            <th>Situação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="align-middle">
+                                            <td>1</td>
+                                            <td>Software</td>
+                                            <td>Ativo</td>
+                                            <td class="text-end align-middle"><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="fas fa-ban"></i></a></td>
+                                        </tr>
+                                        <tr class="align-middle">
+                                            <td>2</td>
+                                            <td>Hardware</td>
+                                            <td>Inativo</td>
+                                            <td class="text-end align-middle"><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="fas fa-ban"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td style="padding: 0px;"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de 2</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-dark mb-5 lead">Page Not Found</p>
-                        <p class="text-black-50 mb-0">Parece que você encontrou uma falha na matriz...</p><a href="index.html">← Voltar ao inicio</a>
                     </div>
                 </div>
             </div>
