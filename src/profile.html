@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Profile - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/bg-gradient.css">
     <link rel="stylesheet" href="assets/css/Clients-UI.css">
@@ -43,8 +43,13 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -196,15 +201,17 @@
                                             <form>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Usuário</strong></label><input class="form-control" type="text" id="username" placeholder="user.name" name="username"></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Usuário</strong></label>
+                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" placeholder="user.name" name="username" required="" minlength="3"></div>
+                                                        </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required=""></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="firstName"><strong>Nome</strong></label><input class="form-control" type="text" id="firstName" placeholder="John" name="firstName"></div>
+                                                        <div class="mb-3"><label class="form-label" for="firstName"><strong>Nome</strong></label><input class="form-control" type="text" id="firstName" placeholder="John" name="firstName" required="" minlength="2"></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="lastName"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="lastName" placeholder="Doe" name="lastName"></div>
@@ -212,10 +219,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="password"><strong>Senha</strong><br></label><input class="form-control" type="password" id="password" name="password" placeholder="*******"></div>
+                                                        <div class="mb-3"><label class="form-label" for="password"><strong>Senha</strong><br></label><input class="form-control" type="password" id="password" name="password" placeholder="*******" minlength="8"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmPassword"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmPassword" placeholder="*******" name="confirmPassword"></div>
+                                                        <div class="mb-3"><label class="form-label" for="confirmPassword"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmPassword" placeholder="*******" name="confirmPassword" minlength="8"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Salvar</button></div>

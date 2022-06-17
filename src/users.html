@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/bg-gradient.css">
     <link rel="stylesheet" href="assets/css/Clients-UI.css">
@@ -43,8 +43,13 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -150,15 +155,26 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4 col-lg-4 col-xl-4">
-                                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                                <div class="col">
+                                    <div id="dataTable_filter" class="dataTables_filter">
                                         <form>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="search" aria-controls="dataTable" placeholder="Buscar"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                            <div class="d-flex">
+                                                <div style="margin-right: 20px;"><select class="form-select" style="width: 145px;">
+                                                        <option value="name" selected="">Nome</option>
+                                                        <option value="id">Codigo</option>
+                                                        <option value="login">Login</option>
+                                                        <option value="sector">Setor</option>
+                                                        <option value="situation">Situação</option>
+                                                    </select></div>
+                                                <div>
+                                                    <div class="input-group" style="width: 270px;"><input class="form-control form-control-sm" type="search" aria-controls="dataTable" placeholder="Buscar"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-xl-8 offset-xl-0">
-                                    <div class="text-end"><button class="btn btn-success" type="button"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></button></div>
+                                <div class="col-xl-3">
+                                    <div class="text-end"><a class="btn btn-success" role="button" href="cadUsers.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
                                 </div>
                             </div>
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -170,6 +186,7 @@
                                             <th>Login</th>
                                             <th>E-mail</th>
                                             <th>Nível de acesso</th>
+                                            <th>Setor</th>
                                             <th>Situação</th>
                                         </tr>
                                     </thead>
@@ -180,6 +197,7 @@
                                             <td>rafandoo</td>
                                             <td>rafaelcamargo.inf@gmail.com</td>
                                             <td>Administrador</td>
+                                            <td>Suporte</td>
                                             <td>Ativo</td>
                                             <td class="text-end align-middle"><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;"><i class="fas fa-lock"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
@@ -189,6 +207,7 @@
                                             <td>fulano.detal</td>
                                             <td>fulano@detal.com</td>
                                             <td>Técnico</td>
+                                            <td>Assistência</td>
                                             <td>Inativo</td>
                                             <td class="text-end align-middle"><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;"><i class="fas fa-lock"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
