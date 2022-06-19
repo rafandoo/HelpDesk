@@ -7,9 +7,11 @@
     <title>Login - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
+    <link rel="stylesheet" href="assets/css/summernote.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/bg-gradient.css">
     <link rel="stylesheet" href="assets/css/Clients-UI.css">
+    <link rel="stylesheet" href="assets/css/summernote-bs5.min.css">
 </head>
 
 <body class="bg-gradient-primary">
@@ -26,11 +28,11 @@
                                             <h2 class="text-dark mb-4 float-end" style="padding-right: 0px;min-width: 200px;padding-top: 0;margin-left: 15px;">Help Desk - Fox</h2>
                                         </div>
                                         <form class="user">
-                                            <div class="mb-3"><input class="form-control form-control-user" type="text" id="inputUser" placeholder="Usuário" name="user" aria-describedby="email"></div>
-                                            <div class="mb-3"><input class="form-control form-control-user" type="password" id="inputPassword" placeholder="Senha" name="password"></div>
+                                            <div class="mb-3"><input class="form-control form-control-user" type="text" id="usuario" placeholder="Usuário" name="usuario" aria-describedby="email"></div>
+                                            <div class="mb-3"><input class="form-control form-control-user" type="password" id="senha" placeholder="Senha" name="senha"></div>
                                             <hr><button class="btn btn-primary d-block btn-user w-100 mb-3" type="submit">Login</button>
                                         </form>
-                                        <div class="text-center"><a class="small" href="forgetPassword.html">Esqueceu a senha?</a></div>
+                                        <div class="text-center"><a class="small" href="esqueceuSenha.html">Esqueceu a senha?</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -40,8 +42,11 @@
             </div>
         </div>
     </div>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/summernote-bs5.min.js"></script>
+    <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
 </body>
 

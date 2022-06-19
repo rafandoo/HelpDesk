@@ -7,9 +7,11 @@
     <title>Profile - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
+    <link rel="stylesheet" href="assets/css/summernote.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/bg-gradient.css">
     <link rel="stylesheet" href="assets/css/Clients-UI.css">
+    <link rel="stylesheet" href="assets/css/summernote-bs5.min.css">
 </head>
 
 <body id="page-top">
@@ -25,14 +27,14 @@
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse show" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="#">Novo chamado</a><a class="collapse-item" href="serviceQueue.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
                             <div class="collapse" id="collapse-1">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clients.html">Clientes</a><a class="collapse-item" href="users.html">Usuários</a><a class="collapse-item" href="categories.html">Categorias</a><a class="collapse-item" href="sector.html">Setores</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.html">Clientes</a><a class="collapse-item" href="usuarios.html">Usuários</a><a class="collapse-item" href="categorias.html">Categorias</a><a class="collapse-item" href="setores.html">Setores</a></div>
                             </div>
                         </div>
                     </li>
@@ -46,12 +48,13 @@
                     <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="forgotPassword.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="esqueceuSenha.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="regUsers.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="regClients.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="regCategories.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="regSector.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadUsuarios.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadClientes.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadCategorias.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="cadSetores.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cadTickets.html"><i class="far fa-user-circle"></i><span>Cadastro tickets</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -144,7 +147,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Configurações</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Configurações</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -153,16 +156,9 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Cadastro de usuário</h3>
+                    <h3 class="text-dark mb-4">Ticket</h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Mudar foto</button></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        <div class="col-11 col-xl-12 col-xxl-11 offset-xl-0">
                             <div class="row mb-3 d-none">
                                 <div class="col">
                                     <div class="card textwhite bg-primary text-white shadow">
@@ -194,64 +190,81 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
+                                <div class="col-xl-12">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="fs-4 text-primary m-0 fw-bold">Dados do perfil</p>
+                                            <p class="fs-5 text-primary m-0 fw-bold">Informações do chamado</p>
                                         </div>
                                         <div class="card-body">
                                             <form method="post">
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Usuário</strong></label>
-                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" placeholder="user.name" name="username" required="" minlength="3"></div>
+                                                    <div class="col-xl-4 col-xxl-3">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">N° Ticket</span><input class="bg-white form-control" type="text" id="idTicket" placeholder="#123" readonly="" name="idTicket"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-5 col-xxl-4">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Data de abertura</span><input class="bg-white form-control" id="dataAbertura" readonly="" type="datetime-local" name="dataAbertura"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6 col-xxl-5">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Data da última atualização</span><input class="bg-white form-control" id="dataAtualizacao" readonly="" type="datetime-local" name="dataAtualizacao"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-7 col-xl-7 col-xxl-8">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required=""></div>
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Contato</span><input class="form-control" type="text" id="contato" required="" name="contato"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-5 col-xxl-4">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Setor</span><select class="form-select" id="setor" required="" name="setor">
+                                                                    <option value="" selected="">Selecione uma opção</option>
+                                                                </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-7 col-xxl-4">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Técnico</span><select class="form-select" id="usuario" required="" name="estado">
+                                                                    <option value="" selected="">Selecione uma opção</option>
+                                                                </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-5 col-xxl-4">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Estado</span><input class="bg-white form-control" type="text" id="estado" name="estado" readonly=""></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-xl-5 col-xxl-4">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Prioridade</span><select class="form-select" id="prioridade" required="" name="prioridade">
+                                                                    <option value="undefined" selected="">Selecione uma opção</option>
+                                                                </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Título</span><input class="form-control" type="text" id="titulo" name="titulo"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="firstName"><strong>Nome</strong></label><input class="form-control" type="text" id="firstName" placeholder="John" name="firstName" required="" minlength="2"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="lastName"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="lastName" placeholder="Doe" name="lastName"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="password"><strong>Senha</strong><br></label><input class="form-control" type="password" id="password" name="password" placeholder="*******" required="" minlength="8"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmPassword"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmPassword" placeholder="*******" name="confirmPassword" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="sector"><strong>Setor</strong><br></label><select class="form-select" id="sector" required="" name="sector">
-                                                                <option value="">Selecione uma opção</option>
-                                                                <option value="2">Suporte</option>
-                                                                <option value="3">Assistência</option>
-                                                            </select></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="accessLevel"><strong>Nível&nbsp;de acesso</strong><br></label><select class="form-select" id="accessLevel" required="" name="accessLevel">
-                                                                <option value="">Selecione uma opção</option>
-                                                                <option value="2">Técnico</option>
-                                                                <option value="3">Administrador</option>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="situation"><strong>Situação</strong><br></label><select class="form-select" id="situation" required="" name="situation">
-                                                                <option value="1" selected="">Ativo</option>
-                                                                <option value="0">Inativo</option>
-                                                            </select></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"></div>
+                                                        <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"></textarea></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"><button class="btn btn-primary" type="submit">Salvar</button></div>
@@ -271,8 +284,11 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/summernote-bs5.min.js"></script>
+    <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
 </body>
 
