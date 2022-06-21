@@ -25,8 +25,8 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
-                        <div><a data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
-                            <div class="collapse show" id="collapse-3">
+                        <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
+                            <div class="collapse" id="collapse-3">
                                 <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                             <p class="m-0">404</p>
                         </div>
                         <p class="text-dark mb-5 lead">Page Not Found</p>
-                        <p class="text-black-50 mb-0">Parece que você encontrou uma falha na matriz...</p><a href="index.html">← Voltar ao inicio</a>
+                        <p class="text-black-50 mb-0">Parece que você encontrou uma falha na matrix...</p><a href="index.html">← Voltar ao início</a>
                     </div>
                 </div>
             </div>

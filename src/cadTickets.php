@@ -25,8 +25,8 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
-                        <div><a data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
-                            <div class="collapse show" id="collapse-3">
+                        <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
+                            <div class="collapse" id="collapse-3">
                                 <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
                             </div>
                         </div>
@@ -217,7 +217,51 @@
                                                 <div class="row">
                                                     <div class="col-lg-7 col-xl-7 col-xxl-8">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente"><button class="btn btn-primary" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal"><i class="fas fa-search"></i></button>
+                                                                <div class="modal fade input-group-text" role="dialog" tabindex="-1" id="procurarCliente" name="procurarCliente" style="padding-top: 0px;background: rgba(234,236,244,0);">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Procurar cliente</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="input-group"><select class="form-select">
+                                                                                        <option value="nome" selected="">Nome</option>
+                                                                                        <option value="codigo">Código</option>
+                                                                                        <option value="cpfCnpj">cpfCnpj</option>
+                                                                                    </select><input class="form-control" type="text" style="width: 461px;"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                                            </div>
+                                                                            <div class="table-responsive" role="grid">
+                                                                                <table class="table table-hover my-0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Código</th>
+                                                                                            <th>Nome</th>
+                                                                                            <th>CFP/CNPJ</th>
+                                                                                            <th>Situação</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>1</td>
+                                                                                            <td>Rafael Camargo</td>
+                                                                                            <td>111.111.111-11</td>
+                                                                                            <td>Ativo</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>2</td>
+                                                                                            <td>Fulano de tal LTDA</td>
+                                                                                            <td>11.111.111/0001-01</td>
+                                                                                            <td>Inativo</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
