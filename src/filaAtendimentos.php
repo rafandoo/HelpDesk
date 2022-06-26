@@ -46,15 +46,6 @@
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="403.html"><i class="far fa-user-circle"></i><span>403</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="404.html"><i class="far fa-user-circle"></i><span>404</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="esqueceuSenha.html"><i class="far fa-user-circle"></i><span>Esqueceu a senha</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadUsuarios.html"><i class="far fa-user-circle"></i><span>Cadastro usuarios</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadClientes.html"><i class="far fa-user-circle"></i><span>Cadastro clientes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadCategorias.html"><i class="far fa-user-circle"></i><span>Cadastro categorias</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadSetores.html"><i class="far fa-user-circle"></i><span>Cadastro setores</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadTickets.html"><i class="far fa-user-circle"></i><span>Cadastro tickets</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -76,38 +67,11 @@
                                     </form>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 12, 2019</span>
-                                                <p>A new monthly report is ready to download!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 7, 2019</span>
-                                                <p>$290.29 has been deposited into your account!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 2, 2019</span>
-                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
-                                            </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                    </div>
-                                </div>
-                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1"></li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Configurações</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -116,44 +80,96 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Minha fila de chamados</h3>
+                    <h3 class="text-dark mb-4">Fila de chamados</h3>
                     <div class="card shadow">
                         <div class="card-body" style="font-size: 14px;">
                             <div class="row">
-                                <div class="col-xxl-3 offset-xxl-0" style="padding-left: 0px;">
-                                    <div style="margin-bottom: 15px;">
-                                        <div class="input-group"><span class="input-group-text">Prioridade</span><select class="form-select" id="priority" name="priority">
-                                                <option value="name" selected="">Nome</option>
-                                                <option value="id">Código</option>
-                                                <option value="cpfCnpj">CPF/CNPJ</option>
-                                                <option value="situation">Situação</option>
-                                            </select></div>
-                                    </div>
-                                    <div style="margin-bottom: 15px;">
-                                        <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="status" name="status">
-                                                <option value="name" selected="">Nome</option>
-                                                <option value="id">Código</option>
-                                                <option value="cpfCnpj">CPF/CNPJ</option>
-                                                <option value="situation">Situação</option>
-                                            </select></div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-xxl-4">
-                                    <div id="dataTable_filter" class="dataTables_filter">
-                                        <form>
-                                            <div style="margin-bottom: 15px;">
-                                                <div class="input-group" style="width: 340px;"><span class="input-group-text">Ticket</span><input class="form-control me-5" type="text" id="ticketFilter" name="ticketFilter"></div>
-                                            </div>
-                                            <div style="margin-bottom: 15px;">
-                                                <div class="input-group"><span class="input-group-text">Cliente</span><input class="form-control" type="text" id="cliente" name="cliente"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
-                                            </div>
-                                            <div class="d-flex">
-                                                <div style="margin-right: 20px;"></div>
-                                            </div>
-                                        </form>
+                                <div class="col-xl-4 col-xxl-3 offset-xxl-0" style="padding-left: 0px;">
+                                    <div id="dataTableFilter1" class="dataTables_filter">
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Prioridade</span><select class="form-select" id="prioridadeFiltro" name="prioridadeFiltro">
+                                                    <option value="name" selected="">Nome</option>
+                                                    <option value="id">Código</option>
+                                                    <option value="cpfCnpj">CPF/CNPJ</option>
+                                                    <option value="situation">Situação</option>
+                                                </select></div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="estadoFiltro" name="estadoFiltro">
+                                                    <option value="name" selected="">Nome</option>
+                                                    <option value="id">Código</option>
+                                                    <option value="cpfCnpj">CPF/CNPJ</option>
+                                                    <option value="situation">Situação</option>
+                                                </select></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-2 offset-xxl-3">
+                                <div class="col-xl-4 col-xxl-3" style="padding-right: 0px;padding-left: 0px;">
+                                    <div id="dataTableFilter2" class="dataTables_filter">
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="form-control" type="text" id="ticketFiltro" name="ticketFiltro" style="margin-right: 10px;"></div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Tecnico</span><select class="form-select" id="tecnicoFiltro" name="tecnicoFiltro" style="margin-right: 10px;">
+                                                    <option value="name" selected="">Nome</option>
+                                                    <option value="id">Código</option>
+                                                    <option value="cpfCnpj">CPF/CNPJ</option>
+                                                    <option value="situation">Situação</option>
+                                                </select></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-xxl-3 offset-xxl-0" style="padding-left: 0px;padding-right: 0px;">
+                                    <div id="dataTableFilter3" class="dataTables_filter">
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="form-control" type="text" id="clienteFiltro" name="clienteFiltro"><button class="btn btn-primary" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                        <div class="modal fade" role="dialog" tabindex="-1" id="procurarCliente" name="procurarCliente" style="padding-top: 0px;background: rgba(234,236,244,0);">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Procurar cliente</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="input-group"><select class="form-select">
+                                                                <option value="nome" selected="">Nome</option>
+                                                                <option value="codigo">Código</option>
+                                                                <option value="cpfCnpj">cpfCnpj</option>
+                                                            </select><input class="form-control" type="text" style="width: 461px;"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                    </div>
+                                                    <div class="table-responsive" role="grid">
+                                                        <table class="table table-hover my-0">
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>Código</th>
+                                                                    <th>Nome</th>
+                                                                    <th>CFP/CNPJ</th>
+                                                                    <th>Situação</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>Rafael Camargo</td>
+                                                                    <td>111.111.111-11</td>
+                                                                    <td>Ativo</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>Fulano de tal LTDA</td>
+                                                                    <td>11.111.111/0001-01</td>
+                                                                    <td>Inativo</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-xxl-2 offset-xl-10 offset-xxl-1">
                                     <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-warning" role="button"><i class="fas fa-filter"></i><span>Filtrar</span></a></div>
                                     <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-success" role="button" href="cadTickets.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
                                 </div>
@@ -186,7 +202,7 @@
                                             <td>Em atendimento</td>
                                             <td>Rafael</td>
                                             <td>06/06/2022</td>
-                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                         <tr class="align-middle">
                                             <td>#2</td>
@@ -197,7 +213,7 @@
                                             <td>Pausado</td>
                                             <td>Rafael</td>
                                             <td>10/06/2022</td>
-                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye border-0" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye border-0" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>

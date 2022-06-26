@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>Table - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -23,7 +23,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
@@ -80,111 +80,76 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Home&nbsp;</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-danger fw-bold text-xs mb-1"><span>Aguardando Atendimento</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>6</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-hourglass-half fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Em atendimento</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>4</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-play fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Pendentes</span></div>
-                                            <div class="row g-0 align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="text-dark fw-bold h5 mb-0"><span>5</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-user-clock fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-start-primary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col me-2">
-                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span class="text-info">finalizados</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>8</span></div>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-check-circle fa-2x text-gray-300"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="card shadow mb-4"></div>
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary fw-bold m-0">Todo List</h6>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Lunch meeting</strong></h6><span class="text-xs">10:30 AM</span>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Lunch meeting</strong></h6><span class="text-xs">11:30 AM</span>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2"></label></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Lunch meeting</strong></h6><span class="text-xs">12:30 AM</span>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-3"><label class="form-check-label" for="formCheck-3"></label></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col">
+                    <h3 class="text-dark mb-4">Lista de trâmites</h3>
+                    <div class="card shadow">
+                        <div class="card-body" style="font-size: 14px;">
                             <div class="row">
-                                <div class="col"></div>
+                                <div class="col-xl-2 col-xxl-2" style="padding-right: 0px;padding-left: 0px;">
+                                    <div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="bg-white form-control" type="text" id="ticket" name="ticket" readonly="" style="margin-right: 10px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-xxl-3" style="padding-right: 0px;padding-left: 0px;">
+                                    <div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Total horas</span><input class="bg-white form-control" id="horaTotal" name="horaTotal" readonly="" style="margin-right: 10px;" type="time"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-xxl-4" style="padding-right: 0px;padding-left: 0px;">
+                                    <div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly=""></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-xxl-3 offset-xl-0 offset-xxl-0 d-flex justify-content-xl-end align-items-xl-start">
+                                    <div><a class="btn btn-success" role="button" href="cadTramites.html" style="margin-right: 10px;"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
+                                    <div><a class="btn btn-secondary" role="button" href="cadTickets.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Voltar</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body" style="font-size: 14px;">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table table-striped my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Data</th>
+                                            <th>Hora inicial</th>
+                                            <th>Hora final</th>
+                                            <th>Descrição</th>
+                                            <th>Técnico</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="align-middle">
+                                            <td class="text-nowrap">#12</td>
+                                            <td class="text-nowrap">05/06/2022</td>
+                                            <td class="text-nowrap">00:00:00</td>
+                                            <td class="text-nowrap">00:00:00</td>
+                                            <td class="text-break">Em atendimento211111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</td>
+                                            <td class="text-nowrap">Rafael</td>
+                                        </tr>
+                                        <tr class="align-middle">
+                                            <td class="text-nowrap">#2</td>
+                                            <td class="text-nowrap">04/05/2022</td>
+                                            <td class="text-nowrap">00:00:00</td>
+                                            <td class="text-nowrap">00:00:00</td>
+                                            <td class="text-break">Média</td>
+                                            <td class="text-nowrap">Rafael</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td style="padding: 0px;"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>

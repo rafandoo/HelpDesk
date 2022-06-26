@@ -25,7 +25,7 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h4 class="text-dark mb-2">Esqueceu sua senha?</h4>
-                                        <p class="mb-4">Nós entendemos que isto acontece. Basta digitar seu endereço de e-mail abaixo e enviaremos um link para redefinir sua senha!</p>
+                                        <p class="mb-4">Nós entendemos que isto acontece. Basta digitar seu endereço de e-mail abaixo e enviaremos instruções para redefinir sua senha!</p>
                                     </div>
                                     <form class="user">
                                         <div class="mb-3"><input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Insira seu endereço de e-mail..." name="email" required="" minlength="8"></div><button class="btn btn-primary d-block btn-user w-100" type="submit">Redefinir senha</button>
