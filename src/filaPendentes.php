@@ -80,68 +80,39 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Lista de trâmites</h3>
-                    <div class="card shadow">
-                        <div class="card-body" style="font-size: 14px;">
-                            <div class="row">
-                                <div class="col-xl-2 col-xxl-2" style="padding-right: 0px;padding-left: 0px;">
-                                    <div>
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="bg-white form-control" type="text" id="ticket" name="ticket" readonly="" style="margin-right: 10px;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-xxl-3" style="padding-right: 0px;padding-left: 0px;">
-                                    <div>
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Total horas</span><input class="bg-white form-control" id="horaTotal" name="horaTotal" readonly="" style="margin-right: 10px;" type="time"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-xxl-4" style="padding-right: 0px;padding-left: 0px;">
-                                    <div>
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly=""></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-xxl-3 offset-xl-0 offset-xxl-0 d-flex justify-content-xl-end align-items-xl-start">
-                                    <div><a class="btn btn-success" role="button" href="cadTramites.html" style="margin-right: 10px;"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
-                                    <div><a class="btn btn-secondary" role="button" href="cadTickets.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Voltar</span></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="text-dark mb-4">Fila de chamados pendentes de atendimento</h3>
                     <div class="card shadow">
                         <div class="card-body" style="font-size: 14px;">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table table-striped my-0" id="dataTable">
+                                <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Data</th>
-                                            <th>Hora inicial</th>
-                                            <th>Hora final</th>
-                                            <th>Descrição</th>
-                                            <th>Técnico</th>
+                                            <th>Ticket</th>
+                                            <th>Cliente</th>
+                                            <th>Título</th>
+                                            <th>Data de abertura</th>
+                                            <th>Solicitante</th>
+                                            <th>Setor</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="align-middle">
-                                            <td class="text-nowrap">#12</td>
-                                            <td class="text-nowrap">05/06/2022</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-break">Em atendimento211111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</td>
+                                            <td>#1</td>
+                                            <td>Rafael Camargo</td>
+                                            <td>FISCAL - Bloco X pendente</td>
+                                            <td>05/06/2022</td>
                                             <td class="text-nowrap">Rafael</td>
+                                            <td>Suporte</td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                         <tr class="align-middle">
-                                            <td class="text-nowrap">#2</td>
-                                            <td class="text-nowrap">04/05/2022</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-break">Média</td>
-                                            <td class="text-nowrap">Rafael</td>
+                                            <td>#2</td>
+                                            <td>Fulano De Tal</td>
+                                            <td>PDV - Erro cupom</td>
+                                            <td>04/05/2022</td>
+                                            <td class="text-nowrap">Fulano</td>
+                                            <td>Assistência</td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -150,6 +121,22 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de 2</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>

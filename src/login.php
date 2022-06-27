@@ -48,6 +48,7 @@
     <script src="assets/js/summernote-bs5.min.js"></script>
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/todo.js"></script>
 </body>
 
 </html>

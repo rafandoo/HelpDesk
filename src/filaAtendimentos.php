@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="filaPendentes.html">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
@@ -202,7 +202,7 @@
                                             <td>Em atendimento</td>
                                             <td>Rafael</td>
                                             <td>06/06/2022</td>
-                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                         <tr class="align-middle">
                                             <td>#2</td>
@@ -213,7 +213,7 @@
                                             <td>Pausado</td>
                                             <td>Rafael</td>
                                             <td>10/06/2022</td>
-                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye border-0" style="width: 15px;"></i></a><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
+                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye border-0" style="width: 15px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -256,6 +256,7 @@
     <script src="assets/js/summernote-bs5.min.js"></script>
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/todo.js"></script>
 </body>
 
 </html>

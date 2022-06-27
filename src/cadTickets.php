@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="#">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="filaPendentes.html">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
@@ -122,7 +122,7 @@
                                                 <div class="col d-xxl-flex align-items-xxl-center">
                                                     <p class="fs-5 text-primary m-0 fw-bold">Informações do chamado</p>
                                                 </div>
-                                                <div class="col text-end"><button class="btn btn-info" type="button">Trâmites</button></div>
+                                                <div class="col text-end"><button class="btn btn-primary" type="button">Trâmites</button></div>
                                             </div>
                                         </div>
                                         <div class="card-body" style="padding-top: 0px;">
@@ -264,6 +264,7 @@
     <script src="assets/js/summernote-bs5.min.js"></script>
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/todo.js"></script>
 </body>
 
 </html>
