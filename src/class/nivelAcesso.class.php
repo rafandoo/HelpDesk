@@ -1,24 +1,24 @@
 <?php
     class nivelAcesso {
 
-        private $id;
+        private $idNivelAcesso;
         private $nome;
 
-        public function __construct($id, $nome) {
-            $this->id = $id;
+        public function __construct($idNivelAcesso, $nome) {
+            $this->idNivelAcesso = $idNivelAcesso;
             $this->nome = $nome;
         }
 
-        public function getId() {
-            return $this->id;
+        public function getIdNivelAcesso() {
+            return $this->idNivelAcesso;
         }
 
         public function getNome() {
             return $this->nome;
         }
 
-        public function setId($id) {
-            $this->id = $id;
+        public function setIdNivelAcesso($idNivelAcesso) {
+            $this->idNivelAcesso = $idNivelAcesso;
         }
 
         public function setNome($nome) {
@@ -26,7 +26,7 @@
         }
 
         public function __toString() {
-            return "[Nivel de Acesso] Id: ".$this->id." | ".
+            return "[Nivel de Acesso] IdNivelAcesso: ".$this->idNivelAcesso." | ".
             "Nome: ".$this->nome;
         }
     }

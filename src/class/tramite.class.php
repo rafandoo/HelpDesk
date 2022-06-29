@@ -1,15 +1,15 @@
 <?php
     class tramite {
 
-        private $id;
+        private $idTramite;
         private $horaInicial;
         private $horaFinal;
         private $descricao;
         private $idTicket;
         private $usuario;
 
-        public function __construct($id, $horaInicial, $horaFinal, $descricao, $idTicket, $usuario) {
-            $this->id = $id;
+        public function __construct($idTramite, $horaInicial, $horaFinal, $descricao, $idTicket, $usuario) {
+            $this->idTramite = $idTramite;
             $this->horaInicial = $horaInicial;
             $this->horaFinal = $horaFinal;
             $this->descricao = $descricao;
@@ -17,8 +17,8 @@
             $this->usuario = $usuario;
         }
 
-        public function getId() {
-            return $this->id;
+        public function getIdTramite() {
+            return $this->idTramite;
         }
 
         public function getHoraInicial() {
@@ -41,8 +41,8 @@
             return $this->usuario;
         }
 
-        public function setId($id) {
-            $this->id = $id;
+        public function setIdTramite($idTramite) {
+            $this->idTramite = $idTramite;
         }
 
         public function setHoraInicial($horaInicial) {
@@ -70,7 +70,7 @@
         }
 
         public function __toString() {
-            return "[Tramite] Id: ".$this->id." | ".
+            return "[Tramite] Id Tramite: ".$this->idTramite." | ".
             "Hora Inicial: ".$this->horaInicial." | ".
             "Hora Final: ".$this->horaFinal." | ".
             "Descrição: ".$this->descricao." | ".

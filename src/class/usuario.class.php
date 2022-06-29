@@ -1,7 +1,7 @@
 <?php
     class usuario {
         
-        private $id;
+        private $idUsuario;
         private $nome;
         private $sobrenome;
         private $email;
@@ -11,8 +11,8 @@
         private $setor;
         private $situacao;
 
-        public function __construct($id, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao) {
-            $this->id = $id;
+        public function __construct($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao) {
+            $this->idUsuario = $idUsuario;
             $this->nome = $nome;
             $this->sobrenome = $sobrenome;
             $this->email = $email;
@@ -23,8 +23,8 @@
             $this->situacao = $situacao;
         }
 
-        public function getId() {
-            return $this->id;
+        public function getIdUsuario() {
+            return $this->idUsuario;
         }
 
         public function getNome() {
@@ -59,8 +59,8 @@
             return $this->situacao;
         }
 
-        public function setId($id) {
-            $this->id = $id;
+        public function setIdUsuario($idUsuario) {
+            $this->idUsuario = $idUsuario;
         }
 
         public function setNome($nome) {
@@ -104,7 +104,7 @@
         }
 
         public function __toString() {
-            return "[Usuário] Id: ".$this->id." | ".
+            return "[Usuário] Id Usuario: ".$this->idUsuario." | ".
             "Nome: ".$this->nome." | ".
             "Sobrenome: ".$this->sobrenome." | ".
             "Email: ".$this->email." | ".

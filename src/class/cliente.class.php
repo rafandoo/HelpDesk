@@ -1,7 +1,7 @@
 <?php
     class cliente {
 
-        private $id;
+        private $idCliente;
         private $nome;
         private $nomeFantasia;
         private $cpfCnpj;
@@ -13,8 +13,8 @@
         private $idUsuario;
         private $situacao;
 
-        public function __construct($id, $nome, $nomeFantasia, $cpfCnpj, $endereco, $cidade, $email, $telefone, $observacoes, $idUsuario, $situacao) {
-            $this->id = $id;
+        public function __construct($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $cidade, $email, $telefone, $observacoes, $idUsuario, $situacao) {
+            $this->idCliente = $idCliente;
             $this->nome = $nome;
             $this->nomeFantasia = $nomeFantasia;
             $this->cpfCnpj = $cpfCnpj;
@@ -27,8 +27,8 @@
             $this->situacao = $situacao;
         }
 
-        public function getId() {
-            return $this->id;
+        public function getIdCliente() {
+            return $this->idCliente;
         }
 
         public function getNome() {
@@ -71,9 +71,9 @@
             return $this->situacao;
         }
 
-        public function setId($id) {
-            if ($id >= 0) {
-                $this->id = $id;
+        public function setIdCliente($idCliente) {
+            if ($idCliente >= 0) {
+                $this->idCliente = $idCliente;
             }
         }
 
@@ -131,7 +131,7 @@
         }
 
         public function __toString() {
-            return "[Cliente] ID: ".$this->id." | ".
+            return "[Cliente] ID Cliente: ".$this->idCliente." | ".
             "Nome: ".$this->nome." | ".
             "Nome Fantasia: ".$this->nomeFantasia." | ".
             "CPF/CNPJ: ".$this->cpfCnpj." | ".

@@ -1,6 +1,6 @@
 <?php
     class ticket {
-        private $id;
+        private $idTicket;
         private $titulo;
         private $descricao;
         private $dataAbertura;
@@ -13,8 +13,8 @@
         private $cliente;
         private $usuario;   
 
-        public function __construct($id, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $usuario) {
-            $this->id = $id;
+        public function __construct($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $usuario) {
+            $this->idTicket = $idTicket;
             $this->titulo = $titulo;
             $this->descricao = $descricao;
             $this->dataAbertura = $dataAbertura;
@@ -28,8 +28,8 @@
             $this->usuario = $usuario;
         }
 
-        public function getId() {
-            return $this->id;
+        public function getIdTicket() {
+            return $this->idTicket;
         }
 
         public function getTitulo() {
@@ -76,8 +76,8 @@
             return $this->usuario;
         }
 
-        public function setId($id) {
-            $this->id = $id;
+        public function setIdTicket($idTicket) {
+            $this->idTicket = $idTicket;
         }
 
         public function setTitulo($titulo) {
@@ -133,7 +133,7 @@
         }
 
         public function __toString() {
-            return "[Ticket] Id: ".$this->id." | ".
+            return "[Ticket] Id Ticket: ".$this->idTicket." | ".
             "Título: ".$this->titulo." | ".
             "Descrição: ".$this->descricao." | ".
             "Data de Abertura: ".$this->dataAbertura." | ".

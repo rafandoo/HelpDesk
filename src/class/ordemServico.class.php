@@ -1,17 +1,18 @@
 <?php
     class ordemServico {
-        private $id;
+        
+        private $idOrdemServico;
         private $valor;
         private $idTicket;
 
-        public function __construct($id, $valor, $idTicket) {
-            $this->id = $id;
+        public function __construct($idOrdemServico, $valor, $idTicket) {
+            $this->idOrdemServico = $idOrdemServico;
             $this->valor = $valor;
             $this->idTicket = $idTicket;
         }
 
-        public function getId() {
-            return $this->id;
+        public function getIdOrdemServico() {
+            return $this->idOrdemServico;
         }
 
         public function getValor() {
@@ -22,8 +23,8 @@
             return $this->idTicket;
         }
 
-        public function setId($id) {
-            $this->id = $id;
+        public function setIdOrdemServico($idOrdemServico) {
+            $this->idOrdemServico = $idOrdemServico;
         }
 
         public function setValor($valor) {
@@ -35,7 +36,7 @@
         }
 
         public function __toString() {
-            return "[Ordem de Serviço] Id: ".$this->id." | ".
+            return "[Ordem de Serviço] Id Ordem Servico: ".$this->idOrdemServico." | ".
             "Valor: ".$this->valor." | ".
             "Id Ticket: ".$this->idTicket;
         }
