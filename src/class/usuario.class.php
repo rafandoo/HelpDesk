@@ -103,6 +103,14 @@
             $this->situacao = $situacao;
         }
 
+        function getStrSituacao() {
+            if ($this->situacao == 1) {
+                return "Ativo";
+            } else {
+                return "Inativo";
+            }
+        }
+        
         public function __toString() {
             return "[Usuário] Id Usuario: ".$this->idUsuario." | ".
             "Nome: ".$this->nome." | ".
@@ -115,4 +123,3 @@
             "Situacao: ".$this->situacao;
         }
     }
-?>

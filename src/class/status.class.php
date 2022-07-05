@@ -1,6 +1,4 @@
-<?php
-    require_once "util/autoload.php";
-    
+<?php    
     class status extends absClassIdDescricaoSituacao {
         
     }

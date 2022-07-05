@@ -1,4 +1,5 @@
 <?php
+    /* An abstract class that has an id, description and status. */
     abstract class absClassIdDescricaoSituacao {
         
         protected $id;
@@ -39,6 +40,14 @@
             $this->situacao = $situacao;
         }
         
+        public function getStrSituacao() {
+            if ($this->situacao == 1) {
+                return "Ativo";
+            } else {
+                return "Inativo";
+            }
+        }
+
         public function __toString() {
             return "[Classe] Id: ".$this->id." | ".
             "Descrição: ".$this->descricao." | ".
