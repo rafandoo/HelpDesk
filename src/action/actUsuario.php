@@ -1,5 +1,7 @@
 <?php
-    require_once "util/autoload.php";
+    require_once "../util/autoload.php";
+    require_once "../config/Conexao.php";
+    include_once "../config/default.inc.php";
 
     $acao = "";
 
@@ -10,6 +12,14 @@
         case "POST":
             $acao = $_POST["acao"];
             break;
+    }
+
+    if ($acao == 'salvar') {
+        insertUsuario(buildUsuario(0, $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['usuario'], $_POST['senha'], $_POST['nivelAcesso'], $_POST['setor'], $_POST['situacao']));
+    } else if ($acao == 'editar') {
+        updateUsuario(buildUsuario($_POST['idUsuario'], $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['usuario'], $_POST['senha'], $_POST['nivelAcesso'], $_POST['setor'], $_POST['situacao']));
+    } else if ($acao == 'situacao') {
+        situationUsuario($_GET['idUsuario']);
     }
 
     function buildUsuario($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao) {
@@ -28,7 +38,7 @@
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());
         $stmt->execute();
-        header("Location: index.php");
+        header("Location: ../usuarios.php");
     }
 
     function updateUsuario($usuario) {
@@ -53,5 +63,21 @@
         $stmt->bindValue(":id", $idUsuario);
         $stmt->execute();
         header("Location: index.php");
+    }
+
+    function situationUsuario($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT situacao FROM usuario WHERE idUsuario = :id");
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($usuario['situacao'] == 1) {
+            $stmt = $pdo->prepare("UPDATE usuario SET situacao = 0 WHERE idUsuario = :id");
+        } else {
+            $stmt = $pdo->prepare("UPDATE usuario SET situacao = 1 WHERE idUsuario = :id");
+        }
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
+        header("Location: ../usuarios.php");
     }
 ?>
