@@ -3,3 +3,4 @@
 *.bsdesign
 *.bat
 *.txt
+src/temp/*.*
