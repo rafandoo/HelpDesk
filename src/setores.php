@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<?php
+    require_once "util/autoload.php";
+    require_once "config/Conexao.php";
+    include_once "config/default.inc.php";
 
+    $title = "Setores - HelpDesk";
+    
+    $procurar = isset($_POST["procurar"]) ? $_POST["procurar"] : "";
+
+    function rowCounter() {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM setor");
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+?>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Table - Brand</title>
+    <title><?php echo $title;?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Nunito.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="assets/css/summernote.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/bg-gradient.css">
@@ -23,18 +38,18 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="filaPendentes.html">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.php">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.php">Minha fila</a><a class="collapse-item" href="filaPendentes.php">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
                             <div class="collapse" id="collapse-1">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.html">Clientes</a><a class="collapse-item" href="usuarios.html">Usuários</a><a class="collapse-item" href="categorias.html">Categorias</a><a class="collapse-item" href="setores.html">Setores</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.php">Clientes</a><a class="collapse-item" href="usuarios.php">Usuários</a><a class="collapse-item" href="categorias.php">Categorias</a><a class="collapse-item" href="setores.php">Setores</a></div>
                             </div>
                         </div>
                     </li>
@@ -45,7 +60,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -71,7 +86,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.php"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -86,17 +101,22 @@
                             <div class="row">
                                 <div class="col">
                                     <div id="dataTable_filter" class="dataTables_filter">
-                                        <form>
+                                        <form method="post">
                                             <div class="d-flex">
                                                 <div>
-                                                    <div class="input-group" style="width: 270px;"><input class="form-control form-control-sm" type="search" id="procurar" aria-controls="dataTable" placeholder="Buscar descrição" name="procurar"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                    <div class="input-group" style="width: 270px;">
+                                                    <input class="form-control form-control-sm" type="search" id="procurar" aria-controls="dataTable" placeholder="Buscar descrição" name="procurar" value="<?php echo $procurar;?>">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <div class="text-end"><a class="btn btn-success" role="button" href="cadSetores.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
+                                    <div class="text-end"><a class="btn btn-success" role="button" href="cadSetores.php"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
                                 </div>
                             </div>
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -109,18 +129,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $pdo = Conexao::getInstance();
+                                            $consulta = $pdo->query("SELECT * FROM setor WHERE descricao LIKE '%$procurar%' ORDER BY 1 ASC");
+                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
+                                        ?>
                                         <tr class="align-middle">
-                                            <td>1</td>
-                                            <td>Suporte</td>
-                                            <td>Ativo</td>
-                                            <td class="text-end align-middle"><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="fas fa-ban"></i></a></td>
+                                            <td><?php echo $setor->getId();?></td>
+                                            <td><?php echo $setor->getDescricao();?></td>
+                                            <td><?php echo $setor->getStrSituacao();?></td>
+                                            <td class="text-end align-middle">
+                                                <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadSetores.php?acao=alterar&idSetor=<?=$setor->getId()?>">
+                                                    <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>
+                                                </a>
+                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" href="action/actSetor.php?acao=situacao&idSetor=<?=$setor->getId()?>">
+                                                    <i class="fas fa-ban" style="width: 14px;height: 16px;"></i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                        <tr class="align-middle">
-                                            <td>2</td>
-                                            <td>Assistência</td>
-                                            <td>Inativo</td>
-                                            <td class="text-end align-middle"><a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="fas fa-ban"></i></a></td>
-                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -131,7 +161,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de 2</p>
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de <?php echo rowCounter();?></p>
                                 </div>
                                 <div class="col-md-6">
                                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
@@ -164,5 +194,4 @@
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
 </body>
-
 </html>
