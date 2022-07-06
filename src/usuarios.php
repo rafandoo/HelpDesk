@@ -122,8 +122,6 @@
                                                         <option value="nome" selected="">Nome</option>
                                                         <option value="idUsuario">Codigo</option>
                                                         <option value="login">Login</option>
-                                                        <option value="setor">Setor</option>
-                                                        <option value="situacao">Situação</option>
                                                     </select></div>
                                                 <div>
                                                     <div class="input-group" style="width: 270px;">
@@ -157,7 +155,7 @@
                                     <tbody>
                                         <?php
                                             $pdo = Conexao::getInstance();
-                                            $consulta = $pdo->query("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%' ORDER BY nome");
+                                            $consulta = $pdo->query("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%' ORDER BY idUsuario");
                                             while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                 $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
                                         ?>
@@ -173,7 +171,7 @@
                                                 <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;" href="javascript:confirmBloquear('action/actUsuario.php?acao=situacao&idUsuario=<?=$usuario->getIdUsuario()?>')">
                                                     <i class="fas fa-lock"></i>
                                                 </a>
-                                                <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadUsuarios.php?acao=alterar&idSetor=<?=$usuario->getIdUsuario()?>">
+                                                <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadUsuarios.php?acao=alterar&idUsuario=<?=$usuario->getIdUsuario()?>">
                                                     <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>
                                                 </a>
                                                 <a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" href="javascript:confirmExclusion('action/actUsuario.php?acao=excluir&idUsuario=<?=$usuario->getIdUsuario()?>')">
@@ -226,7 +224,7 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
-    <script src="assets/js/confirm.js"></script>
+    <script src="assets/js/confirmMsg.js"></script>
 </body>
 
 </html>

@@ -33,7 +33,7 @@
         $stmt->bindValue(":sobrenome", $usuario->getSobrenome());
         $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
-        $stmt->bindValue(":senha", $usuario->getSenha());
+        $stmt->bindValue(":senha", sha1($usuario->getSenha()));
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());
@@ -48,7 +48,7 @@
         $stmt->bindValue(":sobrenome", $usuario->getSobrenome());
         $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
-        $stmt->bindValue(":senha", $usuario->getSenha());
+        $stmt->bindValue(":senha", sha1($usuario->getSenha()));
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());

@@ -6,6 +6,8 @@
 
     $title = "Cadastro de usuários - HelpDesk";
 
+    $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
+
     function getSetores() {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM setor");
@@ -20,6 +22,81 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    function getUsuario($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new usuario($linha["idUsuario"], $linha["nome"], $linha["sobrenome"], $linha["email"], $linha["login"], $linha["senha"], $linha["nivelAcesso"], $linha["setor"], $linha["situacao"]);
+    }
+
+    if ($acao == "alterar") {
+        $value = "editar";
+        $usuario = getUsuario($_GET["idUsuario"]);
+        $idUsuario = $usuario->getIdUsuario();
+        $nome = $usuario->getNome();
+        $sobrenome = $usuario->getSobrenome();
+        $email = $usuario->getEmail();
+        $login = $usuario->getLogin();
+        $senha = $usuario->getSenha();
+        $idNivelAcesso = $usuario->getNivelAcesso();
+        $idSetor = $usuario->getSetor();
+        $situacao = $usuario->getSituacao();
+    } else {
+        $value = "salvar";
+        $idUsuario = 0;
+        $nome = "";
+        $sobrenome = "";
+        $email = "";
+        $login = "";
+        $senha = "";
+        $idNivelAcesso = "";
+        $idSetor = "";
+        $situacao = "";
+    }
+
+    function existLogin($login) {
+        $count = 0;
+        $pdo = Conexao::getInstance();
+
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
+        $stmt->bindValue(":login", $login);
+        $stmt->execute();
+        $count += $stmt->rowCount();
+
+        if ($count != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function existEmail($email) {
+        $count = 0;
+        $pdo = Conexao::getInstance();
+
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+        $stmt->bindValue(":email", $email);
+        $stmt->execute();
+        $count += $stmt->rowCount();
+        
+        if ($count != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function confirmPassword($senha, $confirmarSenha) {
+        if ($senha == $confirmarSenha) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
 ?>
 
 <html lang="pt-br">
@@ -27,7 +104,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><?php echo $title;?></title>
+    <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -122,29 +199,33 @@
                                         <div class="card-body">
                                             <form method="post" action="action/actUsuario.php">
                                                 <div class="row">
+                                                    <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $idUsuario;?>">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="usuario"><strong>Usuário</strong></label>
-                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3"></div>
+                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required=""></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="nome"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="John" name="nome" required="" minlength="2"></div>
+                                                        <div class="mb-3"><label class="form-label" for="nome"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="John" name="nome" required="" minlength="2" value="<?php echo $nome;?>"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="sobrenome"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="sobrenome" placeholder="Doe" name="sobrenome"></div>
+                                                        <div class="mb-3"><label class="form-label" for="sobrenome"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="sobrenome" placeholder="Doe" name="sobrenome" value="<?php echo $sobrenome;?>"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="senha"><strong>Senha</strong><br></label><input class="form-control" type="password" id="senha" name="senha" placeholder="*******" required="" minlength="8"></div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="senha"><strong>Senha</strong><br></label>
+                                                            <input class="form-control" type="password" id="senha" name="senha" placeholder="*******" <?php if ($acao != 'alterar') echo 'required=""';?> minlength="8">
+                                                        </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" required=""></div>
+                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" <?php if ($acao != 'alterar') echo 'required=""';?>></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -154,10 +235,13 @@
                                                                 <?php
                                                                     $pdo = Conexao::getInstance();
                                                                     $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
-                                                                    
                                                                     while ($linhaSetor = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                         $setor = new setor($linhaSetor['idSetor'], $linhaSetor['descricao'], $linhaSetor['situacao']);
-                                                                        echo "<option value='".$setor->getId()."'>".$setor->getDescricao()."</option>";
+                                                                        if ($setor->getId() == $idSetor) {
+                                                                            echo '<option value="'.$setor->getId().'" selected="">'.$setor->getDescricao().'</option>';
+                                                                        } else {
+                                                                            echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
+                                                                        }
                                                                     }
                                                                 ?>
                                                             </select>
@@ -171,24 +255,35 @@
                                                                     $consulta = $pdo->query("SELECT * FROM nivelAcesso WHERE idNivelAcesso != 1");
                                                                     while ($linhaNivelAcesso = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                         $nivelAcesso = new nivelAcesso($linhaNivelAcesso['idNivelAcesso'], $linhaNivelAcesso['nome']);
-                                                                        echo "<option value='".$nivelAcesso->getIdNivelAcesso()."'>".$nivelAcesso->getNome()."</option>";
+                                                                        if ($nivelAcesso->getIdNivelAcesso() == $idNivelAcesso) {
+                                                                            echo '<option value="'.$nivelAcesso->getIdNivelAcesso().'" selected="">'.$nivelAcesso->getNome().'</option>';
+                                                                        } else {
+                                                                            echo '<option value="'.$nivelAcesso->getIdNivelAcesso().'">'.$nivelAcesso->getNome().'</option>';
+                                                                        }
                                                                     }
                                                                 ?>
-                                                            </select></div>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="situacao"><strong>Situação</strong><br></label><select class="form-select" id="situacao" required="" name="situacao">
-                                                                <option value="1" selected="">Ativo</option>
-                                                                <option value="0">Inativo</option>
+                                                                <?php if ($situacao == 1) {
+                                                                    echo '<option value="1" selected>Ativo</option>';
+                                                                    echo '<option value="0">Inativo</option>';
+                                                                } else {
+                                                                    echo '<option value="1">Ativo</option>';
+                                                                    echo '<option value="0" selected>Inativo</option>';
+                                                                }
+                                                                ?>
                                                             </select></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary" type="submit" name="acao" value="salvar">Salvar</button></div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit" name="acao" value="<?php echo $value; ?>">Salvar</button></div>
                                             </form>
                                         </div>
                                     </div>
