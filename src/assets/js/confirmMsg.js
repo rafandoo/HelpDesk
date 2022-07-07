@@ -9,13 +9,13 @@ function confirmBloquear(url) {
 }
 
 function alertExistLogin() {
-    alert("O usuário informado já existe!"); 
+    alert("O usuário informado já existe!");
 }
 
 function alertExistEmail() {
-    alert("O email informado já existe!"); 
+    alert("O email informado já existe!");
 }
 
 function alertSenha() {
-    alert("A senha digitada não confere!"); 
+    alert("A senha digitada não confere!");
 }
