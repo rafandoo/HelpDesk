@@ -56,47 +56,6 @@
         $situacao = "";
     }
 
-    function existLogin($login) {
-        $count = 0;
-        $pdo = Conexao::getInstance();
-
-        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
-        $stmt->bindValue(":login", $login);
-        $stmt->execute();
-        $count += $stmt->rowCount();
-
-        if ($count != 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function existEmail($email) {
-        $count = 0;
-        $pdo = Conexao::getInstance();
-
-        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-        $stmt->bindValue(":email", $email);
-        $stmt->execute();
-        $count += $stmt->rowCount();
-        
-        if ($count != 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function confirmPassword($senha, $confirmarSenha) {
-        if ($senha == $confirmarSenha) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    
 ?>
 
 <html lang="pt-br">
@@ -202,16 +161,18 @@
                                                     <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $idUsuario;?>">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="usuario"><strong>Usuário</strong></label>
-                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>"></div>
+                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required minlength="3" value="<?php echo $login;?>" <?php if ($acao != 'alterar') echo 'onchange="callValidarPHP(\'login\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'login\', this.value,'.$idUsuario.', this)"';?>></div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label>
+                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required value="<?php echo $email;?>" <?php if ($acao != 'alterar') echo 'onchange="callValidarPHP(\'email\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'email\', this.value,'.$idUsuario.', this)"';?>>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="nome"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="John" name="nome" required="" minlength="2" value="<?php echo $nome;?>"></div>
+                                                        <div class="mb-3"><label class="form-label" for="nome"><strong>Nome</strong></label><input class="form-control" type="text" id="nome" placeholder="John" name="nome" required minlength="2" value="<?php echo $nome;?>"></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="sobrenome"><strong>Sobrenome</strong><br></label><input class="form-control" type="text" id="sobrenome" placeholder="Doe" name="sobrenome" value="<?php echo $sobrenome;?>"></div>
@@ -221,17 +182,19 @@
                                                     <div class="col">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="senha"><strong>Senha</strong><br></label>
-                                                            <input class="form-control" type="password" id="senha" name="senha" placeholder="*******" <?php if ($acao != 'alterar') echo 'required=""';?> minlength="8">
+                                                            <input class="form-control" type="password" id="senha" name="senha" placeholder="*******" <?php if ($acao != 'alterar') echo 'required';?> minlength="8">
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" <?php if ($acao != 'alterar') echo 'required=""';?>></div>
+                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label>
+                                                            <input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" <?php if ($acao != 'alterar') echo 'required';?> oninput="validaSenha(this)">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="setor"><strong>Setor</strong><br></label>
-                                                            <select class="form-select" id="setor" required="" name="setor">
+                                                            <select class="form-select" id="setor" required name="setor">
                                                                 <?php
                                                                     $pdo = Conexao::getInstance();
                                                                     $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
@@ -249,7 +212,7 @@
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="nivelAcesso"><strong>Nível&nbsp;de acesso</strong><br></label>
-                                                            <select class="form-select" id="nivelAcesso" required="" name="nivelAcesso">
+                                                            <select class="form-select" id="nivelAcesso" required name="nivelAcesso">
                                                                 <?php
                                                                     $pdo = Conexao::getInstance();
                                                                     $consulta = $pdo->query("SELECT * FROM nivelAcesso WHERE idNivelAcesso != 1");
@@ -268,14 +231,15 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="situacao"><strong>Situação</strong><br></label><select class="form-select" id="situacao" required="" name="situacao">
-                                                                <?php if ($situacao == 1) {
-                                                                    echo '<option value="1" selected>Ativo</option>';
-                                                                    echo '<option value="0">Inativo</option>';
-                                                                } else {
-                                                                    echo '<option value="1">Ativo</option>';
-                                                                    echo '<option value="0" selected>Inativo</option>';
-                                                                }
+                                                        <div class="mb-3"><label class="form-label" for="situacao"><strong>Situação</strong><br></label><select class="form-select" id="situacao" required name="situacao">
+                                                                <?php 
+                                                                    if ($situacao == 0) {
+                                                                        echo '<option value="1" >Ativo</option>';
+                                                                        echo '<option value="0" selected>Inativo</option>';
+                                                                    } else {
+                                                                        echo '<option value="1" selected>Ativo</option>';
+                                                                        echo '<option value="0">Inativo</option>';
+                                                                    }
                                                                 ?>
                                                             </select></div>
                                                     </div>
@@ -307,6 +271,8 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
+    <script src="assets/js/validar.js"></script>
+
 </body>
 
 </html>

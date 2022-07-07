@@ -43,18 +43,19 @@
 
     function updateUsuario($usuario) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, email = :email, login = :login, senha = :senha, nivelAcesso = :nivelAcesso, setor = :setor, situacao = :situacao WHERE idUsuario = :id)");
+        $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, email = :email, login = :login, senha = :senha, nivelAcesso = :nivelAcesso, setor = :setor, situacao = :situacao WHERE idUsuario = (:id)");
         $stmt->bindValue(":nome", $usuario->getNome());
         $stmt->bindValue(":sobrenome", $usuario->getSobrenome());
         $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
+        
         $stmt->bindValue(":senha", sha1($usuario->getSenha()));
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());
         $stmt->bindValue(":id", $usuario->getIdUsuario());
         $stmt->execute();
-        header("Location: index.php");
+        header("Location: ../usuarios.php");
     }
 
     function deleteUsuario($idUsuario) {
