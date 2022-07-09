@@ -26,6 +26,13 @@
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return new nivelAcesso($result['idNivelAcesso'], $result['nome']);
     }
+
+    function rowCounter($filtro, $procurar) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%'");
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
 ?>
 
 <html lang="pt-br">
@@ -155,7 +162,7 @@
                                     <tbody>
                                         <?php
                                             $pdo = Conexao::getInstance();
-                                            $consulta = $pdo->query("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%' ORDER BY idUsuario");
+                                            $consulta = $pdo->query("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%' AND nivelAcesso != 1 ORDER BY idUsuario");
                                             while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                 $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
                                         ?>
@@ -192,7 +199,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de 27</p>
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de <?php echo rowCounter($filtro, $procurar)?></p>
                                 </div>
                                 <div class="col-md-6">
                                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
