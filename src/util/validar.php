@@ -17,6 +17,8 @@
         } else {
             echo existeLoginUsuario($_POST['valor'], $id);
         }
+    } else if ($acao == 'cpfCnpj') {
+        echo existeCpfCnpj($_POST['valor']);
     }
 
     function existeEmailUsuario($email, $id) {
@@ -43,6 +45,22 @@
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login AND idUsuario != :id");
         $stmt->bindValue(":login", $login);
         $stmt->bindValue(":id", $id);
+        $stmt->execute();
+        $count += $stmt->rowCount();
+
+        if ($count == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function existeCpfCnpj($cpfCnpj) {
+        $count = 0;
+        $pdo = Conexao::getInstance();
+
+        $stmt = $pdo->prepare("SELECT * FROM cliente WHERE cpfCnpj = :cpfCnpj");
+        $stmt->bindValue(":cpfCnpj", $cpfCnpj);
         $stmt->execute();
         $count += $stmt->rowCount();
 
