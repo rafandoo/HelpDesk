@@ -18,6 +18,8 @@
         insertUsuario(buildUsuario(0, $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['usuario'], $_POST['senha'], $_POST['nivelAcesso'], $_POST['setor'], $_POST['situacao']));
     } else if ($acao == 'editar') {
         updateUsuario(buildUsuario($_POST['idUsuario'], $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['usuario'], $_POST['senha'], $_POST['nivelAcesso'], $_POST['setor'], $_POST['situacao']));
+    } else if ($acao == 'excluir') {
+        deleteUsuario($_GET['idUsuario']);
     } else if ($acao == 'situacao') {
         situationUsuario($_GET['idUsuario']);
     }
@@ -38,7 +40,9 @@
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());
         $stmt->execute();
-        header("Location: ../usuarios.php");
+        if ($GLOBALS['acao'] != 'salvarC') {
+            header("Location: ../usuarios.php");
+        }
     }
 
     function updateUsuario($usuario) {
@@ -48,7 +52,6 @@
         $stmt->bindValue(":sobrenome", $usuario->getSobrenome());
         $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
-        
         $stmt->bindValue(":senha", sha1($usuario->getSenha()));
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
@@ -63,7 +66,9 @@
         $stmt = $pdo->prepare("DELETE FROM usuario WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
         $stmt->execute();
-        header("Location: index.php");
+        if ($GLOBALS['acao'] != 'excluirC') {
+            header("Location: ../usuarios.php");
+        }
     }
 
     function situationUsuario($idUsuario) {
@@ -79,6 +84,17 @@
         }
         $stmt->bindValue(":id", $idUsuario);
         $stmt->execute();
-        header("Location: ../usuarios.php");
+        if ($GLOBALS['acao'] != 'situacaoC') {
+            header("Location: ../usuarios.php");
+        }
+    }
+
+    function insertUsuarioCliente($usuario) {
+        insertUsuario($usuario);
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
+        $stmt->bindValue(":login", $usuario->getLogin());
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 ?>

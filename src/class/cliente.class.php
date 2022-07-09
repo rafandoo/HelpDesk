@@ -6,24 +6,28 @@
         private $nomeFantasia;
         private $cpfCnpj;
         private $endereco;
+        private $numero;
+        private $bairro;
         private $cidade;
         private $email;
         private $telefone;
         private $observacoes;
-        private $idUsuario;
+        private $usuario;
         private $situacao;
 
-        public function __construct($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $cidade, $email, $telefone, $observacoes, $idUsuario, $situacao) {
+        public function __construct($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao) {
             $this->idCliente = $idCliente;
             $this->nome = $nome;
             $this->nomeFantasia = $nomeFantasia;
             $this->cpfCnpj = $cpfCnpj;
             $this->endereco = $endereco;
+            $this->numero = $numero;
+            $this->bairro = $bairro;
             $this->cidade = $cidade;
             $this->email = $email;
             $this->telefone = $telefone;
             $this->observacoes = $observacoes;
-            $this->idUsuario = $idUsuario;
+            $this->usuario = $usuario;
             $this->situacao = $situacao;
         }
 
@@ -47,6 +51,14 @@
             return $this->endereco;
         }
 
+        public function getNumero() {
+            return $this->numero;
+        }
+
+        public function getBairro() {
+            return $this->bairro;
+        }
+
         public function getCidade() {
             return $this->cidade;
         }
@@ -63,8 +75,8 @@
             return $this->observacoes;
         }
 
-        public function getIdUsuario() {
-            return $this->idUsuario;
+        public function getUsuario() {
+            return $this->usuario;
         }
 
         public function getSituacao() {
@@ -99,6 +111,18 @@
             }
         }
 
+        public function setNumero($numero) {
+            if (strlen($numero) > 0) {
+                $this->numero = $numero;
+            }
+        }
+
+        public function setBairro($bairro) {
+            if (strlen($bairro) > 0) {
+                $this->bairro = $bairro;
+            }
+        }
+
         public function setCidade($cidade) {
             if (strlen($cidade) > 0) {
                 $this->cidade = $cidade;
@@ -120,14 +144,20 @@
             
         }
 
-        public function setIdUsuario($idUsuario) {
-            if ($idUsuario >= 0) {
-                $this->idUsuario = $idUsuario;
-            }
+        public function setUsuario($usuario) {
+            $this->usuario = $usuario;
         }
 
         public function setSituacao($situacao) {
             $this->situacao = $situacao;
+        }
+
+        public function getStrSituacao() {
+            if ($this->situacao == 1) {
+                return "Ativo";
+            } else {
+                return "Inativo";
+            }
         }
 
         public function __toString() {
@@ -136,11 +166,13 @@
             "Nome Fantasia: ".$this->nomeFantasia." | ".
             "CPF/CNPJ: ".$this->cpfCnpj." | ".
             "Endereço: ".$this->endereco." | ".
+            "Número: ".$this->numero." | ".
+            "Bairro: ".$this->bairro." | ".
             "Cidade: ".$this->cidade." | ".
             "Email: ".$this->email." | ".
             "Telefone: ".$this->telefone." | ".
             "Observações: ".$this->observacoes." | ".
-            "ID Usuário: ".$this->idUsuario." | ".
+            "Usuário: ".$this->usuario." | ".
             "Situacao: ".$this->situacao;
         }
     }

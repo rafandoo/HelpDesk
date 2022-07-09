@@ -12,5 +12,4 @@ $("#estado").change(function () {
     }).done(function (data) {
         $("#cidade").html(data);
     });
-
 });
