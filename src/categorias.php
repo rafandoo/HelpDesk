@@ -8,9 +8,9 @@
     
     $procurar = isset($_POST["procurar"]) ? $_POST["procurar"] : "";
 
-    function rowCounter() {
+    function rowCounter($procurar) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT * FROM categoria");
+        $stmt = $pdo->prepare("SELECT * FROM categoria WHERE descricao LIKE '%$procurar%'");
         $stmt->execute();
         return $stmt->rowCount();
     }
@@ -162,7 +162,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de <?php echo rowCounter();?></p>
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de <?php echo rowCounter($procurar);?></p>
                                 </div>
                                 <div class="col-md-6">
                                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
