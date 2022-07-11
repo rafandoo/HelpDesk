@@ -1,10 +1,35 @@
 <!DOCTYPE html>
+<?php 
+    require_once "util/autoload.php";
+    require_once "config/Conexao.php";
+    include_once "config/default.inc.php";
+
+    $title = "Cadastro de Tramites - Help Desk";
+
+    $idTicket = isset($_GET["idTicket"]) ? $_GET["idTicket"] : 0;
+    $idStatus = getTicket($idTicket)->getStatus();
+    $contato = getTicket($idTicket)->getContato();
+    $cliente = getTicket($idTicket)->getCliente();
+    $data = date("Y-m-d");
+    $horaInicial = date("H:i");
+
+    function getTicket($idTicket) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :id");
+        $stmt->bindValue(":id", $idTicket);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+    }
+
+?>
+
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile - Brand</title>
+    <title><?php echo $title;?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -83,57 +108,42 @@
                     <h3 class="text-dark mb-4">Trâmites</h3>
                     <div class="row mb-3">
                         <div class="col-11 col-xl-12 col-xxl-11 offset-xl-0">
-                            <div class="row mb-3 d-none">
-                                <div class="col">
-                                    <div class="card textwhite bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card textwhite bg-success text-white shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-xl-11 col-xxl-9">
                                     <div class="card shadow mb-3">
                                         <div class="card-body">
-                                            <form method="post">
+                                            <form method="post" action="action/actTramite.php">
                                                 <div class="row">
+                                                    <input type="hidden" name="idTicket" value="<?php echo $idTicket;?>">
+                                                    <input type="hidden" name="usuario" value="1">
                                                     <div class="col-xl-4 col-xxl-3">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">ID</span><input class="bg-white form-control" type="text" id="idTramite" placeholder="#123" readonly="" name="idTramite"></div>
+                                                            <div class="input-group"><span class="input-group-text">Contato</span><input class="bg-white form-control" type="text" id="contato" readonly="" name="Contato" value="<?php echo $contato;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-8 col-xxl-5">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly=""></div>
+                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly="" value="<?php echo $cliente;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="estado" required="" name="estado">
-                                                                    <option value="" selected="">Selecione uma opção</option>
-                                                                </select></div>
+                                                            <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="status" required="" name="status">
+                                                                    <option value="">Selecione uma opção</option>
+                                                                    <?php
+                                                                        $pdo = Conexao::getInstance();
+                                                                        $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
+                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                            $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+                                                                            if ($status->getId() == $idStatus) {
+                                                                                echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
+                                                                            } else {
+                                                                                echo '<option value="'.$status->getId().'">'.$status->getDescricao().'</option>';
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,17 +151,17 @@
                                                 <div class="row">
                                                     <div class="col-xl-3 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Data</span><input class="bg-white form-control" id="data" name="data" type="date" readonly=""></div>
+                                                            <div class="input-group"><span class="input-group-text">Data</span><input class="bg-white form-control" id="data" name="data" type="date" readonly="" value="<?php echo $data;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Hora inicial</span><input class="bg-white form-control" id="horaInicial" name="horaInicial" readonly="" type="time"></div>
+                                                            <div class="input-group"><span class="input-group-text">Hora inicial</span><input class="bg-white form-control" id="horaInicial" name="horaInicial" readonly="" type="time" value="<?php echo $horaInicial;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Hora final</span><input class="bg-white form-control" id="horaFinal" name="horaFinal" readonly="" type="time" required=""><button class="btn btn-secondary" type="button"><i class="far fa-clock"></i></button></div>
+                                                            <div class="input-group"><span class="input-group-text">Hora final</span><input class="bg-white form-control" id="horaFinal" name="horaFinal" readonly="" type="time" required=""><button class="btn btn-secondary" type="button" onclick="horaFinalAgora()"><i class="far fa-clock"></i></button></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,7 +170,10 @@
                                                         <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"></textarea></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-right: 10px;">Salvar</button><a class="btn btn-primary" role="button" style="margin-right: 10px;">Retornar aos trâmites</a><a class="btn btn-primary" role="button">Retornar ao chamado</a></div>
+                                                <div class="mb-3">
+                                                    <button id="btnSalvar" disabled class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="incluir">Salvar</button>
+                                                    <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="listaTramites.php?idTicket=<?=$idTicket?>">Voltar</a>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -184,6 +197,24 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
+    <script language=javascript type="text/javascript">
+        function horaFinalAgora() {
+            now = new Date();
+            var hora = now.getHours();
+            var minutos = now.getMinutes();
+
+            if (hora < 10) {
+                hora = "0" + hora;
+            }
+            if (minutos < 10) {
+                minutos = "0" + minutos;
+            }
+            var horaFinal = hora + ":" + minutos;
+            document.getElementById("horaFinal").value = horaFinal;
+            document.getElementById("btnSalvar").disabled = false;
+        }
+
+    </script>
 </body>
 
 </html>

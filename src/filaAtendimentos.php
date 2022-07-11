@@ -350,7 +350,10 @@
                                             <td><?php echo getStatus($ticket->getStatus())->getDescricao();?></td>
                                             <td><?php echo getUsuarios($ticket->getUsuario())->getNome();?></td>
                                             <td><?php echo $ticket->getDataAtualizacao();?></td>
-                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
+                                            <td class="text-nowrap text-end align-middle">
+                                                <a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;" href="cadTickets.php?acao=alterar&idTicket=<?=$ticket->getIdTicket()?>"><i class="far fa-eye" style="width: 15px;"></i></a>
+                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a>
+                                            </td>
                                         </tr>
                                         <?php
                                             }

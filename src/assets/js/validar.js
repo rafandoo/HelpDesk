@@ -6,6 +6,15 @@ function validaSenha (input) {
     }
 }
 
+function validaTicket (url) {
+    var ticket = document.getElementById('idTicket').value;
+    if (ticket == 0 || ticket == '') {
+        alert('Ticket não foi incluido ainda!');
+    } else {
+        location.href = url
+    }
+}
+
 function validarEmailUsuario (input, existe) { 
     if (existe == '1') {
         input.setCustomValidity('Email já cadastrado!');

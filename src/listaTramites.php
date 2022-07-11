@@ -1,10 +1,72 @@
 <!DOCTYPE html>
+<?php
+    require_once "util/autoload.php";
+    require_once "config/Conexao.php";
+    include_once "config/default.inc.php";
+
+    $title = "Lista de Tramites - HelpDesk";
+
+    $idTicket = isset($_GET['idTicket']) ? $_GET['idTicket'] : 0;
+
+    $cliente = getCliente(getTicket($idTicket)->getCliente())->getNome();
+
+    function getTicket($idTicket) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :idTicket");
+        $stmt->bindValue(":idTicket", $idTicket);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+    }
+
+    function getCliente($idCliente) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");
+        $stmt->bindValue(":idCliente", $idCliente);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
+    }
+
+    function getUsuarios($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+    }
+
+    function countHoras($idTicket) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT horaInicial, horaFinal FROM tramite WHERE idTicket = :idTicket");
+        $stmt->bindValue(":idTicket", $idTicket);
+        $stmt->execute();
+        $horas = 0;
+
+        while($linha = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $horaInicial = $linha['horaInicial'];
+            $horaFinal = $linha['horaFinal'];
+            $horaInicial = strtotime($horaInicial);
+            $horaFinal = strtotime($horaFinal);
+            $diferenca = $horaFinal - $horaInicial;
+            $horas += $diferenca;
+        }
+
+        if ($horas == 0) {
+            $horas = ("00:00");
+        } else {
+            $horas = gmdate("H:i", $horas);
+        }
+        return $horas;
+    }
+?>
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Table - Brand</title>
+    <title><?php echo $title;?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -23,18 +85,18 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="filaPendentes.html">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.php">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.php">Minha fila</a><a class="collapse-item" href="filaPendentes.php">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
                             <div class="collapse" id="collapse-1">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.html">Clientes</a><a class="collapse-item" href="usuarios.html">Usuários</a><a class="collapse-item" href="categorias.html">Categorias</a><a class="collapse-item" href="setores.html">Setores</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.php">Clientes</a><a class="collapse-item" href="usuarios.php">Usuários</a><a class="collapse-item" href="categorias.php">Categorias</a><a class="collapse-item" href="setores.php">Setores</a></div>
                             </div>
                         </div>
                     </li>
@@ -45,7 +107,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -71,7 +133,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.php"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -87,27 +149,27 @@
                                 <div class="col-xl-2 col-xxl-2" style="padding-right: 0px;padding-left: 0px;">
                                     <div>
                                         <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="bg-white form-control" type="text" id="ticket" name="ticket" readonly="" style="margin-right: 10px;"></div>
+                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="bg-white form-control" type="text" id="ticket" name="ticket" readonly="" style="margin-right: 10px;" value="<?php echo $idTicket;?>"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-xxl-3" style="padding-right: 0px;padding-left: 0px;">
                                     <div>
                                         <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Total horas</span><input class="bg-white form-control" id="horaTotal" name="horaTotal" readonly="" style="margin-right: 10px;" type="time"></div>
+                                            <div class="input-group"><span class="input-group-text">Total horas</span><input class="bg-white form-control" id="horaTotal" name="horaTotal" readonly="" style="margin-right: 10px;" type="time" value="<?php echo countHoras($idTicket);?>"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-xxl-4" style="padding-right: 0px;padding-left: 0px;">
                                     <div>
                                         <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly=""></div>
+                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly="" value="<?php echo $cliente;?>"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-xxl-3 offset-xl-0 offset-xxl-0 d-flex justify-content-xl-end align-items-xl-start">
-                                    <div><a class="btn btn-success" role="button" href="cadTramites.html" style="margin-right: 10px;"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
-                                    <div><a class="btn btn-secondary" role="button" href="cadTickets.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Voltar</span></a></div>
+                                    <div><a class="btn btn-success" role="button" href="cadTramites.php?idTicket=<?=$idTicket?>" style="margin-right: 10px;"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
+                                    <div><a class="btn btn-secondary" role="button" href="cadTickets.php?acao=alterar&idTicket=<?=$idTicket?>"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Voltar</span></a></div>
                                 </div>
                             </div>
                         </div>
@@ -127,22 +189,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $pdo = Conexao::getInstance();
+                                            $consulta = $pdo->query("SELECT * FROM tramite WHERE idTicket = '$idTicket'");
+                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                $tramite = new Tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']);
+                                        ?>
                                         <tr class="align-middle">
-                                            <td class="text-nowrap">#12</td>
-                                            <td class="text-nowrap">05/06/2022</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-break">Em atendimento211111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</td>
-                                            <td class="text-nowrap">Rafael</td>
+                                            <td class="text-nowrap"><?php echo $tramite->getIdTramite();?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getData();?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getHoraInicial();?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getHoraFinal();?></td>
+                                            <td class="text-break"><?php echo $tramite->getDescricao();?></td>
+                                            <td class="text-nowrap"><?php echo getUsuarios($tramite->getUsuario())->getNome();?></td>
                                         </tr>
-                                        <tr class="align-middle">
-                                            <td class="text-nowrap">#2</td>
-                                            <td class="text-nowrap">04/05/2022</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-nowrap">00:00:00</td>
-                                            <td class="text-break">Média</td>
-                                            <td class="text-nowrap">Rafael</td>
-                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>

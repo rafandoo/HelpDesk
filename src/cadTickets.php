@@ -17,14 +17,52 @@
         return new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
     }
 
-    if ($acao == 'alterar') {
+    function getUsuario($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+    }
 
+    function getTicket($idTicket) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :id");
+        $stmt->bindValue(":id", $idTicket);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+    }
+
+    if ($acao == 'alterar') {
+        $value = 'editar';
+        $ticket = getTicket($_GET['idTicket']);
+        $idTicket = $ticket->getIdTicket();
+        $dataAbertura = $ticket->getDataAbertura();
+        $dataAtualizacao = $ticket->getDataAtualizacao();
+        $cliente = $ticket->getCliente();
+        $contato = $ticket->getContato();
+        $idSetor = $ticket->getSetor();
+        $usuario = getUsuario($ticket->getUsuario())->getNome();
+        $idUsuario = $ticket->getUsuario();
+        $status = getStatus($ticket->getStatus())->getDescricao();
+        $idStatus = $ticket->getStatus();
+        $idCategoria = $ticket->getCategoria();
+        $idPrioridade = $ticket->getPrioridade();
+        $titulo = $ticket->getTitulo();
+        $descricao = $ticket->getDescricao();
     } else {
         $value = 'salvar';
         $idTicket = 0;
         $idCliente = 0;
+        $cliente = "";
+        $contato = "";
         $dataAbertura = date('Y-m-d').'T'.date('H:i');
-        $status = getStatus(1);
+        $status = getStatus(1)->getDescricao();
+        $idStatus = 1;
+        $titulo = "";
+        $descricao = "";
 
     }
 ?>
@@ -121,7 +159,7 @@
                                                 <div class="col d-xxl-flex align-items-xxl-center">
                                                     <p class="fs-5 text-primary m-0 fw-bold">Informações do chamado</p>
                                                 </div>
-                                                <div class="col text-end"><button class="btn btn-primary" type="button">Trâmites</button></div>
+                                                <div class="col text-end"><a class="btn btn-primary" role="button" onclick="validaTicket('listaTramites.php?idTicket=<?=$idTicket?>')">Trâmites</a></div>
                                             </div>
                                         </div>
                                         <div class="card-body" style="padding-top: 0px;">
@@ -129,7 +167,7 @@
                                                 <div class="row">
                                                     <div class="col-xl-4 col-xxl-3">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">N° Ticket</span><input class="bg-white form-control" type="text" id="idTicket" placeholder="#" readonly="" name="idTicket"></div>
+                                                            <div class="input-group"><span class="input-group-text">N° Ticket #</span><input class="bg-white form-control" type="text" id="idTicket" placeholder="#" readonly="" name="idTicket" value="<?php echo $idTicket;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-4">
@@ -141,7 +179,7 @@
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-5 offset-xl-0">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Data atualização</span><input class="bg-white form-control" id="dataAtualizacao" readonly="" type="datetime-local" name="dataAtualizacao"></div>
+                                                            <div class="input-group"><span class="input-group-text">Data atualização</span><input class="bg-white form-control" id="dataAtualizacao" readonly="" type="datetime-local" name="dataAtualizacao" value="<?php echo $dataAtualizacao;?>"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -149,7 +187,7 @@
                                                     <div class="col-lg-7 col-xl-7 col-xxl-8">
                                                         <div class="mb-3">
                                                             <div class="input-group"><span class="input-group-text">Cliente</span>
-                                                                <input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente">
+                                                                <input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente" value="<?php echo $cliente;?>">
                                                                 <input type="hidden" id="idCliente" name="idCliente" value="<?php echo $idCliente;?>">
                                                                 <button class="btn btn-primary py-0" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal">
                                                                     <i class="fas fa-search"></i>
@@ -197,7 +235,7 @@
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Contato</span><input class="form-control" type="text" id="contato" required="" name="contato"></div>
+                                                            <div class="input-group"><span class="input-group-text">Contato</span><input class="form-control" type="text" id="contato" required="" name="contato" value="<?php echo $contato;?>"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -209,10 +247,12 @@
                                                                     <option value="" selected="">Selecione uma opção</option>
                                                                     <?php
                                                                         $pdo = Conexao::getInstance(); 
-                                                                        $consulta = $pdo->query("SELECT * FROM setor");
+                                                                        $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
                                                                             $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
-                                                                            if ($setor->getSituacao() == '1') {
+                                                                            if ($setor->getId() == $idSetor) {
+                                                                                echo '<option value="'.$setor->getId().'" selected="">'.$setor->getDescricao().'</option>';
+                                                                            } else {
                                                                                 echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
                                                                             }
                                                                         }
@@ -225,14 +265,19 @@
                                                         <div class="mb-3">
                                                             <div class="input-group"><span class="input-group-text">Técnico</span><select class="form-select" id="usuario" required="" name="usuario">
                                                                     <option value="" selected="">Selecione uma opção</option>
+                                                                    <?php
+                                                                        if ($acao == 'alterar') {
+                                                                            echo '<option value="'.$idUsuario.'" selected="">'.$usuario.'</option>';
+                                                                        }
+                                                                    ?>
                                                                 </select></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-5 col-xxl-4">
                                                         <div class="mb-3">
                                                             <div class="input-group"><span class="input-group-text">Estado</span>
-                                                                <input class="bg-white form-control" type="text" id="statusNome" name="statusNome" readonly value="<?php echo $status->getDescricao();?>">
-                                                                <input type="hidden" name="status" value="<?php echo $status->getId();?>">
+                                                                <input class="bg-white form-control" type="text" id="statusNome" name="statusNome" readonly value="<?php echo $status;?>">
+                                                                <input type="hidden" name="status" value="<?php echo $idStatus;?>">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -244,10 +289,12 @@
                                                                     <option value="" selected="">Selecione uma opção</option>
                                                                     <?php
                                                                         $pdo = Conexao::getInstance(); 
-                                                                        $consulta = $pdo->query("SELECT * FROM categoria");
+                                                                        $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
                                                                             $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
-                                                                            if ($categoria->getSituacao() == '1') {
+                                                                            if ($categoria->getId() == $idCategoria) {
+                                                                                echo '<option value="'.$categoria->getId().'" selected="">'.$categoria->getDescricao().'</option>';
+                                                                            } else {
                                                                                 echo '<option value="'.$categoria->getId().'">'.$categoria->getDescricao().'</option>';
                                                                             }
                                                                         }
@@ -266,10 +313,12 @@
                                                                     <option value="" selected="">Selecione uma opção</option>
                                                                     <?php
                                                                         $pdo = Conexao::getInstance(); 
-                                                                        $consulta = $pdo->query("SELECT * FROM prioridade");
+                                                                        $consulta = $pdo->query("SELECT * FROM prioridade WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
                                                                             $prioridade = new Prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
-                                                                            if ($prioridade->getSituacao() == '1') {
+                                                                            if ($prioridade->getId() == $idPrioridade) {
+                                                                                echo '<option value="'.$prioridade->getId().'" selected="">'.$prioridade->getDescricao().'</option>';
+                                                                            } else {
                                                                                 echo '<option value="'.$prioridade->getId().'">'.$prioridade->getDescricao().'</option>';
                                                                             }
                                                                         }
@@ -280,13 +329,13 @@
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Título</span><input class="form-control" type="text" id="titulo" name="titulo"></div>
+                                                            <div class="input-group"><span class="input-group-text">Título</span><input class="form-control" type="text" id="titulo" name="titulo" value="<?php echo $titulo;?>"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"></textarea></div>
+                                                        <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"><?php echo $descricao;?></textarea></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="<?php echo $value;?>">Salvar</button><a class="btn btn-primary" role="button" href="filaAtendimentos.php">Voltar</a></div>
@@ -316,6 +365,7 @@
     <script src="assets/js/buscaUsuariosSetor.js"></script>
     <script src="assets/js/modalCliente.js"></script>
     <script src="assets/js/buscaCliente.js"></script>
+    <script src="assets/js/validar.js"></script>
 </body>
 
 </html>
