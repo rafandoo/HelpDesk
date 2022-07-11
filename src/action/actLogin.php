@@ -16,8 +16,6 @@
 
     if ($acao == 'logar') {
         validaUsuario($_POST['usuario'], sha1($_POST['senha']));
-
-        
     }
 
     function validaUsuario($login, $senha) {
@@ -38,11 +36,13 @@
     }
 
     function inicializaSessao($usuario) {
+        session_start();
         $_SESSION['idUsuario'] = $usuario->getIdUsuario();
         $_SESSION['usuario'] = $usuario->getLogin();
         $_SESSION['nome'] = $usuario->getNome() . " " . $usuario->getSobrenome();
         $_SESSION['nivelAcesso'] = $usuario->getNivelAcesso();
-
+        $_SESSION['setor'] = $usuario->getSetor();
+        
         if ($usuario->getNivelAcesso() == 1) {
             header("Location: ../index.php");
         } else {

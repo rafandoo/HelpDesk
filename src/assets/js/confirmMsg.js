@@ -8,6 +8,10 @@ function confirmBloquear(url) {
         location.href = url;
 }
 
+function alertSemPermissao() {
+    alert("Você não tem permissão para fazer esta alteração!");
+}
+
 function alertExistLogin() {
     alert("O usuário informado já existe!");
 }

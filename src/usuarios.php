@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <?php 
+    include "validaSessao.php";
     require_once "util/autoload.php";
     require_once "config/Conexao.php";
     include_once "config/default.inc.php";
 
-    $title = "Usuários - HelpDesk";
+    $title = "Usuários";
     
     $procurar = isset($_GET["procurar"]) ? $_GET["procurar"] : "";
     $filtro = isset($_GET["filtro"]) ? $_GET["filtro"] : "nome";
+
+    if ($_SESSION['nivelAcesso'] == 2) {
+        header("Location: 403.php");
+    } else if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente\homeCli.php");
+    }
 
     function getSetores($idSetor) {
         $pdo = Conexao::getInstance();
@@ -106,9 +113,9 @@
                             <li class="nav-item dropdown no-arrow mx-1"></li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.php"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"><?php echo $_SESSION['nome']?></span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.php?idUsuario=<?=$_SESSION['idUsuario']?>"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
                             </li>
@@ -180,9 +187,6 @@
                                                 </a>
                                                 <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadUsuarios.php?acao=alterar&idUsuario=<?=$usuario->getIdUsuario()?>">
                                                     <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>
-                                                </a>
-                                                <a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" href="javascript:confirmExclusao('action/actUsuario.php?acao=excluir&idUsuario=<?=$usuario->getIdUsuario()?>')">
-                                                    <i class="far fa-trash-alt"></i>
                                                 </a>
                                             </td>
                                         </tr>
