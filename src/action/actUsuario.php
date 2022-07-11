@@ -52,13 +52,22 @@
         $stmt->bindValue(":sobrenome", $usuario->getSobrenome());
         $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
-        $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+        var_dump($usuario->getSenha());
+        var_dump(getSenhaUsuario($usuario->getIdUsuario())['senha']);
+        if ($usuario->getSenha() == "") {
+            $stmt->bindValue(":senha", getSenhaUsuario($usuario->getIdUsuario())['senha']);
+        } else {
+            $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+        }
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());
         $stmt->bindValue(":id", $usuario->getIdUsuario());
         $stmt->execute();
-        header("Location: ../usuarios.php");
+        if ($GLOBALS['acao'] != 'editarC') {
+            header("Location: ../usuarios.php");
+        }
+
     }
 
     function deleteUsuario($idUsuario) {
@@ -94,6 +103,23 @@
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
         $stmt->bindValue(":login", $usuario->getLogin());
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function updateUsuarioCliente($usuario) {
+        updateUsuario($usuario);
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
+        $stmt->bindValue(":login", $usuario->getLogin());
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getSenhaUsuario($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT senha FROM usuario WHERE idUsuario = :id");
+        $stmt->bindValue(":id", $idUsuario);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

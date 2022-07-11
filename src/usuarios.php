@@ -181,7 +181,7 @@
                                                 <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadUsuarios.php?acao=alterar&idUsuario=<?=$usuario->getIdUsuario()?>">
                                                     <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>
                                                 </a>
-                                                <a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" href="javascript:confirmExclusion('action/actUsuario.php?acao=excluir&idUsuario=<?=$usuario->getIdUsuario()?>')">
+                                                <a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" href="javascript:confirmExclusao('action/actUsuario.php?acao=excluir&idUsuario=<?=$usuario->getIdUsuario()?>')">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
                                             </td>

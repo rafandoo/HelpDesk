@@ -1,10 +1,88 @@
 <!DOCTYPE html>
+<?php
+    require_once "util/autoload.php";
+    require_once "config/Conexao.php";
+    include_once "config/default.inc.php";
+
+    $title = "Fila de Atendimentos - HelpDesk";
+
+    $filtroPrioridade = isset($_GET["filtroPrioridade"]) ? $_GET["filtroPrioridade"] : 0;
+    $filtroStatus = isset($_GET["filtroStatus"]) ? $_GET["filtroStatus"] : 0;
+    $filtroCategoria = isset($_GET["filtroCategoria"]) ? $_GET["filtroCategoria"] : 0;
+    $filtroUsuario = isset($_GET["filtroUsuario"]) ? $_GET["filtroUsuario"] : 0;
+    $filtroCliente = isset($_GET["filtroCliente"]) ? $_GET["filtroCliente"] : 0;
+    $filtroSetor = isset($_GET["filtroSetor"]) ? $_GET["filtroSetor"] : 0;
+
+    function getClientes($idCliente) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");
+        $stmt->bindValue(":idCliente", $idCliente);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
+    }
+
+    function getPrioridades($idPrioridade) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM prioridade WHERE idPrioridade = :idPrioridade");
+        $stmt->bindValue(":idPrioridade", $idPrioridade);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
+    }
+
+    function getStatus($idStatus) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM status WHERE idStatus = :idStatus");
+        $stmt->bindValue(":idStatus", $idStatus);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+    }
+
+    function getUsuarios($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :idUsuario");
+        $stmt->bindValue(":idUsuario", $idUsuario);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+    }
+
+    function filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor) {
+        $pdo = Conexao::getInstance();
+        $sql = "SELECT * FROM ticket WHERE idTicket > 0";
+
+        if ($filtroPrioridade != '0') {
+            $sql .= " AND prioridade = $filtroPrioridade";
+        }
+        if ($filtroStatus != '0') {
+            $sql .= " AND status = $filtroStatus";
+        }
+        if ($filtroCategoria != '0') {
+            $sql .= " AND categoria = $filtroCategoria";
+        }
+        if ($filtroUsuario != '0') {
+            $sql .= " AND usuario = $filtroUsuario";
+        }
+        if ($filtroCliente != '0') {
+            $sql .= " AND cliente = $filtroCliente";
+        }
+        if ($filtroSetor != '0') {
+            $sql .= " AND setor = $filtroSetor";
+        }
+        $sql .= " ORDER BY idTicket DESC";        
+        $consulta = $pdo->query($sql);
+        return $consulta;
+    }
+?>
+
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Table - Brand</title>
+    <title><?php echo $title;?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -23,18 +101,18 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="filaPendentes.html">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.php">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.php">Minha fila</a><a class="collapse-item" href="filaPendentes.php">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
                             <div class="collapse" id="collapse-1">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.html">Clientes</a><a class="collapse-item" href="usuarios.html">Usuários</a><a class="collapse-item" href="categorias.html">Categorias</a><a class="collapse-item" href="setores.html">Setores</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.php">Clientes</a><a class="collapse-item" href="usuarios.php">Usuários</a><a class="collapse-item" href="categorias.php">Categorias</a><a class="collapse-item" href="setores.php">Setores</a></div>
                             </div>
                         </div>
                     </li>
@@ -45,7 +123,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -71,7 +149,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.php"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -83,97 +161,161 @@
                     <h3 class="text-dark mb-4">Fila de chamados</h3>
                     <div class="card shadow">
                         <div class="card-body" style="font-size: 14px;">
-                            <div class="row">
-                                <div class="col-xl-4 col-xxl-3 offset-xxl-0" style="padding-left: 0px;">
-                                    <div id="dataTableFilter1" class="dataTables_filter">
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Prioridade</span><select class="form-select" id="prioridadeFiltro" name="prioridadeFiltro">
-                                                    <option value="name" selected="">Nome</option>
-                                                    <option value="id">Código</option>
-                                                    <option value="cpfCnpj">CPF/CNPJ</option>
-                                                    <option value="situation">Situação</option>
-                                                </select></div>
-                                        </div>
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="estadoFiltro" name="estadoFiltro">
-                                                    <option value="name" selected="">Nome</option>
-                                                    <option value="id">Código</option>
-                                                    <option value="cpfCnpj">CPF/CNPJ</option>
-                                                    <option value="situation">Situação</option>
-                                                </select></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-xxl-3" style="padding-right: 0px;padding-left: 0px;">
-                                    <div id="dataTableFilter2" class="dataTables_filter">
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="form-control" type="text" id="ticketFiltro" name="ticketFiltro" style="margin-right: 10px;"></div>
-                                        </div>
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Tecnico</span><select class="form-select" id="tecnicoFiltro" name="tecnicoFiltro" style="margin-right: 10px;">
-                                                    <option value="name" selected="">Nome</option>
-                                                    <option value="id">Código</option>
-                                                    <option value="cpfCnpj">CPF/CNPJ</option>
-                                                    <option value="situation">Situação</option>
-                                                </select></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-xxl-3 offset-xxl-0" style="padding-left: 0px;padding-right: 0px;">
-                                    <div id="dataTableFilter3" class="dataTables_filter">
-                                        <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="form-control" type="text" id="clienteFiltro" name="clienteFiltro"><button class="btn btn-primary" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal"><i class="fas fa-search"></i></button></div>
-                                        </div>
-                                        <div class="modal fade" role="dialog" tabindex="-1" id="procurarCliente" name="procurarCliente" style="padding-top: 0px;background: rgba(234,236,244,0);">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Procurar cliente</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="input-group"><select class="form-select">
-                                                                <option value="nome" selected="">Nome</option>
-                                                                <option value="codigo">Código</option>
-                                                                <option value="cpfCnpj">cpfCnpj</option>
-                                                            </select><input class="form-control" type="text" style="width: 461px;"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
-                                                    </div>
-                                                    <div class="table-responsive" role="grid">
-                                                        <table class="table table-hover my-0">
-                                                            <thead>
-                                                                <tr class="text-center">
-                                                                    <th>Código</th>
-                                                                    <th>Nome</th>
-                                                                    <th>CFP/CNPJ</th>
-                                                                    <th>Situação</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="text-center">
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>Rafael Camargo</td>
-                                                                    <td>111.111.111-11</td>
-                                                                    <td>Ativo</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>Fulano de tal LTDA</td>
-                                                                    <td>11.111.111/0001-01</td>
-                                                                    <td>Inativo</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                            <form method="get">
+                                <div class="row">
+                                    <div class="col-xl-4 col-xxl-3 offset-xxl-0" style="padding-left: 0px;">
+                                        <div id="dataTableFilter1" class="dataTables_filter">
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group"><span class="input-group-text">Prioridade</span><select class="form-select" id="filtroPrioridade" name="filtroPrioridade">
+                                                        <option value="0">Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance();
+                                                            $consulta = $pdo->query("SELECT * FROM prioridade WHERE situacao = 1");
+                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                $prioridade = new Prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
+                                                                if ($prioridade->getId() == $filtroPrioridade){
+                                                                    echo '<option value="'.$prioridade->getId().'" selected>'.$prioridade->getDescricao().'</option>';
+                                                                } else {
+                                                                    echo '<option value="'.$prioridade->getId().'">'.$prioridade->getDescricao().'</option>';
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="filtroStatus" name="filtroStatus">
+                                                        <option value="0">Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance();
+                                                            $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
+                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+                                                                if ($status->getId() == $filtroStatus){
+                                                                    echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
+                                                                } else {
+                                                                    echo '<option value="'.$status->getId().'">'.$status->getDescricao().'</option>';
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xl-4 col-xxl-3" style="padding-right: 0px;padding-left: 0px;">
+                                        <div id="dataTableFilter2" class="dataTables_filter">
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group"><span class="input-group-text">Categoria</span><select class="form-select" id="filtroCategoria" name="filtroCategoria" style="margin-right: 10px;">
+                                                        <option value="0">Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance();
+                                                            $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
+                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
+                                                                if ($categoria->getId() == $filtroCategoria){
+                                                                    echo '<option value="'.$categoria->getId().'" selected>'.$categoria->getDescricao().'</option>';
+                                                                } else {
+                                                                    echo '<option value="'.$categoria->getId().'">'.$categoria->getDescricao().'</option>';
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group"><span class="input-group-text">Tecnico</span><select class="form-select" id="filtroUsuario" name="filtroUsuario" style="margin-right: 10px;">
+                                                        <option value="0" selected>Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance();
+                                                            $consulta = $pdo->query("SELECT * FROM usuario WHERE situacao = 1 AND nivelAcesso != 1");
+                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+                                                                if ($usuario->getIdUsuario() == $filtroUsuario){
+                                                                    echo '<option value="'.$usuario->getIdUsuario().'" selected>'.$usuario->getNome().' '.$usuario->getSobrenome().'</option>';
+                                                                } else {
+                                                                    echo '<option value="'.$usuario->getIdUsuario().'">'.$usuario->getNome().' '.$usuario->getSobrenome().'</option>';
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-xxl-3 offset-xxl-0" style="padding-left: 0px;padding-right: 0px;">
+                                        <div id="dataTableFilter3" class="dataTables_filter">
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group"><span class="input-group-text">Cliente</span>
+                                                    <input class="form-control" type="text" id="cliente" name="cliente">
+                                                    <input type="hidden" name="filtroCliente" id="idCliente" value="0">
+                                                    <button class="btn btn-primary" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal"><i class="fas fa-search"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade input-group-text" role="dialog" tabindex="-1" id="procurarCliente" name="procurarCliente" style="padding-top: 0px;background: rgba(234,236,244,0);">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Procurar cliente</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="input-group">
+                                                                                    <select class="form-select" name="filtro" id="filtro">
+                                                                                        <option value="nome" selected="">Nome</option>
+                                                                                        <option value="idCliente">Código</option>
+                                                                                        <option value="cpfCnpj">CPF/CNPJ</option>
+                                                                                    </select>
+                                                                                    <input class="form-control" type="text" name="procurar" id="procurar" style="width: 461px;">
+                                                                                    <button class="btn btn-primary" type="button" onclick="filtrarCliente()">
+                                                                                        <i class="fas fa-search"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table-responsive" role="grid">
+                                                                                <table class="table table-hover my-0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Código</th>
+                                                                                            <th>Nome</th>
+                                                                                            <th>CFP/CNPJ</th>
+                                                                                            <th>Situação</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="dados" name="dados">
+                                                                                        
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div class="modal-footer"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                            <div style="margin-bottom: 15px;">
+                                                <div class="input-group"><span class="input-group-text">Setor</span><select class="form-select" id="filtroSetor" name="filtroSetor" style="margin-right: 10px;">
+                                                        <option value="0" selected>Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance();
+                                                            $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
+                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
+                                                                if ($setor->getId() == $filtroSetor){
+                                                                    echo '<option value="'.$setor->getId().'" selected>'.$setor->getDescricao().'</option>';
+                                                                } else {
+                                                                    echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-xxl-2 offset-xl-10 offset-xxl-1">
+                                        <div class="text-end" style="margin-bottom: 10px;"><button class="btn btn-warning" type="submit"><i class="fas fa-filter"></i><span>&nbsp;Filtrar</span></button><a class="btn btn-secondary" role="button" style="margin-left: 10px;" href="filaAtendimentos.php"><i class="far fa-times-circle"></i><span>&nbsp;Limpar</span></a></div>
+                                        <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-success" role="button" href="cadTickets.php"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
+                                    </div>
                                 </div>
-                                <div class="col-xl-2 col-xxl-2 offset-xl-10 offset-xxl-1">
-                                    <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-warning" role="button"><i class="fas fa-filter"></i><span>Filtrar</span></a></div>
-                                    <div class="text-end" style="margin-bottom: 10px;"><a class="btn btn-success" role="button" href="cadTickets.html"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="card shadow">
@@ -193,28 +335,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $pdo = Conexao::getInstance();
+                                            $consulta = filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor);
+                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+                                        ?>
                                         <tr class="align-middle">
-                                            <td>#1</td>
-                                            <td>Rafael Camargo</td>
-                                            <td>FISCAL - Bloco X pendente</td>
-                                            <td>05/06/2022</td>
-                                            <td class="text-nowrap">Alta</td>
-                                            <td>Em atendimento</td>
-                                            <td>Rafael</td>
-                                            <td>06/06/2022</td>
+                                            <td>#<?php echo $ticket->getIdTicket();?></td>
+                                            <td><?php echo getClientes($ticket->getCliente())->getNome();?></td>
+                                            <td><?php echo $ticket->getTitulo();?></td>
+                                            <td><?php echo $ticket->getDataAbertura();?></td>
+                                            <td><?php echo getPrioridades($ticket->getPrioridade())->getDescricao();?></td>
+                                            <td><?php echo getStatus($ticket->getStatus())->getDescricao();?></td>
+                                            <td><?php echo getUsuarios($ticket->getUsuario())->getNome();?></td>
+                                            <td><?php echo $ticket->getDataAtualizacao();?></td>
                                             <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye" style="width: 15px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
                                         </tr>
-                                        <tr class="align-middle">
-                                            <td>#2</td>
-                                            <td>Fulano De Tal</td>
-                                            <td>PDV - Erro cupom</td>
-                                            <td>04/05/2022</td>
-                                            <td class="text-nowrap">Média</td>
-                                            <td>Pausado</td>
-                                            <td>Rafael</td>
-                                            <td>10/06/2022</td>
-                                            <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;"><i class="far fa-eye border-0" style="width: 15px;"></i></a><a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>
-                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -257,6 +397,8 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
+    <script src="assets/js/modalCliente.js"></script>
+    <script src="assets/js/buscaCliente.js"></script>
 </body>
 
 </html>

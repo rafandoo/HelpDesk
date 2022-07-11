@@ -3,7 +3,6 @@
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
 
-
     $id = isset($_POST["id"]) ? $_POST["id"] : 0;
 
     $pdo = Conexao::getInstance();

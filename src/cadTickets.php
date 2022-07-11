@@ -1,10 +1,39 @@
 <!DOCTYPE html>
+<?php
+    require_once "util/autoload.php";
+    require_once "config/Conexao.php";
+    include_once "config/default.inc.php";
+
+    $title = "Cadastro de Tickets - HelpDesk";
+
+    $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
+
+    function getStatus($idStatus) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM status WHERE idStatus = :id");
+        $stmt->bindValue(":id", $idStatus);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+    }
+
+    if ($acao == 'alterar') {
+
+    } else {
+        $value = 'salvar';
+        $idTicket = 0;
+        $idCliente = 0;
+        $dataAbertura = date('Y-m-d').'T'.date('H:i');
+        $status = getStatus(1);
+
+    }
+?>
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile - Brand</title>
+    <title><?php echo $title?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -23,18 +52,18 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home"></i><span>Home</span></a></li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button" class="nav-link"><i class="fas fa-tasks"></i>&nbsp;<span>Atendimentos</span></a>
                             <div class="collapse" id="collapse-3">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.html">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.html">Minha fila</a><a class="collapse-item" href="filaPendentes.html">Pendentes</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="cadTickets.php">Novo chamado</a><a class="collapse-item" href="filaAtendimentos.php">Minha fila</a><a class="collapse-item" href="filaPendentes.php">Pendentes</a></div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" class="nav-link"><i class="fas fa-user"></i>&nbsp;<span>Cadastros</span></a>
                             <div class="collapse" id="collapse-1">
-                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.html">Clientes</a><a class="collapse-item" href="usuarios.html">Usuários</a><a class="collapse-item" href="categorias.html">Categorias</a><a class="collapse-item" href="setores.html">Setores</a></div>
+                                <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="clientes.php">Clientes</a><a class="collapse-item" href="usuarios.php">Usuários</a><a class="collapse-item" href="categorias.php">Categorias</a><a class="collapse-item" href="setores.php">Setores</a></div>
                             </div>
                         </div>
                     </li>
@@ -45,7 +74,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="logout.html"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-arrow-circle-left"></i><span>&nbsp;Sair</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -71,7 +100,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="perfil.php"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -83,36 +112,6 @@
                     <h3 class="text-dark mb-4">Ticket</h3>
                     <div class="row mb-3">
                         <div class="col-11 col-xl-12 col-xxl-11 offset-xl-0">
-                            <div class="row mb-3 d-none">
-                                <div class="col">
-                                    <div class="card textwhite bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card textwhite bg-success text-white shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-xl-12 col-xxl-12">
                                     <div class="card shadow mb-3">
@@ -126,16 +125,18 @@
                                             </div>
                                         </div>
                                         <div class="card-body" style="padding-top: 0px;">
-                                            <form method="post">
+                                            <form method="post" action="action/actTicket.php">
                                                 <div class="row">
                                                     <div class="col-xl-4 col-xxl-3">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">N° Ticket</span><input class="bg-white form-control" type="text" id="idTicket" placeholder="#123" readonly="" name="idTicket"></div>
+                                                            <div class="input-group"><span class="input-group-text">N° Ticket</span><input class="bg-white form-control" type="text" id="idTicket" placeholder="#" readonly="" name="idTicket"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Data de abertura</span><input class="bg-white form-control" id="dataAbertura" readonly="" type="datetime-local" name="dataAbertura"></div>
+                                                            <div class="input-group"><span class="input-group-text">Data de abertura</span>
+                                                                <input class="bg-white form-control" id="dataAbertura" readonly="" type="datetime-local" name="dataAbertura" value="<?php echo $dataAbertura?>">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-5 offset-xl-0">
@@ -147,7 +148,12 @@
                                                 <div class="row">
                                                     <div class="col-lg-7 col-xl-7 col-xxl-8">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente"><button class="btn btn-primary py-0" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal"><i class="fas fa-search"></i></button>
+                                                            <div class="input-group"><span class="input-group-text">Cliente</span>
+                                                                <input class="bg-white form-control" type="text" id="cliente" readonly="" required="" name="cliente">
+                                                                <input type="hidden" id="idCliente" name="idCliente" value="<?php echo $idCliente;?>">
+                                                                <button class="btn btn-primary py-0" type="button" data-bs-target="#procurarCliente" data-bs-toggle="modal">
+                                                                    <i class="fas fa-search"></i>
+                                                                </button>
                                                                 <div class="modal fade input-group-text" role="dialog" tabindex="-1" id="procurarCliente" name="procurarCliente" style="padding-top: 0px;background: rgba(234,236,244,0);">
                                                                     <div class="modal-dialog modal-lg" role="document">
                                                                         <div class="modal-content">
@@ -155,11 +161,17 @@
                                                                                 <h4 class="modal-title">Procurar cliente</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <div class="input-group"><select class="form-select">
+                                                                                <div class="input-group">
+                                                                                    <select class="form-select" name="filtro" id="filtro">
                                                                                         <option value="nome" selected="">Nome</option>
-                                                                                        <option value="codigo">Código</option>
-                                                                                        <option value="cpfCnpj">cpfCnpj</option>
-                                                                                    </select><input class="form-control" type="text" style="width: 461px;"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                                                                        <option value="idCliente">Código</option>
+                                                                                        <option value="cpfCnpj">CPF/CNPJ</option>
+                                                                                    </select>
+                                                                                    <input class="form-control" type="text" name="procurar" id="procurar" style="width: 461px;">
+                                                                                    <button class="btn btn-primary" type="button" onclick="filtrarCliente()">
+                                                                                        <i class="fas fa-search"></i>
+                                                                                    </button>
+                                                                                </div>
                                                                             </div>
                                                                             <div class="table-responsive" role="grid">
                                                                                 <table class="table table-hover my-0">
@@ -171,23 +183,12 @@
                                                                                             <th>Situação</th>
                                                                                         </tr>
                                                                                     </thead>
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>1</td>
-                                                                                            <td>Rafael Camargo</td>
-                                                                                            <td>111.111.111-11</td>
-                                                                                            <td>Ativo</td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>2</td>
-                                                                                            <td>Fulano de tal LTDA</td>
-                                                                                            <td>11.111.111/0001-01</td>
-                                                                                            <td>Inativo</td>
-                                                                                        </tr>
+                                                                                    <tbody id="dados" name="dados">
+                                                                                        
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
-                                                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                                                            <div class="modal-footer"></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -203,9 +204,21 @@
                                                 <div class="row">
                                                     <div class="col-xl-5 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Setor</span><select class="form-select" id="setor" required="" name="setor">
+                                                            <div class="input-group"><span class="input-group-text">Setor</span>
+                                                                <select class="form-select" id="setor" required="" name="setor">
                                                                     <option value="" selected="">Selecione uma opção</option>
-                                                                </select></div>
+                                                                    <?php
+                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $consulta = $pdo->query("SELECT * FROM setor");
+                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                            $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
+                                                                            if ($setor->getSituacao() == '1') {
+                                                                                echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-7 col-xxl-4">
@@ -217,17 +230,52 @@
                                                     </div>
                                                     <div class="col-xl-5 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Estado</span><input class="bg-white form-control" type="text" id="estado" name="estado" readonly=""></div>
+                                                            <div class="input-group"><span class="input-group-text">Estado</span>
+                                                                <input class="bg-white form-control" type="text" id="statusNome" name="statusNome" readonly value="<?php echo $status->getDescricao();?>">
+                                                                <input type="hidden" name="status" value="<?php echo $status->getId();?>">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-xl-5 col-xxl-5">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Categoria</span><select class="form-select" id="categoria" required="" name="categoria">
+                                                                    <option value="" selected="">Selecione uma opção</option>
+                                                                    <?php
+                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $consulta = $pdo->query("SELECT * FROM categoria");
+                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                            $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
+                                                                            if ($categoria->getSituacao() == '1') {
+                                                                                echo '<option value="'.$categoria->getId().'">'.$categoria->getDescricao().'</option>';
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr style="margin-top: 0px;">
                                                 <div class="row">
                                                     <div class="col-xl-5 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Prioridade</span><select class="form-select" id="prioridade" required="" name="prioridade">
-                                                                    <option value="undefined" selected="">Selecione uma opção</option>
-                                                                </select></div>
+                                                            <div class="input-group"><span class="input-group-text">Prioridade</span>
+                                                                <select class="form-select" id="prioridade" required="" name="prioridade">
+                                                                    <option value="" selected="">Selecione uma opção</option>
+                                                                    <?php
+                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $consulta = $pdo->query("SELECT * FROM prioridade");
+                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                            $prioridade = new Prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
+                                                                            if ($prioridade->getSituacao() == '1') {
+                                                                                echo '<option value="'.$prioridade->getId().'">'.$prioridade->getDescricao().'</option>';
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -241,7 +289,7 @@
                                                         <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"></textarea></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-right: 10px;">Salvar</button><a class="btn btn-primary" role="button" href="filaAtendimentos.html">Voltar</a></div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="<?php echo $value;?>">Salvar</button><a class="btn btn-primary" role="button" href="filaAtendimentos.php">Voltar</a></div>
                                             </form>
                                         </div>
                                     </div>
@@ -265,6 +313,9 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
+    <script src="assets/js/buscaUsuariosSetor.js"></script>
+    <script src="assets/js/modalCliente.js"></script>
+    <script src="assets/js/buscaCliente.js"></script>
 </body>
 
 </html>

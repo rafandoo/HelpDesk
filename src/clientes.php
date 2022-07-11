@@ -145,7 +145,7 @@
                                                 <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;" href="javascript:confirmBloquear('action/actCliente.php?acao=situacaoC&idCliente=<?=$cliente->getIdCliente()?>')">
                                                     <i class="fas fa-lock"></i>
                                                 </a>
-                                                <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;">
+                                                <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadClientes.php?acao=alterarC&idCliente=<?=$cliente->getIdCliente()?>">
                                                     <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>
                                                 </a>
                                                 <a class="btn btn-outline-primary border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;">

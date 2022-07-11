@@ -1,5 +1,7 @@
 <?php
-    require_once "util/autoload.php";
+    require_once "../util/autoload.php";
+    require_once "../config/Conexao.php";
+    include_once "../config/default.inc.php";
 
     $acao = "";
 
@@ -12,11 +14,11 @@
             break;
     }
 
-    if ($acao = 'salvar') {
-        insertTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $_POST['dataAtualizacao'], $_POST['dataFinalizacao'], $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['cliente'], $_POST['usuario']));
-    } else if ($acao = 'excluir') {
+    if ($acao == 'salvar') {
+        insertTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $_POST['dataAtualizacao'], null, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['idCliente'], $_POST['usuario']));
+    } else if ($acao == 'excluir') {
         deleteTicket($_POST['idTicket']);
-    } else if ($acao = 'editar') {
+    } else if ($acao == 'editar') {
         updateTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $_POST['dataAtualizacao'], $_POST['dataFinalizacao'], $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['cliente'], $_POST['usuario']));
     }
 
@@ -26,12 +28,11 @@
 
     function insertTicket($ticket) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, data_abertura, data_atualizacao, data_finalizacao, categoria, prioridade, status, setor, cliente, usuario) VALUES (:titulo, :descricao, :dataAbertura, :dataAtualizacao, :dataFinalizacao, :categoria, :prioridade, :status, :setor, :cliente, :usuario)");
+        $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, dataAtualizacao, categoria, prioridade, status, setor, cliente, usuario) VALUES (:titulo, :descricao, :dataAbertura, :dataAtualizacao, :categoria, :prioridade, :status, :setor, :cliente, :usuario)");
         $stmt->bindValue(":titulo", $ticket->getTitulo());
         $stmt->bindValue(":descricao", $ticket->getDescricao());
         $stmt->bindValue(":dataAbertura", $ticket->getDataAbertura());
         $stmt->bindValue(":dataAtualizacao", $ticket->getDataAtualizacao());
-        $stmt->bindValue(":dataFinalizacao", $ticket->getDataFinalizacao());
         $stmt->bindValue(":categoria", $ticket->getCategoria());
         $stmt->bindValue(":prioridade", $ticket->getPrioridade());
         $stmt->bindValue(":status", $ticket->getStatus());
@@ -39,7 +40,7 @@
         $stmt->bindValue(":cliente", $ticket->getCliente());
         $stmt->bindValue(":usuario", $ticket->getUsuario());
         $stmt->execute();
-        header("Location: index.php");
+        header("Location: ../cadTickets.php");
     }
 
     function updateTicket($ticket) {

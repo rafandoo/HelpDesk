@@ -6,7 +6,7 @@
 
     $title = "Cadastro de CLientes - HelpDesk";
 
-    $acao = isset($_POST["acao"]) ? $_POST["acao"] : "";
+    $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
 
     function getCliente($idCliente) {
         $pdo = Conexao::getInstance();
@@ -14,7 +14,25 @@
         $stmt->bindValue(":idCliente", $idCliente);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], 0, $linha['situacao']);
+        return new Cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], getCidadeCliente($linha['cidade']), $linha['email'], $linha['telefone'], $linha['observacoes'], getUsuarioCliente($linha['idUsuario']), $linha['situacao']);
+    }
+
+    function getUsuarioCliente($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :idUsuario");
+        $stmt->bindValue(":idUsuario", $idUsuario);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+    }
+
+    function getCidadeCliente($idCidade) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM cidade WHERE idCidade = :idCidade");
+        $stmt->bindValue(":idCidade", $idCidade);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Cidade($linha['idCidade'], $linha['nome'], $linha['idEstado']);
     }
 
     if ($acao == "alterarC") {
@@ -28,13 +46,18 @@
         $numero = $cliente->getNumero();
         $bairro = $cliente->getBairro();
         $cidade = $cliente->getCidade();
+        $idEstado = $cidade->getIdEstado();
         $email = $cliente->getEmail();
         $telefone = $cliente->getTelefone();
         $observacoes = $cliente->getObservacoes();
+        $usuario = $cliente->getUsuario();
+        $idUsuario = $usuario->getIdUsuario();
+        $login = $usuario->getLogin();
         $situacao = $cliente->getSituacao();
     } else {
         $value = "salvarC";
         $idCliente = 0;
+        $idUsuario = 0;
         $nome = "";
         $nomeFantasia = "";
         $cpfCnpj = "";
@@ -46,6 +69,7 @@
         $telefone = "";
         $observacoes = "";
         $situacao = "";
+        $login = "";
     }
 ?>
 <html lang="pt-br">
@@ -142,6 +166,7 @@
                                             <form method="post" action="action/actCliente.php">
                                                 <div class="row">
                                                 <input type="hidden" id="idCliente" name="idCliente" value="<?php echo $idCliente;?>">
+                                                <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $idUsuario;?>">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="nome"><strong>Nome</strong></label>
                                                             <input class="form-control" type="text" id="nome" name="nome" required="" minlength="2" value="<?php echo $nome;?>">
@@ -156,7 +181,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="cpfCnpj"><strong>CPF/CNPJ</strong><br></label>
-                                                            <input class="form-control" type="text" id="cpfCnpj" placeholder="00.000.000/0001-00" name="cpfCnpj" required="" minlength="11" value="<?php echo $cpfCnpj;?>" onchange="callValidarPHP('cpfCnpj', formatarCpfCnpj(this.value), this)">
+                                                            <input class="form-control" type="text" id="cpfCnpj" placeholder="00.000.000/0001-00" name="cpfCnpj" required="" minlength="11" value="<?php echo $cpfCnpj;?>" onchange="callValidarPHP('cpfCnpj', formatarCpfCnpj(this.value), this)" <?php if ($acao == 'alterarC') echo 'readonly'?>>
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -205,7 +230,13 @@
                                                         <div class="mb-3"><label class="form-label" for="cidade"><strong>Cidade</strong><br></label>
                                                             <select class="form-select" id="cidade" required="" name="cidade">
                                                                 <option value="">Selecione um estado</option>
-                                                            </select></div>
+                                                                <?php 
+                                                                    if ($acao == 'alterarC') {
+                                                                        echo '<option value="'.$cidade->getIdCidade().'" selected>'.$cidade->getNome().'</option>';
+                                                                    }
+                                                                ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -213,22 +244,22 @@
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="usuario"><strong>Usuário</strong></label>
                                                             <div class="input-group"><span class="input-group-text">@</span>
-                                                                <input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>">
+                                                                <input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>" <?php if ($acao != 'alterarC') echo 'onchange="callValidarPHP(\'login\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'login\', this.value,'.$idCliente.', this)"';?>>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label>
-                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>">
+                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>" <?php if ($acao != 'alterarC') echo 'onchange="callValidarPHP(\'email\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'email\', this.value,'.$idCliente.', this)"';?>>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="senha"><strong>Senha</strong><br></label><input class="form-control" type="password" id="senha" name="senha" placeholder="*******" required="" minlength="8"></div>
+                                                        <div class="mb-3"><label class="form-label" for="senha"><strong>Senha</strong><br></label><input class="form-control" type="password" id="senha" name="senha" placeholder="*******" <?php if ($acao != 'alterarC') echo 'required';?> minlength="8"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" required="" minlength="8"></div>
+                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" <?php if ($acao != 'alterarC') echo 'required';?> oninput="validaSenha(this)" minlength="8"></div>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -258,7 +289,7 @@
                                                         <div class="mb-3"></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary" type="submit" value="<?php echo $value;?>">Salvar</button></div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit" name="acao" value="<?php echo $value;?>">Salvar</button></div>
                                             </form>
                                         </div>
                                     </div>

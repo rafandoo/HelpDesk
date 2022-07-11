@@ -12,9 +12,10 @@
         private $status;
         private $setor;
         private $cliente;
+        private $contato;
         private $usuario;   
 
-        public function __construct($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $usuario) {
+        public function __construct($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario) {
             $this->idTicket = $idTicket;
             $this->titulo = $titulo;
             $this->descricao = $descricao;
@@ -26,6 +27,7 @@
             $this->status = $status;
             $this->setor = $setor;
             $this->cliente = $cliente;
+            $this->contato = $contato;
             $this->usuario = $usuario;
         }
 
@@ -71,6 +73,10 @@
 
         public function getCliente() {
             return $this->cliente;
+        }
+
+        public function getContato() {
+            return $this->contato;
         }
 
         public function getUsuario() {
@@ -129,6 +135,10 @@
             $this->cliente = $cliente;
         }
 
+        public function setContato($contato) {
+            $this->contato = $contato;
+        }
+
         public function setUsuario($usuario) {
             $this->usuario = $usuario;
         }
@@ -145,6 +155,7 @@
             "Status: ".$this->status." | ".
             "Setor: ".$this->setor." | ".
             "Cliente: ".$this->cliente." | ".
+            "Contato: ".$this->contato." | ".
             "Usuário: ".$this->usuario;
         }
     }
