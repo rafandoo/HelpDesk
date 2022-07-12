@@ -1,4 +1,5 @@
 <?php
+    /* A class that represents a user. */
     class usuario {
         
         private $idUsuario;
@@ -123,3 +124,4 @@
             "Situacao: ".$this->situacao;
         }
     }
+?>

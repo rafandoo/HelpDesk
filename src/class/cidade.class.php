@@ -1,4 +1,5 @@
 <?php
+    /* It's a class that represents a city. */
     class cidade {
         
         private $idCidade;

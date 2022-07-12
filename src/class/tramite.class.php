@@ -1,4 +1,5 @@
 <?php
+    /* It's a class that represents a tramite. */
     class tramite {
 
         private $idTramite;
@@ -89,5 +90,4 @@
             "Usuario: ".$this->usuario;
         }
     }
-
 ?>

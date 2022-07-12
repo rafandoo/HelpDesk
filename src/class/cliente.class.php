@@ -1,4 +1,5 @@
 <?php
+    /* A class that represents a client. */
     class cliente {
 
         private $idCliente;

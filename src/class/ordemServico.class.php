@@ -1,4 +1,5 @@
 <?php
+    /* A class that represents an order of service. */
     class ordemServico {
         
         private $idOrdemServico;

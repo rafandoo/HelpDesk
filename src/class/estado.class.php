@@ -1,4 +1,5 @@
 <?php
+    /* It's a class that represents a state in Brazil. */
     class estado {
         
         private $idEstado;
@@ -41,6 +42,4 @@
             "Sigla: ".$this->sigla;
         }
     }
-
-
 ?>

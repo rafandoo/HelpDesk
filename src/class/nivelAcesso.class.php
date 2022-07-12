@@ -1,4 +1,5 @@
 <?php
+/* It's a class that represents a level of access. */
     class nivelAcesso {
 
         private $idNivelAcesso;
