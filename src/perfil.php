@@ -7,7 +7,8 @@
 
     $title = "Meu Perfil";
 
-    function getUsuario($idUsuario) {
+    function getUsuario($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);

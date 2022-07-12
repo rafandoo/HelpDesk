@@ -10,7 +10,8 @@
 
     $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
 
-    function getDescricao($idSetor) {
+    function getDescricao($idSetor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT descricao FROM setor WHERE idSetor = :id");
         $stmt->bindValue(":id", $idSetor);

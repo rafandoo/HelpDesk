@@ -1,4 +1,5 @@
 <?php
+
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
@@ -16,19 +17,21 @@
 
     if ($acao == 'salvar') {
         insertSetor(buildSetor(0, $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'excluir') {
+    } elseif ($acao == 'excluir') {
         deleteSetor($_GET['idSetor']);
-    } else if ($acao == 'editar') {
+    } elseif ($acao == 'editar') {
         updateSetor(buildSetor($_POST['idSetor'], $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'situacao') {
+    } elseif ($acao == 'situacao') {
         situationSetor($_GET['idSetor']);
     }
 
-    function buildSetor($idSetor, $descricao, $situacao) {
+    function buildSetor($idSetor, $descricao, $situacao)
+    {
         return new setor($idSetor, $descricao, $situacao);
     }
 
-    function insertSetor($setor) {
+    function insertSetor($setor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO setor (descricao, situacao) VALUES (:descricao, :situacao)");
         $stmt->bindValue(":descricao", $setor->getDescricao());
@@ -37,7 +40,8 @@
         header("Location: ../setores.php");
     }
 
-    function updateSetor($setor) {
+    function updateSetor($setor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE setor SET descricao = :descricao, situacao = :situacao WHERE idSetor = :id");
         $stmt->bindValue(":descricao", $setor->getDescricao());
@@ -47,14 +51,16 @@
         header("Location: ../setores.php");
     }
 
-    function deleteSetor($idSetor) {
+    function deleteSetor($idSetor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM setor WHERE idSetor = :id");
         $stmt->bindValue(":id", $idSetor);
         $stmt->execute();
     }
 
-    function situationSetor($idSetor) {
+    function situationSetor($idSetor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT situacao FROM setor WHERE idSetor = :id");
         $stmt->bindValue(":id", $idSetor);
@@ -66,7 +72,6 @@
             $stmt = $pdo->prepare("UPDATE setor SET situacao = 0 WHERE idSetor = :id");
         }
         $stmt->bindValue(":id", $idSetor);
-            $stmt->execute();
+        $stmt->execute();
         header("Location: ../setores.php");
     }
-?>

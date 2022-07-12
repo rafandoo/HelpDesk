@@ -10,7 +10,8 @@
     $filtroStatus = isset($_GET["filtroStatus"]) ? $_GET["filtroStatus"] : 0;
     $filtroTicket = isset($_GET["filtroTicket"]) ? $_GET["filtroTicket"] : 0;
 
-    function getClientes($idUsuario) {
+    function getClientes($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
@@ -19,7 +20,8 @@
         return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
     }
 
-    function getStatus($idStatus) {
+    function getStatus($idStatus)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM status WHERE idStatus = :idStatus");
         $stmt->bindValue(":idStatus", $idStatus);
@@ -28,7 +30,8 @@
         return new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
     }
 
-    function getUsuarios($idUsuario) {
+    function getUsuarios($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :idUsuario");
         $stmt->bindValue(":idUsuario", $idUsuario);
@@ -37,7 +40,8 @@
         return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
-    function filtraTickets($filtroStatus, $filtroTicket, $idCliente) {
+    function filtraTickets($filtroStatus, $filtroTicket, $idCliente)
+    {
         $pdo = Conexao::getInstance();
         $sql = "SELECT * FROM ticket WHERE  cliente = $idCliente";
         if ($filtroStatus != 0) {
@@ -123,9 +127,9 @@
                                                         <?php
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
-                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                 $status = new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
-                                                                if ($status->getId() == $filtroStatus){
+                                                                if ($status->getId() == $filtroStatus) {
                                                                     echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
                                                                 } else {
                                                                     echo '<option value="'.$status->getId().'">'.$status->getDescricao().'</option>';
@@ -170,22 +174,20 @@
                                         <?php
                                             $pdo = Conexao::getInstance();
                                             $consulta = filtraTickets($filtroStatus, $filtroTicket, getClientes($_SESSION['idUsuario'])->getIdCliente());
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                                                $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
-                                        ?>
+                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']); ?>
                                         <tr class="align-middle">
-                                            <td>#<?php echo $ticket->getIdTicket();?></td>
-                                            <td><?php echo $ticket->getTitulo();?></td>
-                                            <td><?php echo $ticket->getDataAbertura();?></td>
-                                            <td><?php echo getStatus($ticket->getStatus())->getDescricao();?></td>
-                                            <?php 
+                                            <td>#<?php echo $ticket->getIdTicket(); ?></td>
+                                            <td><?php echo $ticket->getTitulo(); ?></td>
+                                            <td><?php echo $ticket->getDataAbertura(); ?></td>
+                                            <td><?php echo getStatus($ticket->getStatus())->getDescricao(); ?></td>
+                                            <?php
                                                 if ($ticket->getUsuario() == 0) {
                                                     echo "<td>Não atribuído</td>";
                                                 } else {
                                                     echo "<td>".getUsuarios($ticket->getUsuario())->getNome()."</td>";
-                                                }
-                                            ?>
-                                            <td><?php echo $ticket->getDataAtualizacao();?></td>
+                                                } ?>
+                                            <td><?php echo $ticket->getDataAtualizacao(); ?></td>
                                             <td class="text-nowrap text-end align-middle"><a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;" href="detTicket.php?idTicket=<?=$ticket->getIdTicket()?>"><i class="far fa-eye" style="width: 15px;"></i></a></td>
                                         </tr>
                                         <?php

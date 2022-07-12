@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php 
+<?php
     include "validaSessao.php";
     include "util/permissao.php";
     require_once "util/autoload.php";
@@ -7,11 +7,12 @@
     include_once "config/default.inc.php";
 
     $title = "Usuários";
-    
+
     $procurar = isset($_GET["procurar"]) ? $_GET["procurar"] : "";
     $filtro = isset($_GET["filtro"]) ? $_GET["filtro"] : "nome";
 
-    function getSetores($idSetor) {
+    function getSetores($idSetor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM setor WHERE idSetor = :id");
         $stmt->bindValue(":id", $idSetor);
@@ -20,7 +21,8 @@
         return new setor($result['idSetor'], $result['descricao'], $result['situacao']);
     }
 
-    function getNiveisAcesso($idNivelAcesso) {
+    function getNiveisAcesso($idNivelAcesso)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM nivelAcesso WHERE idNivelAcesso = :id");
         $stmt->bindValue(":id", $idNivelAcesso);
@@ -29,7 +31,8 @@
         return new nivelAcesso($result['idNivelAcesso'], $result['nome']);
     }
 
-    function rowCounter($filtro, $procurar) {
+    function rowCounter($filtro, $procurar)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%'");
         $stmt->execute();
@@ -166,23 +169,21 @@
                                             $pdo = Conexao::getInstance();
                                             $consulta = $pdo->query("SELECT * FROM usuario WHERE $filtro LIKE '%$procurar%' AND nivelAcesso != 1 ORDER BY idUsuario");
                                             while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                                                $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
-                                        ?>
+                                                $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']); ?>
                                         <tr class="align-middle">
-                                            <td><?php echo $usuario->getIdUsuario();?></td>
-                                            <td><?php echo $usuario->getNome().' '.$usuario->getSobrenome();?></td>
-                                            <td><?php echo $usuario->getLogin();?></td>
-                                            <td><?php echo $usuario->getEmail();?></td>
-                                            <td><?php echo getNiveisAcesso($usuario->getNivelAcesso())->getNome();?></td>
+                                            <td><?php echo $usuario->getIdUsuario(); ?></td>
+                                            <td><?php echo $usuario->getNome().' '.$usuario->getSobrenome(); ?></td>
+                                            <td><?php echo $usuario->getLogin(); ?></td>
+                                            <td><?php echo $usuario->getEmail(); ?></td>
+                                            <td><?php echo getNiveisAcesso($usuario->getNivelAcesso())->getNome(); ?></td>
                                             <?php
                                                 if ($usuario->getSetor() != 0) {
                                                     echo "<td>".getSetores($usuario->getSetor())->getDescricao()."</td>";
                                                 } else {
                                                     echo "<td>Não possui setor</td>";
-                                                }
-                                            ?>
+                                                } ?>
                                             
-                                            <td><?php echo $usuario->getStrSituacao();?></td>
+                                            <td><?php echo $usuario->getStrSituacao(); ?></td>
                                             <td class="text-end align-middle">
                                                 <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;" href="javascript:confirmBloquear('action/actUsuario.php?acao=situacao&idUsuario=<?=$usuario->getIdUsuario()?>')">
                                                     <i class="fas fa-lock"></i>

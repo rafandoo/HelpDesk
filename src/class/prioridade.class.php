@@ -1,5 +1,5 @@
 <?php
-    class prioridade extends absClassIdDescricaoSituacao {
-        
-    } 
-?>
+
+    class prioridade extends absClassIdDescricaoSituacao
+    {
+    }

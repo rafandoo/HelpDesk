@@ -1,25 +1,23 @@
 function confirmExclusao(url) {
-    if (confirm("Confirmar exclusão?"))
-        location.href = url;
+  if (confirm("Confirmar exclusão?")) location.href = url;
 }
 
 function confirmBloquear(url) {
-    if (confirm("Confirmar alteração de situação?"))
-        location.href = url;
+  if (confirm("Confirmar alteração de situação?")) location.href = url;
 }
 
 function alertSemPermissao() {
-    alert("Você não tem permissão para fazer esta alteração!");
+  alert("Você não tem permissão para fazer esta alteração!");
 }
 
 function alertExistLogin() {
-    alert("O usuário informado já existe!");
+  alert("O usuário informado já existe!");
 }
 
 function alertExistEmail() {
-    alert("O email informado já existe!");
+  alert("O email informado já existe!");
 }
 
 function alertSenha() {
-    alert("A senha digitada não confere!");
+  alert("A senha digitada não confere!");
 }

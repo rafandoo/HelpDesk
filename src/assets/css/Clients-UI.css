@@ -10,7 +10,8 @@
   height: 100%;
 }
 
-.timeline-item:before, .timeline:before {
+.timeline-item:before,
+.timeline:before {
   content: " ";
   display: inline-block;
   position: absolute;
@@ -28,7 +29,7 @@
 
 .card {
   margin-bottom: 24px;
-  box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
+  box-shadow: 0 0 0.875rem 0 rgba(33, 37, 41, 0.05);
 }
 
 .card {
@@ -40,7 +41,7 @@
   background-color: #fff;
   background-clip: initial;
   border: 0 solid transparent;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .card-body {
@@ -49,7 +50,7 @@
 }
 
 .card-header:first-child {
-  border-radius: .25rem .25rem 0 0;
+  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .card-header {
@@ -57,7 +58,7 @@
 }
 
 .pb-0 {
-  padding-bottom: 0!important;
+  padding-bottom: 0 !important;
 }
 
 .card-header {
@@ -66,4 +67,3 @@
   background-color: #fff;
   border-bottom: 0 solid transparent;
 }
-

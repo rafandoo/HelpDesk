@@ -1,5 +1,5 @@
 <?php
-    class categoria extends absClassIdDescricaoSituacao {
 
+    class categoria extends absClassIdDescricaoSituacao
+    {
     }
-?>
