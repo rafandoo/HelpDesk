@@ -124,7 +124,7 @@
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
                                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+                                                                $status = new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
                                                                 if ($status->getId() == $filtroStatus){
                                                                     echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
                                                                 } else {
