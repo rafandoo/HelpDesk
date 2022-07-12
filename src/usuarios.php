@@ -179,7 +179,14 @@
                                             <td><?php echo $usuario->getLogin();?></td>
                                             <td><?php echo $usuario->getEmail();?></td>
                                             <td><?php echo getNiveisAcesso($usuario->getNivelAcesso())->getNome();?></td>
-                                            <td><?php echo getSetores($usuario->getSetor())->getDescricao();?></td>
+                                            <?php
+                                                if ($usuario->getSetor() != 0) {
+                                                    echo "<td><?php echo getSetores($usuario->getSetor())->getDescricao();?></td>";
+                                                } else {
+                                                    echo "<td>Não possui setor</td>";
+                                                }
+                                            ?>
+                                            
                                             <td><?php echo $usuario->getStrSituacao();?></td>
                                             <td class="text-end align-middle">
                                                 <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;" href="javascript:confirmBloquear('action/actUsuario.php?acao=situacao&idUsuario=<?=$usuario->getIdUsuario()?>')">
