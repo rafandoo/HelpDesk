@@ -22,8 +22,12 @@ The present Help Desk system project was developed for the WEB I Development cou
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"/>
   <img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
 </p>
 
+## Libraries and frameworks :books:
+
+[Summernote](https://github.com/summernote/summernote/)
 
 ## Functionalities :wrench:
 
@@ -36,12 +40,13 @@ The present Help Desk system project was developed for the WEB I Development cou
 
 ## Observations :eyes:
 
-
+This project is not yet in its final version.
 
 ## Future enhancements :rocket:
 
-:heavy_check_mark: 
+:heavy_check_mark: Internal chat.
 
+:heavy_check_mark: Attachment management and control.
 
 ## License :key:
 
