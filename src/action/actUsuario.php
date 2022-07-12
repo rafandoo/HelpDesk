@@ -1,4 +1,5 @@
 <?php
+
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
@@ -16,21 +17,23 @@
 
     if ($acao == 'salvar') {
         insertUsuario(buildUsuario(0, $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['usuario'], $_POST['senha'], $_POST['nivelAcesso'], $_POST['setor'], $_POST['situacao']));
-    } else if ($acao == 'editar') {
+    } elseif ($acao == 'editar') {
         updateUsuario(buildUsuario($_POST['idUsuario'], $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['usuario'], $_POST['senha'], $_POST['nivelAcesso'], $_POST['setor'], $_POST['situacao']));
-    } else if ($acao == 'situacao') {
+    } elseif ($acao == 'situacao') {
         situationUsuario($_GET['idUsuario']);
-    } else if ($acao == 'editarPerfil') {
+    } elseif ($acao == 'editarPerfil') {
         updateUsuarioPerfil(buildUsuario($_POST['idUsuario'], $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['login'], $_POST['senha'], 0, 0, 0));
-    } else if ($acao == 'editarPerfilCliente') {
+    } elseif ($acao == 'editarPerfilCliente') {
         updateUsuarioPerfilCliente(buildUsuario($_POST['idUsuario'], $_POST['nome'], "", $_POST['email'], $_POST['login'], $_POST['senha'], 0, 0, 0));
     }
 
-    function buildUsuario($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao) {
+    function buildUsuario($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao)
+    {
         return new usuario($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao);
     }
 
-    function insertUsuario($usuario) {
+    function insertUsuario($usuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO usuario (nome, sobrenome, email, login, senha, nivelAcesso, setor, situacao) VALUES (:nome, :sobrenome, :email, :login, :senha, :nivelAcesso, :setor, :situacao)");
         $stmt->bindValue(":nome", $usuario->getNome());
@@ -47,7 +50,8 @@
         }
     }
 
-    function updateUsuario($usuario) {
+    function updateUsuario($usuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, email = :email, login = :login, senha = :senha, nivelAcesso = :nivelAcesso, setor = :setor, situacao = :situacao WHERE idUsuario = (:id)");
         $stmt->bindValue(":nome", $usuario->getNome());
@@ -69,7 +73,8 @@
         }
     }
 
-    function situationUsuario($idUsuario) {
+    function situationUsuario($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT situacao FROM usuario WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
@@ -87,7 +92,8 @@
         }
     }
 
-    function insertUsuarioCliente($usuario) {
+    function insertUsuarioCliente($usuario)
+    {
         insertUsuario($usuario);
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
@@ -96,7 +102,8 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateUsuarioCliente($usuario) {
+    function updateUsuarioCliente($usuario)
+    {
         updateUsuario($usuario);
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login");
@@ -105,7 +112,8 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function getSenhaUsuario($idUsuario) {
+    function getSenhaUsuario($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT senha FROM usuario WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
@@ -113,7 +121,8 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function updateUsuarioPerfil($usuario) {
+    function updateUsuarioPerfil($usuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, email = :email, login = :login, senha = :senha WHERE idUsuario = (:id)");
         $stmt->bindValue(":nome", $usuario->getNome());
@@ -127,15 +136,16 @@
         }
         $stmt->bindValue(":id", $usuario->getIdUsuario());
         $stmt->execute();
-        
+
         header("Location: ../index.php");
     }
 
-    function updateUsuarioPerfilCliente($usuario) {
+    function updateUsuarioPerfilCliente($usuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, email = :email, login = :login, senha = :senha WHERE idUsuario = (:id)");
         $stmt->bindValue(":nome", $usuario->getNome());
-        $stmt->bindValue(":email", $usuario->getEmail());   
+        $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
         if ($usuario->getSenha() == "") {
             $stmt->bindValue(":senha", getSenhaUsuario($usuario->getIdUsuario())['senha']);
@@ -147,4 +157,3 @@
 
         header("Location: ../cliente/homeCli.php");
     }
-?>
