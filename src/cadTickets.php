@@ -176,7 +176,7 @@
                                                 <div class="col d-xxl-flex align-items-xxl-center">
                                                     <p class="fs-5 text-primary m-0 fw-bold">Informações do chamado</p>
                                                 </div>
-                                                <div class="col text-end"><a class="btn btn-primary" role="button" onclick="validaTicket('listaTramites.php?idTicket=<?=$idTicket?>')">Trâmites</a></div>
+                                                <div class="col text-end"><button class="btn btn-primary" type="button" style="margin-right: 10px;" hidden>Ordem de Serviço</button><a class="btn btn-primary" role="button" onclick="validaTicket('listaTramites.php?idTicket=<?=$idTicket?>')">Trâmites</a></div>
                                             </div>
                                         </div>
                                         <div class="card-body" style="padding-top: 0px;">

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php 
     include "validaSessao.php";
+    include "util/permissao.php";
     require_once "util/autoload.php";
     require_once "config/Conexao.php";
     include_once "config/default.inc.php";
@@ -9,12 +10,6 @@
     
     $procurar = isset($_GET["procurar"]) ? $_GET["procurar"] : "";
     $filtro = isset($_GET["filtro"]) ? $_GET["filtro"] : "nome";
-
-    if ($_SESSION['nivelAcesso'] == 2) {
-        header("Location: 403.php");
-    } else if ($_SESSION['nivelAcesso'] == 1) {
-        header("Location: cliente\homeCli.php");
-    }
 
     function getSetores($idSetor) {
         $pdo = Conexao::getInstance();

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     include "validaSessao.php";
+    include "util/permissao.php";
     require_once "util/autoload.php";
     require_once "config/Conexao.php";
     include_once "config/default.inc.php";
@@ -8,12 +9,6 @@
     $title = "Categorias";
     
     $procurar = isset($_POST["procurar"]) ? $_POST["procurar"] : "";
-
-    if ($_SESSION['nivelAcesso'] == 2) {
-        header("Location: 403.php");
-    } else if ($_SESSION['nivelAcesso'] == 1) {
-        header("Location: cliente\homeCli.php");
-    }
 
     function rowCounter($procurar) {
         $pdo = Conexao::getInstance();

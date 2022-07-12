@@ -1,4 +1,5 @@
 function filtrarCliente() {
+
     var fitro = document.getElementById("filtro").value;
     var procurar = document.getElementById("procurar").value;
 

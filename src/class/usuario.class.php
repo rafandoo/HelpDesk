@@ -103,7 +103,7 @@
             $this->situacao = $situacao;
         }
 
-        function getStrSituacao() {
+        public function getStrSituacao() {
             if ($this->situacao == 1) {
                 return "Ativo";
             } else {
