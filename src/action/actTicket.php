@@ -17,10 +17,12 @@
     if ($acao == 'salvar') {
         insertTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $_POST['dataAtualizacao'], null, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['idCliente'], $_POST['contato'], $_POST['usuario']));
     } else if ($acao == 'excluir') {
-        deleteTicket($_POST['idTicket']);
+        deleteTicket($_GET['idTicket']);
     } else if ($acao == 'editar') {
         $dataAtualizacao = date('Y-m-d H:i');
         updateTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $dataAtualizacao, $dataFinalizacao, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['cliente'], $_POST['contato'], $_POST['usuario']));
+    } else if ($acao == 'abrirTicketCliente') {
+        insertTicketCliente(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], NULL, NULL, $_POST['categoria'], NULL, 1, $_POST['setor'], $_POST['cliente'], $_POST['contato'], 0));
     }
 
     function buildTicket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario) {
@@ -66,7 +68,7 @@
 
     function deleteTicket($idTicket) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM ticket WHERE id_ticket = :idTicket");
+        $stmt = $pdo->prepare("DELETE FROM ticket WHERE idTicket = :idTicket");
         $stmt->bindValue(":idTicket", $idTicket);
         $stmt->execute();
         header("Location: ../filaAtendimentos.php");
@@ -86,5 +88,21 @@
         $stmt->bindValue(":status", $status);
         $stmt->bindValue(":idTicket", $idTicket);
         $stmt->execute();
+    }
+
+    function insertTicketCliente($ticket) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, categoria, status, setor, cliente, contato, usuario) VALUES (:titulo, :descricao, :dataAbertura, :categoria, :status, :setor, :cliente, :contato, :usuario)");
+        $stmt->bindValue(":titulo", $ticket->getTitulo());
+        $stmt->bindValue(":descricao", $ticket->getDescricao());
+        $stmt->bindValue(":dataAbertura", $ticket->getDataAbertura());
+        $stmt->bindValue(":categoria", $ticket->getCategoria());
+        $stmt->bindValue(":status", $ticket->getStatus());
+        $stmt->bindValue(":setor", $ticket->getSetor());
+        $stmt->bindValue(":cliente", $ticket->getCliente());
+        $stmt->bindValue(":contato", $ticket->getContato());
+        $stmt->bindValue(":usuario", $ticket->getUsuario());
+        $stmt->execute();
+        header("Location: ../cliente/homeCli.php");
     }
 ?>

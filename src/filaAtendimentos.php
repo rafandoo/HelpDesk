@@ -7,6 +7,10 @@
 
     $title = "Fila de Atendimentos";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $filtroPrioridade = isset($_GET["filtroPrioridade"]) ? $_GET["filtroPrioridade"] : 0;
     $filtroStatus = isset($_GET["filtroStatus"]) ? $_GET["filtroStatus"] : 0;
     $filtroCategoria = isset($_GET["filtroCategoria"]) ? $_GET["filtroCategoria"] : 0;
@@ -59,6 +63,8 @@
         }
         if ($filtroStatus != '0') {
             $sql .= " AND status = $filtroStatus";
+        } else {
+            $sql .= " AND status != 4";
         }
         if ($filtroCategoria != '0') {
             $sql .= " AND categoria = $filtroCategoria";
@@ -71,6 +77,9 @@
         }
         if ($filtroSetor != '0') {
             $sql .= " AND setor = $filtroSetor";
+        } else {
+            $setorUsuario = $_SESSION['setor'];
+            $sql .= " AND setor = $setorUsuario";
         }
         $sql .= " ORDER BY idTicket DESC";        
         $consulta = $pdo->query($sql);
@@ -341,6 +350,7 @@
                                             $consulta = filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor);
                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
                                                 $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+                                                $url = '"action/actTicket.php?acao=excluir&idTicket='.$ticket->getIdTicket().'"';
                                         ?>
                                         <tr class="align-middle">
                                             <td>#<?php echo $ticket->getIdTicket();?></td>
@@ -353,7 +363,7 @@
                                             <td><?php echo $ticket->getDataAtualizacao();?></td>
                                             <td class="text-nowrap text-end align-middle">
                                                 <a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;" href="cadTickets.php?acao=alterar&idTicket=<?=$ticket->getIdTicket()?>"><i class="far fa-eye" style="width: 15px;"></i></a>
-                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a>
+                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" <?php if ($_SESSION['nivelAcesso'] != 3) echo "onclick='alertSemPermissao()'"; else echo "onclick='confirmExclusao($url)'";?>><i class="far fa-trash-alt"></i></a>
                                             </td>
                                         </tr>
                                         <?php
@@ -403,6 +413,7 @@
     <script src="assets/js/todo.js"></script>
     <script src="assets/js/modalCliente.js"></script>
     <script src="assets/js/buscaCliente.js"></script>
+    <script src="assets/js/confirmMsg.js"></script>
 </body>
 
 </html>

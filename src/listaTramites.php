@@ -7,6 +7,10 @@
 
     $title = "Lista de Tramites";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $idTicket = isset($_GET['idTicket']) ? $_GET['idTicket'] : 0;
 
     $cliente = getCliente(getTicket($idTicket)->getCliente())->getNome();

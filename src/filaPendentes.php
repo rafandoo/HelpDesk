@@ -7,6 +7,10 @@
 
     $title = "Chamados pendentes";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     function getClientes($idCliente) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");

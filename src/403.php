@@ -2,6 +2,10 @@
 <?php
     include "validaSessao.php";
     $title = "Acesso negado - 403";
+
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
 ?>
 <html>
 

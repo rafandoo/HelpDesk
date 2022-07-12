@@ -7,6 +7,10 @@
 
     $title = "Clientes";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $procurar = isset($_GET["procurar"]) ? $_GET["procurar"] : "";
     $filtro = isset($_GET["filtro"]) ? $_GET["filtro"] : "nome";
 ?>

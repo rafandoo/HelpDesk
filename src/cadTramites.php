@@ -7,6 +7,10 @@
 
     $title = "Cadastro de Tramites";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $idTicket = isset($_GET["idTicket"]) ? $_GET["idTicket"] : 0;
     $idStatus = getTicket($idTicket)->getStatus();
     $contato = getTicket($idTicket)->getContato();

@@ -7,6 +7,10 @@
 
     $title = "Cadastro de CLientes";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
 
     function getCliente($idCliente) {

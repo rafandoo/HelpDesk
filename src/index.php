@@ -7,11 +7,15 @@
 
     $title = "Home - HelpDesk";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $setor = $_SESSION['setor'];
 
     function countAguardandoAtendimentos($setor) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 1 AND setor = :setor");
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 1 AND setor = :setor AND usuario = 0");
         $stmt->bindValue(":setor", $setor);
         $stmt->execute();
         return $stmt->fetchColumn();

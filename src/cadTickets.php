@@ -7,6 +7,10 @@
 
     $title = "Cadastro de Tickets";
 
+    if ($_SESSION['nivelAcesso'] == 1) {
+        header("Location: cliente/homeCli.php");
+    }
+
     $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
 
     function getStatus($idStatus) {
@@ -36,16 +40,27 @@
         return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
 
+    function getClientes($idCliente) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :id");
+        $stmt->bindValue(":id", $idCliente);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
+    }
+
     if ($acao == 'alterar') {
         $value = 'editar';
         $ticket = getTicket($_GET['idTicket']);
         $idTicket = $ticket->getIdTicket();
         $dataAbertura = $ticket->getDataAbertura();
         $dataAtualizacao = $ticket->getDataAtualizacao();
-        $cliente = $ticket->getCliente();
+        $cliente = getClientes($ticket->getCliente())->getNome();
         $contato = $ticket->getContato();
         $idSetor = $ticket->getSetor();
-        $usuario = getUsuario($ticket->getUsuario())->getNome();
+        if ($ticket->getUsuario() != 0) {
+            $usuario = getUsuario($ticket->getUsuario())->getNome();
+        }
         $idUsuario = $ticket->getUsuario();
         $status = getStatus($ticket->getStatus())->getDescricao();
         $idStatus = $ticket->getStatus();
@@ -245,7 +260,7 @@
                                                         <div class="mb-3">
                                                             <div class="input-group"><span class="input-group-text">Setor</span>
                                                                 <select class="form-select" id="setor" required="" name="setor">
-                                                                    <option value="" selected="">Selecione uma opção</option>
+                                                                    <option value="">Selecione uma opção</option>
                                                                     <?php
                                                                         $pdo = Conexao::getInstance(); 
                                                                         $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
@@ -268,7 +283,11 @@
                                                                     <option value="" selected="">Selecione uma opção</option>
                                                                     <?php
                                                                         if ($acao == 'alterar') {
-                                                                            echo '<option value="'.$idUsuario.'" selected="">'.$usuario.'</option>';
+                                                                            if ($idUsuario == 0) {
+                                                                                echo '<option value="0" selected="">Não atribuído</option>';
+                                                                            } else {
+                                                                                echo '<option value="'.$idUsuario.'" selected="">'.$usuario.'</option>';
+                                                                            }
                                                                         }
                                                                     ?>
                                                                 </select></div>

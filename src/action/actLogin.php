@@ -44,7 +44,7 @@
         $_SESSION['setor'] = $usuario->getSetor();
         
         if ($usuario->getNivelAcesso() == 1) {
-            header("Location: ../index.php");
+            header("Location: ../cliente/homeCli.php");
         } else {
             header("Location: ../index.php");
         }

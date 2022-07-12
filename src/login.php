@@ -35,7 +35,7 @@
                                             <div class="mb-3"><input class="form-control form-control-user" type="password" id="senha" placeholder="Senha" name="senha"></div>
                                             <hr><button class="btn btn-primary d-block btn-user w-100 mb-3" type="submit" name="acao" value="logar">Login</button>
                                         </form>
-                                        <div class="text-center"><a class="small" href="esqueceuSenha.php">Esqueceu a senha?</a></div>
+                                        <div class="text-center" hidden><a class="small" href="esqueceuSenha.php">Esqueceu a senha?</a></div>
                                     </div>
                                 </div>
                             </div>

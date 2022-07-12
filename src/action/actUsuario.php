@@ -22,6 +22,8 @@
         situationUsuario($_GET['idUsuario']);
     } else if ($acao == 'editarPerfil') {
         updateUsuarioPerfil(buildUsuario($_POST['idUsuario'], $_POST['nome'], $_POST['sobrenome'], $_POST['email'], $_POST['login'], $_POST['senha'], 0, 0, 0));
+    } else if ($acao == 'editarPerfilCliente') {
+        updateUsuarioPerfilCliente(buildUsuario($_POST['idUsuario'], $_POST['nome'], "", $_POST['email'], $_POST['login'], $_POST['senha'], 0, 0, 0));
     }
 
     function buildUsuario($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao) {
@@ -127,5 +129,22 @@
         $stmt->execute();
         
         header("Location: ../index.php");
+    }
+
+    function updateUsuarioPerfilCliente($usuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("UPDATE usuario SET nome = :nome, email = :email, login = :login, senha = :senha WHERE idUsuario = (:id)");
+        $stmt->bindValue(":nome", $usuario->getNome());
+        $stmt->bindValue(":email", $usuario->getEmail());   
+        $stmt->bindValue(":login", $usuario->getLogin());
+        if ($usuario->getSenha() == "") {
+            $stmt->bindValue(":senha", getSenhaUsuario($usuario->getIdUsuario())['senha']);
+        } else {
+            $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+        }
+        $stmt->bindValue(":id", $usuario->getIdUsuario());
+        $stmt->execute();
+
+        header("Location: ../cliente/homeCli.php");
     }
 ?>
