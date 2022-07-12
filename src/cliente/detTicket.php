@@ -9,7 +9,8 @@
 
     $idTicket = isset($_GET['idTicket']) ? $_GET['idTicket'] : 0;
 
-    function getTicket($idTicket) {
+    function getTicket($idTicket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :id");
         $stmt->bindValue(":id", $idTicket);
@@ -117,9 +118,8 @@
                                         <?php
                                             $pdo = Conexao::getInstance();
                                             $consulta = $pdo->query("SELECT * FROM tramite WHERE idTicket = '$idTicket'");
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $tramite = new tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']);
-                                        ?>
+                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                $tramite = new tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']); ?>
                                         <tr class="align-middle">
                                             <td class="align-middle"><?php echo $tramite->getIdTramite(); ?></td>
                                             <td class="align-middle"><?php echo $tramite->getData(); ?></td>

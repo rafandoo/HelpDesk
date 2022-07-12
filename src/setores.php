@@ -7,10 +7,11 @@
     include_once "config/default.inc.php";
 
     $title = "Setores";
-    
+
     $procurar = isset($_POST["procurar"]) ? $_POST["procurar"] : "";
 
-    function rowCounter($procurar) {
+    function rowCounter($procurar)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM setor WHERE descricao LIKE '%$procurar%'");
         $stmt->execute();
@@ -134,13 +135,12 @@
                                         <?php
                                             $pdo = Conexao::getInstance();
                                             $consulta = $pdo->query("SELECT * FROM setor WHERE descricao LIKE '%$procurar%' ORDER BY 1 ASC");
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
-                                        ?>
+                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']); ?>
                                         <tr class="align-middle">
-                                            <td><?php echo $setor->getId();?></td>
-                                            <td><?php echo $setor->getDescricao();?></td>
-                                            <td><?php echo $setor->getStrSituacao();?></td>
+                                            <td><?php echo $setor->getId(); ?></td>
+                                            <td><?php echo $setor->getDescricao(); ?></td>
+                                            <td><?php echo $setor->getStrSituacao(); ?></td>
                                             <td class="text-end align-middle">
                                                 <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadSetores.php?acao=alterar&idSetor=<?=$setor->getId()?>">
                                                     <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>

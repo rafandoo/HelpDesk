@@ -1,11 +1,12 @@
 <?php
+
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
 
     $acao = "";
 
-    switch($_SERVER['REQUEST_METHOD']) {
+    switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
             $acao = $_GET['acao'];
             break;
@@ -16,19 +17,21 @@
 
     if ($acao == 'salvar') {
         insertCategoria(buildCategoria(0, $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'excluir') {
+    } elseif ($acao == 'excluir') {
         deleteCategoria($_GET['idCategoria']);
-    } else if ($acao == 'editar') {
+    } elseif ($acao == 'editar') {
         updateCategoria(buildCategoria($_POST['idCategoria'], $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'situacao') {
+    } elseif ($acao == 'situacao') {
         situationCategoria($_GET['idCategoria']);
     }
 
-    function buildCategoria($idCategoria, $descricao, $situacao) {
+    function buildCategoria($idCategoria, $descricao, $situacao)
+    {
         return new categoria($idCategoria, $descricao, $situacao);
     }
 
-    function insertCategoria($categoria) {
+    function insertCategoria($categoria)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO categoria (descricao, situacao) VALUES (:descricao, :situacao)");
         $stmt->bindValue(':descricao', $categoria->getDescricao());
@@ -37,7 +40,8 @@
         header("Location: ../categorias.php");
     }
 
-    function updateCategoria($categoria) {
+    function updateCategoria($categoria)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE categoria SET descricao = :descricao, situacao = :situacao WHERE idCategoria = :id");
         $stmt->bindValue(':descricao', $categoria->getDescricao());
@@ -47,14 +51,16 @@
         header("Location: ../categorias.php");
     }
 
-    function deleteCategoria($idCategoria) {
+    function deleteCategoria($idCategoria)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM categoria WHERE idCategoria = :id");
         $stmt->bindValue(':id', $idCategoria);
         $stmt->execute();
     }
 
-    function situationCategoria($idCategoria) {
+    function situationCategoria($idCategoria)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT situacao FROM categoria WHERE idCategoria = :id");
         $stmt->bindValue(':id', $idCategoria);
@@ -69,4 +75,3 @@
         $stmt->execute();
         header("Location: ../categorias.php");
     }
-?>

@@ -1,6 +1,6 @@
 <?php
+
     /* priority object - inherits attributes from absClassIdDescriptionSituacao */
-    class prioridade extends absClassIdDescricaoSituacao {
-        
-    } 
-?>
+    class prioridade extends absClassIdDescricaoSituacao
+    {
+    }

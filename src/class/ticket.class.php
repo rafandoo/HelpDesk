@@ -1,7 +1,8 @@
 <?php
+
     /* It's a class that represents a ticket. */
-    class ticket {
-        
+    class ticket
+    {
         private $idTicket;
         private $titulo;
         private $descricao;
@@ -14,9 +15,10 @@
         private $setor;
         private $cliente;
         private $contato;
-        private $usuario;   
+        private $usuario;
 
-        public function __construct($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario) {
+        public function __construct($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario)
+        {
             $this->idTicket = $idTicket;
             $this->titulo = $titulo;
             $this->descricao = $descricao;
@@ -32,63 +34,78 @@
             $this->usuario = $usuario;
         }
 
-        public function getIdTicket() {
+        public function getIdTicket()
+        {
             return $this->idTicket;
         }
 
-        public function getTitulo() {
+        public function getTitulo()
+        {
             return $this->titulo;
         }
 
-        public function getDescricao() {
+        public function getDescricao()
+        {
             return $this->descricao;
         }
 
-        public function getDataAbertura() {
+        public function getDataAbertura()
+        {
             return $this->dataAbertura;
         }
 
-        public function getDataAtualizacao() {
+        public function getDataAtualizacao()
+        {
             return $this->dataAtualizacao;
         }
 
-        public function getDataFinalizacao() {
+        public function getDataFinalizacao()
+        {
             return $this->dataFinalizacao;
         }
 
-        public function getCategoria() {
+        public function getCategoria()
+        {
             return $this->categoria;
         }
 
-        public function getPrioridade() {
+        public function getPrioridade()
+        {
             return $this->prioridade;
         }
 
-        public function getStatus() {
+        public function getStatus()
+        {
             return $this->status;
         }
 
-        public function getSetor() {
+        public function getSetor()
+        {
             return $this->setor;
         }
 
-        public function getCliente() {
+        public function getCliente()
+        {
             return $this->cliente;
         }
 
-        public function getContato() {
+        public function getContato()
+        {
             return $this->contato;
         }
 
-        public function getUsuario() {
+        public function getUsuario()
+        {
             return $this->usuario;
         }
 
-        public function setIdTicket($idTicket) {
+        public function setIdTicket($idTicket)
+        {
             $this->idTicket = $idTicket;
         }
 
-        public function setTitulo($titulo) {
+        public function setTitulo($titulo)
+        {
             if (strlen($titulo) > 0) {
                 $this->titulo = $titulo;
             } else {
@@ -96,7 +113,8 @@
             }
         }
 
-        public function setDescricao($descricao) {
+        public function setDescricao($descricao)
+        {
             if (strlen($descricao) > 0) {
                 $this->descricao = $descricao;
             } else {
@@ -104,47 +122,58 @@
             }
         }
 
-        public function setDataAbertura($dataAbertura) {
+        public function setDataAbertura($dataAbertura)
+        {
             $this->dataAbertura = $dataAbertura;
         }
 
-        public function setDataAtualizacao($dataAtualizacao) {
+        public function setDataAtualizacao($dataAtualizacao)
+        {
             $this->dataAtualizacao = $dataAtualizacao;
         }
 
-        public function setDataFinalizacao($dataFinalizacao) {
+        public function setDataFinalizacao($dataFinalizacao)
+        {
             $this->dataFinalizacao = $dataFinalizacao;
         }
 
-        public function setCategoria($categoria) {
+        public function setCategoria($categoria)
+        {
             $this->categoria = $categoria;
         }
 
-        public function setPrioridade($prioridade) {
+        public function setPrioridade($prioridade)
+        {
             $this->prioridade = $prioridade;
         }
 
-        public function setStatus($status) {
+        public function setStatus($status)
+        {
             $this->status = $status;
         }
 
-        public function setSetor($setor) {
+        public function setSetor($setor)
+        {
             $this->setor = $setor;
         }
 
-        public function setCliente($cliente) {
+        public function setCliente($cliente)
+        {
             $this->cliente = $cliente;
         }
 
-        public function setContato($contato) {
+        public function setContato($contato)
+        {
             $this->contato = $contato;
         }
 
-        public function setUsuario($usuario) {
+        public function setUsuario($usuario)
+        {
             $this->usuario = $usuario;
         }
 
-        public function __toString() {
+        public function __toString()
+        {
             return "[Ticket] Id Ticket: ".$this->idTicket." | ".
             "Título: ".$this->titulo." | ".
             "Descrição: ".$this->descricao." | ".
@@ -160,4 +189,3 @@
             "Usuário: ".$this->usuario;
         }
     }
-?>

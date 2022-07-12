@@ -1,4 +1,5 @@
 <?php
+
     require_once "autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
@@ -11,4 +12,3 @@
         $cidade = new cidade($linha['idCidade'], $linha['nome'], $linha['idEstado']);
         echo "<option value='".$cidade->getIdCidade()."'>".$cidade->getNome()."</option>";
     }
-?>

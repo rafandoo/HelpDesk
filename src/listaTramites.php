@@ -15,7 +15,8 @@
 
     $cliente = getCliente(getTicket($idTicket)->getCliente())->getNome();
 
-    function getTicket($idTicket) {
+    function getTicket($idTicket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :idTicket");
         $stmt->bindValue(":idTicket", $idTicket);
@@ -24,7 +25,8 @@
         return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
 
-    function getCliente($idCliente) {
+    function getCliente($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");
         $stmt->bindValue(":idCliente", $idCliente);
@@ -33,7 +35,8 @@
         return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
     }
 
-    function getUsuarios($idUsuario) {
+    function getUsuarios($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
@@ -42,14 +45,15 @@
         return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
-    function countHoras($idTicket) {
+    function countHoras($idTicket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT horaInicial, horaFinal FROM tramite WHERE idTicket = :idTicket");
         $stmt->bindValue(":idTicket", $idTicket);
         $stmt->execute();
         $horas = 0;
 
-        while($linha = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $horaInicial = $linha['horaInicial'];
             $horaFinal = $linha['horaFinal'];
             $horaInicial = strtotime($horaInicial);
@@ -197,16 +201,15 @@
                                         <?php
                                             $pdo = Conexao::getInstance();
                                             $consulta = $pdo->query("SELECT * FROM tramite WHERE idTicket = '$idTicket'");
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $tramite = new tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']);
-                                        ?>
+                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                $tramite = new tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']); ?>
                                         <tr class="align-middle">
-                                            <td class="text-nowrap"><?php echo $tramite->getIdTramite();?></td>
-                                            <td class="text-nowrap"><?php echo $tramite->getData();?></td>
-                                            <td class="text-nowrap"><?php echo $tramite->getHoraInicial();?></td>
-                                            <td class="text-nowrap"><?php echo $tramite->getHoraFinal();?></td>
-                                            <td class="text-break"><?php echo $tramite->getDescricao();?></td>
-                                            <td class="text-nowrap"><?php echo getUsuarios($tramite->getUsuario())->getNome();?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getIdTramite(); ?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getData(); ?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getHoraInicial(); ?></td>
+                                            <td class="text-nowrap"><?php echo $tramite->getHoraFinal(); ?></td>
+                                            <td class="text-break"><?php echo $tramite->getDescricao(); ?></td>
+                                            <td class="text-nowrap"><?php echo getUsuarios($tramite->getUsuario())->getNome(); ?></td>
                                         </tr>
                                         <?php
                                             }

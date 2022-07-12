@@ -1,33 +1,39 @@
 <?php
+
     include_once "conf.inc.php";
 
     /* It's a singleton class that creates a PDO object and returns it. */
-    class Conexao {  
-    
+    class Conexao
+    {
         private static $pdo;
-    
-        private function __construct() {  
+
+        private function __construct()
+        {
             // NÃO PRECISA INICIALIZAR A CLASSE
-        } 
-    
-        public static function getInstance() {  
-            if (!isset(self::$pdo)) {  
-                try {  
-                        $opcoes = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8', 
-                                        PDO::ATTR_PERSISTENT => TRUE,
+        }
+
+        public static function getInstance()
+        {
+            if (!isset(self::$pdo)) {
+                try {
+                    $opcoes = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8',
+                                        PDO::ATTR_PERSISTENT => true,
                                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
-            self::$pdo = new PDO(DRIVER.
-                                ":host=" . HOST . 
-                                "; dbname=" . DBNAME . 
-                                "; charset=" . CHARSET . 
-                                ";", USER, PASSWORD, 
-                                $opcoes);  
-                } catch (PDOException $e) {  
-                    print "Erro: " . $e->getMessage();  
-                }  
+                    self::$pdo = new PDO(
+                        DRIVER.
+                                ":host=" . HOST .
+                                "; dbname=" . DBNAME .
+                                "; charset=" . CHARSET .
+                                ";",
+                        USER,
+                        PASSWORD,
+                        $opcoes
+                    );
+                } catch (PDOException $e) {
+                    print "Erro: " . $e->getMessage();
+                }
             }
-            return self::$pdo;  
-        }  
+            return self::$pdo;
+        }
     }
-?>

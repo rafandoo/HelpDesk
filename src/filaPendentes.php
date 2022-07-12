@@ -11,7 +11,8 @@
         header("Location: cliente/homeCli.php");
     }
 
-    function getClientes($idCliente) {
+    function getClientes($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");
         $stmt->bindValue(":idCliente", $idCliente);
@@ -20,7 +21,8 @@
         return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
     }
 
-    function getSetores($idSetor) {
+    function getSetores($idSetor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM setor WHERE idSetor = :idSetor");
         $stmt->bindValue(":idSetor", $idSetor);
@@ -132,15 +134,14 @@
                                             $sql = 'SELECT * FROM ticket WHERE status = 1 AND usuario = 0';
                                             $consulta = $pdo->query($sql);
                                             while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                                                $ticket = new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
-                                        ?>
+                                                $ticket = new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']); ?>
                                         <tr class="align-middle">
                                             <td>#<?=$ticket->getIdTicket()?></td>
-                                            <td><?=getClientes($ticket->getCliente())->getNome();?></td>
+                                            <td><?=getClientes($ticket->getCliente())->getNome(); ?></td>
                                             <td><?=$ticket->getTitulo()?></td>
                                             <td><?=$ticket->getDataAbertura()?></td>
                                             <td class="text-nowrap"><?=$ticket->getContato()?></td>
-                                            <td><?=getSetores($ticket->getSetor())->getDescricao();?></td>
+                                            <td><?=getSetores($ticket->getSetor())->getDescricao(); ?></td>
                                             <td class="text-nowrap text-end align-middle">
                                                 <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadTickets.php?acao=alterar&idTicket=<?=$ticket->getIdTicket()?>"><i class="fas fa-pen" style="width: 14px;height: 16px;"></i></a>
                                                 <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;"><i class="far fa-trash-alt"></i></a></td>

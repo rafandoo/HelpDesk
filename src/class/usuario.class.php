@@ -1,7 +1,8 @@
 <?php
+
     /* A class that represents a user. */
-    class usuario {
-        
+    class usuario
+    {
         private $idUsuario;
         private $nome;
         private $sobrenome;
@@ -12,7 +13,8 @@
         private $setor;
         private $situacao;
 
-        public function __construct($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao) {
+        public function __construct($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao)
+        {
             $this->idUsuario = $idUsuario;
             $this->nome = $nome;
             $this->sobrenome = $sobrenome;
@@ -24,95 +26,115 @@
             $this->situacao = $situacao;
         }
 
-        public function getIdUsuario() {
+        public function getIdUsuario()
+        {
             return $this->idUsuario;
         }
 
-        public function getNome() {
+        public function getNome()
+        {
             return $this->nome;
         }
 
-        public function getSobrenome() {
+        public function getSobrenome()
+        {
             return $this->sobrenome;
         }
 
-        public function getEmail() {
+        public function getEmail()
+        {
             return $this->email;
         }
 
-        public function getLogin() {
+        public function getLogin()
+        {
             return $this->login;
         }
 
-        public function getSenha() {
+        public function getSenha()
+        {
             return $this->senha;
         }
 
-        public function getNivelAcesso() {
+        public function getNivelAcesso()
+        {
             return $this->nivelAcesso;
         }
 
-        public function getSetor() {
+        public function getSetor()
+        {
             return $this->setor;
         }
 
-        public function getSituacao() {
+        public function getSituacao()
+        {
             return $this->situacao;
         }
 
-        public function setIdUsuario($idUsuario) {
+        public function setIdUsuario($idUsuario)
+        {
             $this->idUsuario = $idUsuario;
         }
 
-        public function setNome($nome) {
+        public function setNome($nome)
+        {
             if (strlen($nome) > 0) {
                 $this->nome = $nome;
             }
         }
 
-        public function setSobrenome($sobrenome) {
+        public function setSobrenome($sobrenome)
+        {
             $this->sobrenome = $sobrenome;
         }
 
-        public function setEmail($email) {
+        public function setEmail($email)
+        {
             if (strlen($email) > 0) {
                 $this->email = $email;
             }
         }
 
-        public function setLogin($login) {
+        public function setLogin($login)
+        {
             if (strlen($login) > 0) {
                 $this->login = $login;
             }
         }
 
-        public function setSenha($senha) {
+        public function setSenha($senha)
+        {
             if (strlen($senha) > 0) {
                 $this->senha = $senha;
             }
         }
 
-        public function setNivelAcesso($nivelAcesso) {
+        public function setNivelAcesso($nivelAcesso)
+        {
             $this->nivelAcesso = $nivelAcesso;
         }
 
-        public function setSetor($setor) {
+        public function setSetor($setor)
+        {
             $this->setor = $setor;
         }
 
-        public function setSituacao($situacao) {
+        public function setSituacao($situacao)
+        {
             $this->situacao = $situacao;
         }
 
-        public function getStrSituacao() {
+        public function getStrSituacao()
+        {
             if ($this->situacao == 1) {
                 return "Ativo";
             } else {
                 return "Inativo";
             }
         }
-        
-        public function __toString() {
+
+        public function __toString()
+        {
             return "[Usuário] Id Usuario: ".$this->idUsuario." | ".
             "Nome: ".$this->nome." | ".
             "Sobrenome: ".$this->sobrenome." | ".
@@ -124,4 +146,3 @@
             "Situacao: ".$this->situacao;
         }
     }
-?>
