@@ -182,7 +182,7 @@
                                                 if ($ticket->getUsuario() == 0) {
                                                     echo "<td>Não atribuído</td>";
                                                 } else {
-                                                    echo "<td><?php echo getUsuarios($ticket->getUsuario())->getNome();?></td>";
+                                                    echo "<td>".getUsuarios($ticket->getUsuario())->getNome()."</td>";
                                                 }
                                             ?>
                                             <td><?php echo $ticket->getDataAtualizacao();?></td>
