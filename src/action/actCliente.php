@@ -1,12 +1,13 @@
 <?php
+
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
     include_once "actUsuario.php";
-    
+
     $acao = "";
 
-    switch($_SERVER['REQUEST_METHOD']) {
+    switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
             $acao = $_GET['acao'];
             break;
@@ -17,21 +18,23 @@
 
     if ($acao == 'salvarC') {
         $usuario = insertUsuarioCliente(buildUsuario(0, $_POST['nome'], "", $_POST['email'], $_POST['usuario'], $_POST['senha'], 1, 0, $_POST['situacao']));
-        insertCliente(buildCliente(0, $_POST['nome'], $_POST['nomeFantasia'], $_POST['cpfCnpj'], $_POST['endereco'], $_POST['numero'], $_POST['bairro'], $_POST['cidade'], $_POST['email'], $_POST['telefone'], $_POST['observacoes'],$usuario, $_POST['situacao']));
-    } else if ($acao == 'excluir') {
+        insertCliente(buildCliente(0, $_POST['nome'], $_POST['nomeFantasia'], $_POST['cpfCnpj'], $_POST['endereco'], $_POST['numero'], $_POST['bairro'], $_POST['cidade'], $_POST['email'], $_POST['telefone'], $_POST['observacoes'], $usuario, $_POST['situacao']));
+    } elseif ($acao == 'excluir') {
         deleteCliente($_GET['idCliente']);
-    } else if ($acao == 'editarC') {
+    } elseif ($acao == 'editarC') {
         $usuario = updateUsuarioCliente(buildUsuario($_POST['idUsuario'], $_POST['nome'], "", $_POST['email'], $_POST['usuario'], $_POST['senha'], 1, 0, $_POST['situacao']));
         updateCliente(buildCliente($_POST['idCliente'], $_POST['nome'], $_POST['nomeFantasia'], $_POST['cpfCnpj'], $_POST['endereco'], $_POST['numero'], $_POST['bairro'], $_POST['cidade'], $_POST['email'], $_POST['telefone'], $_POST['observacoes'], $usuario, $_POST['situacao']));
-    } else if ($acao == 'situacaoC') {
+    } elseif ($acao == 'situacaoC') {
         situationCliente($_GET['idCliente']);
     }
 
-    function buildCliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao) {
+    function buildCliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao)
+    {
         return new Cliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao);
     }
 
-    function insertCliente($cliente) {
+    function insertCliente($cliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO cliente (nome, nomeFantasia, cpfCnpj, endereco, numero, bairro, cidade, email, telefone, observacoes, idUsuario, situacao) VALUES (:nome, :nomeFantasia, :cpfCnpj, :endereco, :numero, :bairro, :cidade, :email, :telefone, :observacoes, :idUsuario, :situacao)");
         $stmt->bindValue(':nome', $cliente->getNome());
@@ -51,7 +54,8 @@
         header("Location: ../clientes.php");
     }
 
-    function updateCliente($cliente) {
+    function updateCliente($cliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE cliente SET nome = :nome, nomeFantasia = :nomeFantasia, endereco = :endereco, numero = :numero, bairro = :bairro, cidade = :cidade, email = :email, telefone = :telefone, observacoes = :observacoes, idUsuario = :idUsuario, situacao = :situacao WHERE idCliente = :id");
         $stmt->bindValue(':nome', $cliente->getNome());
@@ -71,7 +75,8 @@
         header("Location: ../clientes.php");
     }
 
-    function deleteCliente($idCliente) {
+    function deleteCliente($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM cliente WHERE idCliente = :id");
         $stmt->bindValue(':id', $idCliente);
@@ -79,7 +84,8 @@
         header('Location: index.php');
     }
 
-    function situationCliente($idCliente) {
+    function situationCliente($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT situacao, idUsuario FROM cliente WHERE idCliente = :id");
         $stmt->bindValue(':id', $idCliente);
@@ -95,4 +101,3 @@
         situationUsuario($usuario['idUsuario']);
         header("Location: ../clientes.php");
     }
-?>

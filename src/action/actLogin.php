@@ -1,4 +1,5 @@
 <?php
+
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
@@ -18,7 +19,8 @@
         validaUsuario($_POST['usuario'], sha1($_POST['senha']));
     }
 
-    function validaUsuario($login, $senha) {
+    function validaUsuario($login, $senha)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login AND senha = :senha AND situacao = 1");
         $stmt->bindValue(":login", $login);
@@ -34,19 +36,18 @@
         }
     }
 
-    function inicializaSessao($usuario) {
+    function inicializaSessao($usuario)
+    {
         session_start();
         $_SESSION['idUsuario'] = $usuario->getIdUsuario();
         $_SESSION['usuario'] = $usuario->getLogin();
         $_SESSION['nome'] = $usuario->getNome() . " " . $usuario->getSobrenome();
         $_SESSION['nivelAcesso'] = $usuario->getNivelAcesso();
         $_SESSION['setor'] = $usuario->getSetor();
-        
+
         if ($usuario->getNivelAcesso() == 1) {
             header("Location: ../cliente/homeCli.php");
         } else {
             header("Location: ../index.php");
         }
     }
-
-?>

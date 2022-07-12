@@ -1,5 +1,5 @@
-<?php    
-    class status extends absClassIdDescricaoSituacao {
-        
+<?php
+
+    class status extends absClassIdDescricaoSituacao
+    {
     }
-?>

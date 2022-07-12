@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php 
+<?php
     include "validaSessao.php";
     require_once "util/autoload.php";
     require_once "config/Conexao.php";
@@ -18,7 +18,8 @@
     $data = date("Y-m-d");
     $horaInicial = date("H:i");
 
-    function getTicket($idTicket) {
+    function getTicket($idTicket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :id");
         $stmt->bindValue(":id", $idTicket);
@@ -136,7 +137,7 @@
                                                                     <?php
                                                                         $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                             $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
                                                                             if ($status->getId() == $idStatus) {
                                                                                 echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';

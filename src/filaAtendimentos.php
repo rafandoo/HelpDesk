@@ -18,7 +18,8 @@
     $filtroCliente = isset($_GET["filtroCliente"]) ? $_GET["filtroCliente"] : 0;
     $filtroSetor = isset($_GET["filtroSetor"]) ? $_GET["filtroSetor"] : 0;
 
-    function getClientes($idCliente) {
+    function getClientes($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");
         $stmt->bindValue(":idCliente", $idCliente);
@@ -27,7 +28,8 @@
         return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
     }
 
-    function getPrioridades($idPrioridade) {
+    function getPrioridades($idPrioridade)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM prioridade WHERE idPrioridade = :idPrioridade");
         $stmt->bindValue(":idPrioridade", $idPrioridade);
@@ -36,7 +38,8 @@
         return new prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
     }
 
-    function getStatus($idStatus) {
+    function getStatus($idStatus)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM status WHERE idStatus = :idStatus");
         $stmt->bindValue(":idStatus", $idStatus);
@@ -45,7 +48,8 @@
         return new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
     }
 
-    function getUsuarios($idUsuario) {
+    function getUsuarios($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :idUsuario");
         $stmt->bindValue(":idUsuario", $idUsuario);
@@ -54,7 +58,8 @@
         return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
-    function filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor) {
+    function filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor)
+    {
         $pdo = Conexao::getInstance();
         $sql = "SELECT * FROM ticket WHERE usuario != 0";
 
@@ -81,7 +86,7 @@
             $setorUsuario = $_SESSION['setor'];
             $sql .= " AND setor = $setorUsuario";
         }
-        $sql .= " ORDER BY idTicket DESC";        
+        $sql .= " ORDER BY idTicket DESC";
         $consulta = $pdo->query($sql);
         return $consulta;
     }
@@ -181,9 +186,9 @@
                                                         <?php
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM prioridade WHERE situacao = 1");
-                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                 $prioridade = new Prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
-                                                                if ($prioridade->getId() == $filtroPrioridade){
+                                                                if ($prioridade->getId() == $filtroPrioridade) {
                                                                     echo '<option value="'.$prioridade->getId().'" selected>'.$prioridade->getDescricao().'</option>';
                                                                 } else {
                                                                     echo '<option value="'.$prioridade->getId().'">'.$prioridade->getDescricao().'</option>';
@@ -199,9 +204,9 @@
                                                         <?php
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
-                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                 $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
-                                                                if ($status->getId() == $filtroStatus){
+                                                                if ($status->getId() == $filtroStatus) {
                                                                     echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
                                                                 } else {
                                                                     echo '<option value="'.$status->getId().'">'.$status->getDescricao().'</option>';
@@ -221,9 +226,9 @@
                                                         <?php
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
-                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                 $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
-                                                                if ($categoria->getId() == $filtroCategoria){
+                                                                if ($categoria->getId() == $filtroCategoria) {
                                                                     echo '<option value="'.$categoria->getId().'" selected>'.$categoria->getDescricao().'</option>';
                                                                 } else {
                                                                     echo '<option value="'.$categoria->getId().'">'.$categoria->getDescricao().'</option>';
@@ -239,9 +244,9 @@
                                                         <?php
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM usuario WHERE situacao = 1 AND nivelAcesso != 1");
-                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                 $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
-                                                                if ($usuario->getIdUsuario() == $filtroUsuario){
+                                                                if ($usuario->getIdUsuario() == $filtroUsuario) {
                                                                     echo '<option value="'.$usuario->getIdUsuario().'" selected>'.$usuario->getNome().' '.$usuario->getSobrenome().'</option>';
                                                                 } else {
                                                                     echo '<option value="'.$usuario->getIdUsuario().'">'.$usuario->getNome().' '.$usuario->getSobrenome().'</option>';
@@ -306,9 +311,9 @@
                                                         <?php
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
-                                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                 $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
-                                                                if ($setor->getId() == $filtroSetor){
+                                                                if ($setor->getId() == $filtroSetor) {
                                                                     echo '<option value="'.$setor->getId().'" selected>'.$setor->getDescricao().'</option>';
                                                                 } else {
                                                                     echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
@@ -348,22 +353,25 @@
                                         <?php
                                             $pdo = Conexao::getInstance();
                                             $consulta = filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor);
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                 $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
-                                                $url = '"action/actTicket.php?acao=excluir&idTicket='.$ticket->getIdTicket().'"';
-                                        ?>
+                                                $url = '"action/actTicket.php?acao=excluir&idTicket='.$ticket->getIdTicket().'"'; ?>
                                         <tr class="align-middle">
-                                            <td>#<?php echo $ticket->getIdTicket();?></td>
-                                            <td><?php echo getClientes($ticket->getCliente())->getNome();?></td>
-                                            <td><?php echo $ticket->getTitulo();?></td>
-                                            <td><?php echo $ticket->getDataAbertura();?></td>
-                                            <td><?php echo getPrioridades($ticket->getPrioridade())->getDescricao();?></td>
-                                            <td><?php echo getStatus($ticket->getStatus())->getDescricao();?></td>
-                                            <td><?php echo getUsuarios($ticket->getUsuario())->getNome();?></td>
-                                            <td><?php echo $ticket->getDataAtualizacao();?></td>
+                                            <td>#<?php echo $ticket->getIdTicket(); ?></td>
+                                            <td><?php echo getClientes($ticket->getCliente())->getNome(); ?></td>
+                                            <td><?php echo $ticket->getTitulo(); ?></td>
+                                            <td><?php echo $ticket->getDataAbertura(); ?></td>
+                                            <td><?php echo getPrioridades($ticket->getPrioridade())->getDescricao(); ?></td>
+                                            <td><?php echo getStatus($ticket->getStatus())->getDescricao(); ?></td>
+                                            <td><?php echo getUsuarios($ticket->getUsuario())->getNome(); ?></td>
+                                            <td><?php echo $ticket->getDataAtualizacao(); ?></td>
                                             <td class="text-nowrap text-end align-middle">
                                                 <a class="btn btn-outline-info border rounded-circle" role="button" style="border-radius: 30px;margin-right: 10px;width: 40px;" href="cadTickets.php?acao=alterar&idTicket=<?=$ticket->getIdTicket()?>"><i class="far fa-eye" style="width: 15px;"></i></a>
-                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" <?php if ($_SESSION['nivelAcesso'] != 3) echo "onclick='alertSemPermissao()'"; else echo "onclick='confirmExclusao($url)'";?>><i class="far fa-trash-alt"></i></a>
+                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" <?php if ($_SESSION['nivelAcesso'] != 3) {
+                                                    echo "onclick='alertSemPermissao()'";
+                                                } else {
+                                                    echo "onclick='confirmExclusao($url)'";
+                                                } ?>><i class="far fa-trash-alt"></i></a>
                                             </td>
                                         </tr>
                                         <?php

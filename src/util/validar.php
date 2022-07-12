@@ -1,4 +1,5 @@
 <?php
+
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
 
@@ -11,17 +12,18 @@
         } else {
             echo existeEmailUsuario($_POST['valor'], $id);
         }
-    } else if ($acao == 'login') {
+    } elseif ($acao == 'login') {
         if ($id == 0) {
             echo existeLoginUsuario($_POST['valor'], 0);
         } else {
             echo existeLoginUsuario($_POST['valor'], $id);
         }
-    } else if ($acao == 'cpfCnpj') {
+    } elseif ($acao == 'cpfCnpj') {
         echo existeCpfCnpj($_POST['valor']);
     }
 
-    function existeEmailUsuario($email, $id) {
+    function existeEmailUsuario($email, $id)
+    {
         $count = 0;
         $pdo = Conexao::getInstance();
 
@@ -30,7 +32,7 @@
         $stmt->bindValue(":id", $id);
         $stmt->execute();
         $count += $stmt->rowCount();
-        
+
         if ($count == 0) {
             return false;
         } else {
@@ -38,7 +40,8 @@
         }
     }
 
-    function existeLoginUsuario($login, $id) {
+    function existeLoginUsuario($login, $id)
+    {
         $count = 0;
         $pdo = Conexao::getInstance();
 
@@ -55,7 +58,8 @@
         }
     }
 
-    function existeCpfCnpj($cpfCnpj) {
+    function existeCpfCnpj($cpfCnpj)
+    {
         $count = 0;
         $pdo = Conexao::getInstance();
 
@@ -70,4 +74,3 @@
             return true;
         }
     }
-?>

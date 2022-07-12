@@ -9,11 +9,13 @@
 </p>
 
 ## Documentos :page_facing_up:
+
 [Projeto de Escopo](https://github.com/rafandoo/HelpDesk/blob/d9b52f56d937e56034eb599c8b49a9f87479c4cb/docs/ESCOPO%20DO%20PROJETO%20-%20Help%20Desk.pdf)
 <br/>
 [Requisitos de Software](https://github.com/rafandoo/HelpDesk/blob/ff79a25fcd8f9a907f70aba5ffb30fc8394b9b40/docs/REQUISITO%20DE%20SOFTWARE%20-%20Help%20Desk.pdf)
 <br/>
 [Diagrama Modelo Entidade Relacionamento](https://github.com/rafandoo/HelpDesk/blob/aa5608a3548e8e375c55513deafda5e4b72302b4/docs/DIAGRAMA%20MODELO%20ENTIDADE%20RELACIONAMENTO%20-%20Help%20Desk.pdf)
+
 ## Tecnologias Utilizadas :man_technologist:
 
 <p>
@@ -23,7 +25,6 @@
   <img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/>
 </p>
 
-
 ## Funcionalidades :wrench:
 
 :heavy_check_mark: Possibilitar a abertura de tickets, tanto por algum técnico quanto pelo cliente.
@@ -32,15 +33,11 @@
 
 :heavy_check_mark: Possibilidade de controle de prioridades dos tickets.
 
-
 ## Observações :eyes:
-
-
 
 ## Futuras melhorias :rocket:
 
-:heavy_check_mark: 
-
+:heavy_check_mark:
 
 ## Licença :key:
 

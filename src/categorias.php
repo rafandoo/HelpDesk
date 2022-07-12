@@ -7,10 +7,11 @@
     include_once "config/default.inc.php";
 
     $title = "Categorias";
-    
+
     $procurar = isset($_POST["procurar"]) ? $_POST["procurar"] : "";
 
-    function rowCounter($procurar) {
+    function rowCounter($procurar)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM categoria WHERE descricao LIKE '%$procurar%'");
         $stmt->execute();
@@ -135,13 +136,12 @@
                                         <?php
                                             $pdo = Conexao::getInstance();
                                             $consulta = $pdo->query("SELECT * FROM categoria WHERE descricao LIKE '%$procurar%' ORDER BY 1 ASC");
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
-                                        ?>
+                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']); ?>
                                         <tr class="align-middle">
-                                            <td><?php echo $categoria->getId();?></td>
-                                            <td><?php echo $categoria->getDescricao();?></td>
-                                            <td><?php echo $categoria->getStrSituacao();?></td>
+                                            <td><?php echo $categoria->getId(); ?></td>
+                                            <td><?php echo $categoria->getDescricao(); ?></td>
+                                            <td><?php echo $categoria->getStrSituacao(); ?></td>
                                             <td class="text-end align-middle">
                                                 <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadCategorias.php?acao=alterar&idCategoria=<?=$categoria->getId()?>">
                                                     <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>

@@ -1,5 +1,5 @@
 <?php
-    class setor extends absClassIdDescricaoSituacao {
-        
+
+    class setor extends absClassIdDescricaoSituacao
+    {
     }
-?>

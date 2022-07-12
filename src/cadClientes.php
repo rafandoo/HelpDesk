@@ -13,7 +13,8 @@
 
     $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
 
-    function getCliente($idCliente) {
+    function getCliente($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :idCliente");
         $stmt->bindValue(":idCliente", $idCliente);
@@ -22,7 +23,8 @@
         return new Cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], getCidadeCliente($linha['cidade']), $linha['email'], $linha['telefone'], $linha['observacoes'], getUsuarioCliente($linha['idUsuario']), $linha['situacao']);
     }
 
-    function getUsuarioCliente($idUsuario) {
+    function getUsuarioCliente($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :idUsuario");
         $stmt->bindValue(":idUsuario", $idUsuario);
@@ -31,7 +33,8 @@
         return new Usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
-    function getCidadeCliente($idCidade) {
+    function getCidadeCliente($idCidade)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cidade WHERE idCidade = :idCidade");
         $stmt->bindValue(":idCidade", $idCidade);
@@ -186,7 +189,9 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="cpfCnpj"><strong>CPF/CNPJ</strong><br></label>
-                                                            <input class="form-control" type="text" id="cpfCnpj" placeholder="00.000.000/0001-00" name="cpfCnpj" required="" minlength="11" value="<?php echo $cpfCnpj;?>" onchange="callValidarPHP('cpfCnpj', formatarCpfCnpj(this.value), this)" <?php if ($acao == 'alterarC') echo 'readonly'?>>
+                                                            <input class="form-control" type="text" id="cpfCnpj" placeholder="00.000.000/0001-00" name="cpfCnpj" required="" minlength="11" value="<?php echo $cpfCnpj;?>" onchange="callValidarPHP('cpfCnpj', formatarCpfCnpj(this.value), this)" <?php if ($acao == 'alterarC') {
+    echo 'readonly';
+}?>>
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -220,9 +225,9 @@
                                                                 <?php
                                                                     $pdo = Conexao::getInstance();
                                                                     $consulta = $pdo->query("SELECT * FROM estado");
-                                                                    while($linhaEstado = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                    while ($linhaEstado = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                         $estado = new estado($linhaEstado['idEstado'], $linhaEstado['nome'], $linhaEstado['sigla']);
-                                                                        if($estado->getIdEstado() == $idEstado) {
+                                                                        if ($estado->getIdEstado() == $idEstado) {
                                                                             echo "<option value='".$estado->getIdEstado()."' selected>".$estado->getNome()."</option>";
                                                                         } else {
                                                                             echo '<option value="'.$estado->getIdEstado().'">'.$estado->getNome().'</option>';
@@ -235,7 +240,7 @@
                                                         <div class="mb-3"><label class="form-label" for="cidade"><strong>Cidade</strong><br></label>
                                                             <select class="form-select" id="cidade" required="" name="cidade">
                                                                 <option value="">Selecione um estado</option>
-                                                                <?php 
+                                                                <?php
                                                                     if ($acao == 'alterarC') {
                                                                         echo '<option value="'.$cidade->getIdCidade().'" selected>'.$cidade->getNome().'</option>';
                                                                     }
@@ -249,22 +254,34 @@
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="usuario"><strong>Usuário</strong></label>
                                                             <div class="input-group"><span class="input-group-text">@</span>
-                                                                <input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>" <?php if ($acao != 'alterarC') echo 'onchange="callValidarPHP(\'login\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'login\', this.value,'.$idCliente.', this)"';?>>
+                                                                <input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>" <?php if ($acao != 'alterarC') {
+                                                                    echo 'onchange="callValidarPHP(\'login\', this.value, this)"';
+                                                                } else {
+                                                                    echo 'onchange="callValidarPHPAlterar(\'login\', this.value,'.$idCliente.', this)"';
+                                                                }?>>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label>
-                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>" <?php if ($acao != 'alterarC') echo 'onchange="callValidarPHP(\'email\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'email\', this.value,'.$idCliente.', this)"';?>>
+                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>" <?php if ($acao != 'alterarC') {
+                                                                    echo 'onchange="callValidarPHP(\'email\', this.value, this)"';
+                                                                } else {
+                                                                    echo 'onchange="callValidarPHPAlterar(\'email\', this.value,'.$idCliente.', this)"';
+                                                                }?>>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="senha"><strong>Senha</strong><br></label><input class="form-control" type="password" id="senha" name="senha" placeholder="*******" <?php if ($acao != 'alterarC') echo 'required';?> minlength="8"></div>
+                                                        <div class="mb-3"><label class="form-label" for="senha"><strong>Senha</strong><br></label><input class="form-control" type="password" id="senha" name="senha" placeholder="*******" <?php if ($acao != 'alterarC') {
+                                                                    echo 'required';
+                                                                }?> minlength="8"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" <?php if ($acao != 'alterarC') echo 'required';?> oninput="validaSenha(this)" minlength="8"></div>
+                                                        <div class="mb-3"><label class="form-label" for="confirmarSenha"><strong>Confirmar senha</strong><br></label><input class="form-control" type="password" id="confirmarSenha" placeholder="*******" name="confirmarSenha" <?php if ($acao != 'alterarC') {
+                                                                    echo 'required';
+                                                                }?> oninput="validaSenha(this)" minlength="8"></div>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -279,7 +296,7 @@
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="situacao"><strong>Situação</strong><br></label>
                                                             <select class="form-select" id="situacao" required="" name="situacao">
-                                                                <?php 
+                                                                <?php
                                                                     if ($situacao == 0) {
                                                                         echo '<option value="1" >Ativo</option>';
                                                                         echo '<option value="0" selected>Inativo</option>';

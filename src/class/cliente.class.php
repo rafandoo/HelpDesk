@@ -1,6 +1,7 @@
 <?php
-    class cliente {
 
+    class cliente
+    {
         private $idCliente;
         private $nome;
         private $nomeFantasia;
@@ -15,7 +16,8 @@
         private $usuario;
         private $situacao;
 
-        public function __construct($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao) {
+        public function __construct($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao)
+        {
             $this->idCliente = $idCliente;
             $this->nome = $nome;
             $this->nomeFantasia = $nomeFantasia;
@@ -31,128 +33,154 @@
             $this->situacao = $situacao;
         }
 
-        public function getIdCliente() {
+        public function getIdCliente()
+        {
             return $this->idCliente;
         }
 
-        public function getNome() {
+        public function getNome()
+        {
             return $this->nome;
         }
 
-        public function getNomeFantasia() {
+        public function getNomeFantasia()
+        {
             return $this->nomeFantasia;
         }
 
-        public function getCpfCnpj() {
+        public function getCpfCnpj()
+        {
             return $this->cpfCnpj;
         }
 
-        public function getEndereco() {
+        public function getEndereco()
+        {
             return $this->endereco;
         }
 
-        public function getNumero() {
+        public function getNumero()
+        {
             return $this->numero;
         }
 
-        public function getBairro() {
+        public function getBairro()
+        {
             return $this->bairro;
         }
 
-        public function getCidade() {
+        public function getCidade()
+        {
             return $this->cidade;
         }
 
-        public function getEmail() {
+        public function getEmail()
+        {
             return $this->email;
         }
 
-        public function getTelefone() {
+        public function getTelefone()
+        {
             return $this->telefone;
         }
 
-        public function getObservacoes() {
+        public function getObservacoes()
+        {
             return $this->observacoes;
         }
 
-        public function getUsuario() {
+        public function getUsuario()
+        {
             return $this->usuario;
         }
 
-        public function getSituacao() {
+        public function getSituacao()
+        {
             return $this->situacao;
         }
 
-        public function setIdCliente($idCliente) {
+        public function setIdCliente($idCliente)
+        {
             if ($idCliente >= 0) {
                 $this->idCliente = $idCliente;
             }
         }
 
-        public function setNome($nome) {
+        public function setNome($nome)
+        {
             if (strlen($nome) > 0) {
                 $this->nome = $nome;
             }
         }
 
-        public function setNomeFantasia($nomeFantasia) {
+        public function setNomeFantasia($nomeFantasia)
+        {
             $this->nomeFantasia = $nomeFantasia;
         }
 
-        public function setCpfCnpj($cpfCnpj) {
+        public function setCpfCnpj($cpfCnpj)
+        {
             if (strlen($cpfCnpj) > 0) {
                 $this->cpfCnpj = $cpfCnpj;
             }
         }
 
-        public function setEndereco($endereco) {
+        public function setEndereco($endereco)
+        {
             if (strlen($endereco) > 0) {
                 $this->endereco = $endereco;
             }
         }
 
-        public function setNumero($numero) {
+        public function setNumero($numero)
+        {
             if (strlen($numero) > 0) {
                 $this->numero = $numero;
             }
         }
 
-        public function setBairro($bairro) {
+        public function setBairro($bairro)
+        {
             if (strlen($bairro) > 0) {
                 $this->bairro = $bairro;
             }
         }
 
-        public function setCidade($cidade) {
+        public function setCidade($cidade)
+        {
             if (strlen($cidade) > 0) {
                 $this->cidade = $cidade;
             }
         }
 
-        public function setEmail($email) {
+        public function setEmail($email)
+        {
             if (strlen($email) > 0) {
                 $this->email = $email;
             }
         }
 
-        public function setTelefone($telefone) {
+        public function setTelefone($telefone)
+        {
             $this->telefone = $telefone;
         }
 
-        public function setObservacoes($observacoes) {
+        public function setObservacoes($observacoes)
+        {
             $this->observacoes = $observacoes;
-            
         }
 
-        public function setUsuario($usuario) {
+        public function setUsuario($usuario)
+        {
             $this->usuario = $usuario;
         }
 
-        public function setSituacao($situacao) {
+        public function setSituacao($situacao)
+        {
             $this->situacao = $situacao;
         }
 
-        public function getStrSituacao() {
+        public function getStrSituacao()
+        {
             if ($this->situacao == 1) {
                 return "Ativo";
             } else {
@@ -160,7 +188,8 @@
             }
         }
 
-        public function __toString() {
+        public function __toString()
+        {
             return "[Cliente] ID Cliente: ".$this->idCliente." | ".
             "Nome: ".$this->nome." | ".
             "Nome Fantasia: ".$this->nomeFantasia." | ".
@@ -176,4 +205,3 @@
             "Situacao: ".$this->situacao;
         }
     }
-?>
