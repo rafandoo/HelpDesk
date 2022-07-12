@@ -189,7 +189,7 @@
                                 </div>
                             </a></div>
                     </div>
-                    <div class="row">
+                    <div class="row" hidden>
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3"></div>
@@ -198,7 +198,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card shadow mb-4">
+                                    <div class="card shadow mb-4" hidden>
                                         <div class="card-header py-3">
                                             <div class="row d-flex" style="margin-top: 5px;">
                                                 <div class="w-100"></div>

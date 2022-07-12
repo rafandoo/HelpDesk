@@ -167,7 +167,7 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row" hidden>
                                 <div class="col-md-6 align-self-center">
                                     <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de <?php echo rowCounter($procurar);?></p>
                                 </div>
