@@ -30,7 +30,6 @@
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO tramite (data, horaInicial, horaFinal, descricao, idTicket, usuario) VALUES (:data, :horaInicial, :horaFinal, :descricao, :idTicket, :usuario)");
         $stmt->bindValue(":data", $tramite->getData());
-        var_dump($tramite->getData());
         $stmt->bindValue(":horaInicial", $tramite->getHoraInicial());
         $stmt->bindValue(":horaFinal", $tramite->getHoraFinal());
         $stmt->bindValue(":descricao", $tramite->getDescricao());

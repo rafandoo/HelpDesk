@@ -25,7 +25,6 @@
         $stmt->bindValue(":senha", $senha);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        var_dump($linha);
         if ($linha != false) {
             $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
             inicializaSessao($usuario);
