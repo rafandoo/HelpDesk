@@ -1,45 +1,53 @@
 <?php
+
     /* It's a class that represents a state in Brazil. */
-    class estado {
-        
+    class estado
+    {
         private $idEstado;
         private $nome;
         private $sigla;
-        
-        public function __construct($idEstado, $nome, $sigla) {
+
+        public function __construct($idEstado, $nome, $sigla)
+        {
             $this->idEstado = $idEstado;
             $this->nome = $nome;
             $this->sigla = $sigla;
         }
-        
-        public function getIdEstado() {
+
+        public function getIdEstado()
+        {
             return $this->idEstado;
         }
-        
-        public function getNome() {
+
+        public function getNome()
+        {
             return $this->nome;
         }
-        
-        public function getSigla() {
+
+        public function getSigla()
+        {
             return $this->sigla;
         }
-        
-        public function setIdEstado($idEstado) {
+
+        public function setIdEstado($idEstado)
+        {
             $this->idEstado = $idEstado;
         }
-        
-        public function setNome($nome) {
+
+        public function setNome($nome)
+        {
             $this->nome = $nome;
         }
-        
-        public function setSigla($sigla) {
+
+        public function setSigla($sigla)
+        {
             $this->sigla = $sigla;
         }
-        
-        public function __toString() {
+
+        public function __toString()
+        {
             return "[Estado] Id Estado: ".$this->idEstado." | ".
             "Nome: ".$this->nome." | ".
             "Sigla: ".$this->sigla;
         }
     }
-?>

@@ -1,34 +1,40 @@
 <?php
-/* It's a class that represents a level of access. */
-    class nivelAcesso {
 
+/* It's a class that represents a level of access. */
+    class nivelAcesso
+    {
         private $idNivelAcesso;
         private $nome;
 
-        public function __construct($idNivelAcesso, $nome) {
+        public function __construct($idNivelAcesso, $nome)
+        {
             $this->idNivelAcesso = $idNivelAcesso;
             $this->nome = $nome;
         }
 
-        public function getIdNivelAcesso() {
+        public function getIdNivelAcesso()
+        {
             return $this->idNivelAcesso;
         }
 
-        public function getNome() {
+        public function getNome()
+        {
             return $this->nome;
         }
 
-        public function setIdNivelAcesso($idNivelAcesso) {
+        public function setIdNivelAcesso($idNivelAcesso)
+        {
             $this->idNivelAcesso = $idNivelAcesso;
         }
 
-        public function setNome($nome) {
+        public function setNome($nome)
+        {
             $this->nome = $nome;
         }
 
-        public function __toString() {
+        public function __toString()
+        {
             return "[Nivel de Acesso] IdNivelAcesso: ".$this->idNivelAcesso." | ".
             "Nome: ".$this->nome;
         }
     }
-?>

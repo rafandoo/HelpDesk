@@ -1,7 +1,8 @@
 <?php
-    /* It's a class that represents a tramite. */
-    class tramite {
 
+    /* It's a class that represents a tramite. */
+    class tramite
+    {
         private $idTramite;
         private $data;
         private $horaInicial;
@@ -10,7 +11,8 @@
         private $idTicket;
         private $usuario;
 
-        public function __construct($idTramite, $data, $horaInicial, $horaFinal, $descricao, $idTicket, $usuario) {
+        public function __construct($idTramite, $data, $horaInicial, $horaFinal, $descricao, $idTicket, $usuario)
+        {
             $this->idTramite = $idTramite;
             $this->data = $data;
             $this->horaInicial = $horaInicial;
@@ -20,51 +22,63 @@
             $this->usuario = $usuario;
         }
 
-        public function getIdTramite() {
+        public function getIdTramite()
+        {
             return $this->idTramite;
         }
 
-        public function getData() {
+        public function getData()
+        {
             return $this->data;
         }
 
-        public function getHoraInicial() {
+        public function getHoraInicial()
+        {
             return $this->horaInicial;
         }
 
-        public function getHoraFinal() {
+        public function getHoraFinal()
+        {
             return $this->horaFinal;
         }
 
-        public function getDescricao() {
+        public function getDescricao()
+        {
             return $this->descricao;
         }
 
-        public function getIdTicket() {
+        public function getIdTicket()
+        {
             return $this->idTicket;
         }
 
-        public function getUsuario() {
+        public function getUsuario()
+        {
             return $this->usuario;
         }
 
-        public function setIdTramite($idTramite) {
+        public function setIdTramite($idTramite)
+        {
             $this->idTramite = $idTramite;
         }
 
-        public function setData($data) {
+        public function setData($data)
+        {
             $this->data = $data;
         }
 
-        public function setHoraInicial($horaInicial) {
+        public function setHoraInicial($horaInicial)
+        {
             $this->horaInicial = $horaInicial;
         }
 
-        public function setHoraFinal($horaFinal) {
+        public function setHoraFinal($horaFinal)
+        {
             $this->horaFinal = $horaFinal;
         }
 
-        public function setDescricao($descricao) {
+        public function setDescricao($descricao)
+        {
             if (strlen($descricao) > 0) {
                 $this->descricao = $descricao;
             } else {
@@ -72,15 +86,18 @@
             }
         }
 
-        public function setIdTicket($idTicket) {
+        public function setIdTicket($idTicket)
+        {
             $this->idTicket = $idTicket;
         }
 
-        public function setUsuario($usuario) {
+        public function setUsuario($usuario)
+        {
             $this->usuario = $usuario;
         }
 
-        public function __toString() {
+        public function __toString()
+        {
             return "[Tramite] Id Tramite: ".$this->idTramite." | ".
             "Data: ".$this->data." | ".
             "Hora Inicial: ".$this->horaInicial." | ".
@@ -90,4 +107,3 @@
             "Usuario: ".$this->usuario;
         }
     }
-?>

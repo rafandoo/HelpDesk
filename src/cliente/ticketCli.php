@@ -5,7 +5,8 @@
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
 
-    function getUsuarios($idUsuario) {
+    function getUsuarios($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :idUsuario");
         $stmt->bindValue(":idUsuario", $idUsuario);
@@ -14,7 +15,8 @@
         return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
-    function getClientes($idUsuario) {
+    function getClientes($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
@@ -125,9 +127,9 @@
                                                             <div class="input-group"><span class="input-group-text">Setor</span><select class="form-select" id="setor" required="" name="setor">
                                                                     <option value="">Selecione uma opção</option>
                                                                     <?php
-                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                             $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
                                                                             echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
                                                                         }
@@ -140,9 +142,9 @@
                                                             <div class="input-group"><span class="input-group-text">Categoria</span><select class="form-select" id="categoria" required="" name="categoria">
                                                                     <option value="">Selecione uma opção</option>
                                                                     <?php
-                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                             $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
                                                                             echo '<option value="'.$categoria->getId().'">'.$categoria->getDescricao().'</option>';
                                                                         }

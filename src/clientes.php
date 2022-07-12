@@ -136,9 +136,8 @@
                                             <?php
                                                 $pdo = Conexao::getInstance();
                                                 $consulta = $pdo->query("SELECT * FROM cliente WHERE $filtro LIKE '%$procurar%' ORDER BY idCliente");
-                                                while($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                                                    $cliente = new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
-                                            ?>
+                                                while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                    $cliente = new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']); ?>
                                         <tr class="align-middle">
                                             <td><?php echo $cliente->getIdCliente()?></td>
                                             <td><?php echo $cliente->getNome()?></td>

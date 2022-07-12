@@ -9,8 +9,9 @@
     $title = "Cadastro de Categorias";
 
     $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
-    
-    function getDescricao($idCategoria) {
+
+    function getDescricao($idCategoria)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT descricao FROM categoria WHERE idCategoria = :id");
         $stmt->bindValue(":id", $idCategoria);

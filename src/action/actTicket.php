@@ -1,4 +1,5 @@
 <?php
+
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
@@ -16,20 +17,22 @@
 
     if ($acao == 'salvar') {
         insertTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $_POST['dataAtualizacao'], null, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['idCliente'], $_POST['contato'], $_POST['usuario']));
-    } else if ($acao == 'excluir') {
+    } elseif ($acao == 'excluir') {
         deleteTicket($_GET['idTicket']);
-    } else if ($acao == 'editar') {
+    } elseif ($acao == 'editar') {
         $dataAtualizacao = date('Y-m-d H:i');
         updateTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $dataAtualizacao, $dataFinalizacao, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['cliente'], $_POST['contato'], $_POST['usuario']));
-    } else if ($acao == 'abrirTicketCliente') {
-        insertTicketCliente(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], NULL, NULL, $_POST['categoria'], NULL, 1, $_POST['setor'], $_POST['cliente'], $_POST['contato'], 0));
+    } elseif ($acao == 'abrirTicketCliente') {
+        insertTicketCliente(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], null, null, $_POST['categoria'], null, 1, $_POST['setor'], $_POST['cliente'], $_POST['contato'], 0));
     }
 
-    function buildTicket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario) {
+    function buildTicket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario)
+    {
         return new ticket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario);
     }
 
-    function insertTicket($ticket) {
+    function insertTicket($ticket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, dataAtualizacao, categoria, prioridade, status, setor, cliente, contato, usuario) VALUES (:titulo, :descricao, :dataAbertura, :dataAtualizacao, :categoria, :prioridade, :status, :setor, :cliente, :contato, :usuario)");
         $stmt->bindValue(":titulo", $ticket->getTitulo());
@@ -47,7 +50,8 @@
         header("Location: ../filaAtendimentos.php");
     }
 
-    function updateTicket($ticket) {
+    function updateTicket($ticket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE ticket SET titulo = :titulo, descricao = :descricao, dataAtualizacao = :dataAtualizacao, dataFinalizacao = :dataFinalizacao, categoria = :categoria, prioridade = :prioridade, status = :status, setor = :setor, cliente = :cliente, contato = :contato, usuario = :usuario WHERE idTicket = :idTicket");
         $stmt->bindValue(":titulo", $ticket->getTitulo());
@@ -66,7 +70,8 @@
         header("Location: ../cadTickets.php?acao=alterar&idTicket=" . $ticket->getIdTicket());
     }
 
-    function deleteTicket($idTicket) {
+    function deleteTicket($idTicket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM ticket WHERE idTicket = :idTicket");
         $stmt->bindValue(":idTicket", $idTicket);
@@ -74,7 +79,8 @@
         header("Location: ../filaAtendimentos.php");
     }
 
-    function updateTicketTramite($status, $idTicket) {
+    function updateTicketTramite($status, $idTicket)
+    {
         $dataAtualizacao = date('Y-m-d H:i');
         if ($status == 4) {
             $dataFinalizacao = $dataAtualizacao;
@@ -90,7 +96,8 @@
         $stmt->execute();
     }
 
-    function insertTicketCliente($ticket) {
+    function insertTicketCliente($ticket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, categoria, status, setor, cliente, contato, usuario) VALUES (:titulo, :descricao, :dataAbertura, :categoria, :status, :setor, :cliente, :contato, :usuario)");
         $stmt->bindValue(":titulo", $ticket->getTitulo());
@@ -105,4 +112,3 @@
         $stmt->execute();
         header("Location: ../cliente/homeCli.php");
     }
-?>

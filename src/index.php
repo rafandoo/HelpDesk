@@ -13,7 +13,8 @@
 
     $setor = $_SESSION['setor'];
 
-    function countAguardandoAtendimentos($setor) {
+    function countAguardandoAtendimentos($setor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 1 AND setor = :setor AND usuario = 0");
         $stmt->bindValue(":setor", $setor);
@@ -21,7 +22,8 @@
         return $stmt->fetchColumn();
     }
 
-    function countPendentes($setor) {
+    function countPendentes($setor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 2 AND setor = :setor");
         $stmt->bindValue(":setor", $setor);
@@ -29,15 +31,17 @@
         return $stmt->fetchColumn();
     }
 
-    function countEmAtendimento($setor) {
+    function countEmAtendimento($setor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 3 AND setor = :setor");
         $stmt->bindValue(":setor", $setor);
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    
-    function countFinalizados($setor) {
+
+    function countFinalizados($setor)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 4 AND setor = :setor");
         $stmt->bindValue(":setor", $setor);

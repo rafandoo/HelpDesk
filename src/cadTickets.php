@@ -13,7 +13,8 @@
 
     $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
 
-    function getStatus($idStatus) {
+    function getStatus($idStatus)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM status WHERE idStatus = :id");
         $stmt->bindValue(":id", $idStatus);
@@ -22,7 +23,8 @@
         return new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
     }
 
-    function getUsuario($idUsuario) {
+    function getUsuario($idUsuario)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
         $stmt->bindValue(":id", $idUsuario);
@@ -31,7 +33,8 @@
         return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
-    function getTicket($idTicket) {
+    function getTicket($idTicket)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :id");
         $stmt->bindValue(":id", $idTicket);
@@ -40,7 +43,8 @@
         return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
 
-    function getClientes($idCliente) {
+    function getClientes($idCliente)
+    {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :id");
         $stmt->bindValue(":id", $idCliente);
@@ -80,7 +84,6 @@
         $idStatus = 1;
         $titulo = "";
         $descricao = "";
-
     }
 ?>
 <html lang="pt-br">
@@ -263,9 +266,9 @@
                                                                 <select class="form-select" id="setor" required="" name="setor">
                                                                     <option value="">Selecione uma opção</option>
                                                                     <?php
-                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                             $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
                                                                             if ($setor->getId() == $idSetor) {
                                                                                 echo '<option value="'.$setor->getId().'" selected="">'.$setor->getDescricao().'</option>';
@@ -309,9 +312,9 @@
                                                             <div class="input-group"><span class="input-group-text">Categoria</span><select class="form-select" id="categoria" required="" name="categoria">
                                                                     <option value="" selected="">Selecione uma opção</option>
                                                                     <?php
-                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                             $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
                                                                             if ($categoria->getId() == $idCategoria) {
                                                                                 echo '<option value="'.$categoria->getId().'" selected="">'.$categoria->getDescricao().'</option>';
@@ -333,9 +336,9 @@
                                                                 <select class="form-select" id="prioridade" required="" name="prioridade">
                                                                     <option value="" selected="">Selecione uma opção</option>
                                                                     <?php
-                                                                        $pdo = Conexao::getInstance(); 
+                                                                        $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM prioridade WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
+                                                                        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
                                                                             $prioridade = new prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
                                                                             if ($prioridade->getId() == $idPrioridade) {
                                                                                 echo '<option value="'.$prioridade->getId().'" selected="">'.$prioridade->getDescricao().'</option>';
