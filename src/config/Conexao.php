@@ -1,6 +1,7 @@
 <?php
     include_once "conf.inc.php";
 
+    /* It's a singleton class that creates a PDO object and returns it. */
     class Conexao {  
     
         private static $pdo;
