@@ -25,7 +25,7 @@
     }
 
     function buildCategoria($idCategoria, $descricao, $situacao) {
-        return new Categoria($idCategoria, $descricao, $situacao);
+        return new categoria($idCategoria, $descricao, $situacao);
     }
 
     function insertCategoria($categoria) {

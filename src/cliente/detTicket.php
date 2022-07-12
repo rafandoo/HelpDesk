@@ -15,7 +15,7 @@
         $stmt->bindValue(":id", $idTicket);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+        return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
 ?>
 <html lang="pt-br">
@@ -118,7 +118,7 @@
                                             $pdo = Conexao::getInstance();
                                             $consulta = $pdo->query("SELECT * FROM tramite WHERE idTicket = '$idTicket'");
                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $tramite = new Tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']);
+                                                $tramite = new tramite($linha['idTramite'], $linha['data'], $linha['horaInicial'], $linha['horaFinal'], $linha['descricao'], $linha['idTicket'], $linha['usuario']);
                                         ?>
                                         <tr class="align-middle">
                                             <td class="align-middle"><?php echo $tramite->getIdTramite(); ?></td>

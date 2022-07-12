@@ -28,7 +28,7 @@
     }
 
     function buildCliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao) {
-        return new Cliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao);
+        return new cliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao);
     }
 
     function insertCliente($cliente) {

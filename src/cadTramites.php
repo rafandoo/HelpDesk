@@ -24,7 +24,7 @@
         $stmt->bindValue(":id", $idTicket);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+        return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
 
 ?>
@@ -137,7 +137,7 @@
                                                                         $pdo = Conexao::getInstance();
                                                                         $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+                                                                            $status = new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
                                                                             if ($status->getId() == $idStatus) {
                                                                                 echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
                                                                             } else {

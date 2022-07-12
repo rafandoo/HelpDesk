@@ -128,7 +128,7 @@
                                                                         $pdo = Conexao::getInstance(); 
                                                                         $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
+                                                                            $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
                                                                             echo '<option value="'.$setor->getId().'">'.$setor->getDescricao().'</option>';
                                                                         }
                                                                     ?>
@@ -143,7 +143,7 @@
                                                                         $pdo = Conexao::getInstance(); 
                                                                         $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
+                                                                            $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
                                                                             echo '<option value="'.$categoria->getId().'">'.$categoria->getDescricao().'</option>';
                                                                         }
                                                                     ?>

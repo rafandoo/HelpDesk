@@ -19,7 +19,7 @@
         $stmt->bindValue(":id", $idStatus);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+        return new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
     }
 
     function getUsuario($idUsuario) {
@@ -37,7 +37,7 @@
         $stmt->bindValue(":id", $idTicket);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+        return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
 
     function getClientes($idCliente) {
@@ -266,7 +266,7 @@
                                                                         $pdo = Conexao::getInstance(); 
                                                                         $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
+                                                                            $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
                                                                             if ($setor->getId() == $idSetor) {
                                                                                 echo '<option value="'.$setor->getId().'" selected="">'.$setor->getDescricao().'</option>';
                                                                             } else {
@@ -312,7 +312,7 @@
                                                                         $pdo = Conexao::getInstance(); 
                                                                         $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
+                                                                            $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
                                                                             if ($categoria->getId() == $idCategoria) {
                                                                                 echo '<option value="'.$categoria->getId().'" selected="">'.$categoria->getDescricao().'</option>';
                                                                             } else {
@@ -336,7 +336,7 @@
                                                                         $pdo = Conexao::getInstance(); 
                                                                         $consulta = $pdo->query("SELECT * FROM prioridade WHERE situacao = 1");
                                                                         while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $prioridade = new Prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
+                                                                            $prioridade = new prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
                                                                             if ($prioridade->getId() == $idPrioridade) {
                                                                                 echo '<option value="'.$prioridade->getId().'" selected="">'.$prioridade->getDescricao().'</option>';
                                                                             } else {

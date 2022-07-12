@@ -171,7 +171,7 @@
                                             $pdo = Conexao::getInstance();
                                             $consulta = filtraTickets($filtroStatus, $filtroTicket, getClientes($_SESSION['idUsuario'])->getIdCliente());
                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                                                $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+                                                $ticket = new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
                                         ?>
                                         <tr class="align-middle">
                                             <td>#<?php echo $ticket->getIdTicket();?></td>

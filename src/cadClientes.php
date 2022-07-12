@@ -19,7 +19,7 @@
         $stmt->bindValue(":idCliente", $idCliente);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], getCidadeCliente($linha['cidade']), $linha['email'], $linha['telefone'], $linha['observacoes'], getUsuarioCliente($linha['idUsuario']), $linha['situacao']);
+        return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], getCidadeCliente($linha['cidade']), $linha['email'], $linha['telefone'], $linha['observacoes'], getUsuarioCliente($linha['idUsuario']), $linha['situacao']);
     }
 
     function getUsuarioCliente($idUsuario) {
@@ -28,7 +28,7 @@
         $stmt->bindValue(":idUsuario", $idUsuario);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+        return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
     }
 
     function getCidadeCliente($idCidade) {
@@ -37,7 +37,7 @@
         $stmt->bindValue(":idCidade", $idCidade);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Cidade($linha['idCidade'], $linha['nome'], $linha['idEstado']);
+        return new cidade($linha['idCidade'], $linha['nome'], $linha['idEstado']);
     }
 
     if ($acao == "alterarC") {

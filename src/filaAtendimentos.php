@@ -182,7 +182,7 @@
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM prioridade WHERE situacao = 1");
                                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                $prioridade = new Prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
+                                                                $prioridade = new prioridade($linha['idPrioridade'], $linha['descricao'], $linha['situacao']);
                                                                 if ($prioridade->getId() == $filtroPrioridade){
                                                                     echo '<option value="'.$prioridade->getId().'" selected>'.$prioridade->getDescricao().'</option>';
                                                                 } else {
@@ -200,7 +200,7 @@
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
                                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                $status = new Status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
+                                                                $status = new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
                                                                 if ($status->getId() == $filtroStatus){
                                                                     echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
                                                                 } else {
@@ -222,7 +222,7 @@
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM categoria WHERE situacao = 1");
                                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                $categoria = new Categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
+                                                                $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
                                                                 if ($categoria->getId() == $filtroCategoria){
                                                                     echo '<option value="'.$categoria->getId().'" selected>'.$categoria->getDescricao().'</option>';
                                                                 } else {
@@ -307,7 +307,7 @@
                                                             $pdo = Conexao::getInstance();
                                                             $consulta = $pdo->query("SELECT * FROM setor WHERE situacao = 1");
                                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                $setor = new Setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
+                                                                $setor = new setor($linha['idSetor'], $linha['descricao'], $linha['situacao']);
                                                                 if ($setor->getId() == $filtroSetor){
                                                                     echo '<option value="'.$setor->getId().'" selected>'.$setor->getDescricao().'</option>';
                                                                 } else {
@@ -349,7 +349,7 @@
                                             $pdo = Conexao::getInstance();
                                             $consulta = filtraTickets($filtroPrioridade, $filtroStatus, $filtroCategoria, $filtroUsuario, $filtroCliente, $filtroSetor);
                                             while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $ticket = new Ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+                                                $ticket = new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
                                                 $url = '"action/actTicket.php?acao=excluir&idTicket='.$ticket->getIdTicket().'"';
                                         ?>
                                         <tr class="align-middle">
