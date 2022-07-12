@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Jul-2022 às 07:18
+-- Tempo de geração: 12-Jul-2022 às 07:23
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.1.2
 
@@ -9017,7 +9017,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `nome`, `nomeFantasia`, `cpfCnpj`, `endereco`, `numero`, `bairro`, `cidade`, `email`, `telefone`, `observacoes`, `idUsuario`, `situacao`) VALUES
-(1, 'cliente', '', '00.000.000/0001-00', '', '', '', 0, 'cliente@cliente.com', '', '', 3, 1);
+(1, 'cliente', '', '00.000.000/0001-00', ' ', ' ', ' ', 8406, 'cliente@cliente.com', '', '', 3, 1);
 
 -- --------------------------------------------------------
 
