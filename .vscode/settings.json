@@ -1,6 +1,6 @@
 {
-    "docwriter.progress.trackClasses": false,
-    "docwriter.progress.trackMethods": true,
-    "docwriter.progress.trackTypes": false,
-    "docwriter.progress.trackFunctions": false
+  "docwriter.progress.trackClasses": false,
+  "docwriter.progress.trackMethods": true,
+  "docwriter.progress.trackTypes": false,
+  "docwriter.progress.trackFunctions": false
 }
