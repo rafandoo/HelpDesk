@@ -56,6 +56,7 @@
         $dataAbertura = $ticket->getDataAbertura();
         $dataAtualizacao = $ticket->getDataAtualizacao();
         $cliente = getClientes($ticket->getCliente())->getNome();
+        $idCliente = $ticket->getCliente();
         $contato = $ticket->getContato();
         $idSetor = $ticket->getSetor();
         if ($ticket->getUsuario() != 0) {

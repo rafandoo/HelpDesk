@@ -37,7 +37,7 @@
         $stmt->bindValue(":idTicket", $tramite->getIdTicket());
         $stmt->bindValue(":usuario", $tramite->getUsuario());
         $stmt->execute();
-        //header("Location: ../listaTramites.php?idTicket=" . $tramite->getIdTicket());
+        header("Location: ../listaTramites.php?idTicket=" . $tramite->getIdTicket());
     }
 
     function deleteTramite($idTramite) {

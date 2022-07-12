@@ -39,7 +39,7 @@
     
     function countFinalizados($setor) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 4 AND setor = :setor AND dataFinalizacao = CURRENT_DATE");
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM ticket WHERE status = 4 AND setor = :setor");
         $stmt->bindValue(":setor", $setor);
         $stmt->execute();
         return $stmt->fetchColumn();

@@ -1,4 +1,4 @@
-<!DOCTYPE .php>
+<!DOCTYPE html>
 <?php 
     include "validaSessao.php";
     require_once "util/autoload.php";
@@ -28,9 +28,7 @@
     }
 
 ?>
-
-<.php lang="pt-br">
-
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -120,7 +118,7 @@
                                             <form method="post" action="action/actTramite.php">
                                                 <div class="row">
                                                     <input type="hidden" name="idTicket" value="<?php echo $idTicket;?>">
-                                                    <input type="hidden" name="usuario" value="1">
+                                                    <input type="hidden" name="usuario" value="<?php echo $_SESSION['idUsuario'];?>">
                                                     <div class="col-xl-4 col-xxl-3">
                                                         <div class="mb-3">
                                                             <div class="input-group"><span class="input-group-text">Contato</span><input class="bg-white form-control" type="text" id="contato" readonly="" name="Contato" value="<?php echo $contato;?>"></div>

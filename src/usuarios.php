@@ -181,7 +181,7 @@
                                             <td><?php echo getNiveisAcesso($usuario->getNivelAcesso())->getNome();?></td>
                                             <?php
                                                 if ($usuario->getSetor() != 0) {
-                                                    echo "<td><?php echo getSetores($usuario->getSetor())->getDescricao();?></td>";
+                                                    echo "<td>".getSetores($usuario->getSetor())->getDescricao()."</td>";
                                                 } else {
                                                     echo "<td>Não possui setor</td>";
                                                 }
