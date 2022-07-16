@@ -6,7 +6,7 @@
     require_once "config/Conexao.php";
     include_once "config/default.inc.php";
 
-    $title = "Cadastro de Setores+";
+    $title = "Cadastro de Setores";
 
     $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
 

@@ -14,26 +14,54 @@
             break;
     }
 
-    if ($acao == 'logar') {
-        validaUsuario($_POST['usuario'], sha1($_POST['senha']));
+    if ($acao === 'logar') {
+        validaUsuario($_POST['usuario'], $_POST['senha']);
     }
 
+/**
+ * It takes a plain text password and a hash and returns true if the password matches the hash, false
+ * otherwise.
+ * 
+ * @param senha The password to verify.
+ * @param hash The hash created by password_hash()
+ * 
+ * @return a boolean value.
+ */
+    function validaSenha($senha, $hash) {
+        if (password_verify($senha, $hash)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * It validates the user and password, and if it's correct, it starts the session.
+     * 
+     * @param login admin
+     * @param senha y$/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X/X
+     */
     function validaUsuario($login, $senha) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login AND senha = :senha AND situacao = 1");
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE login = :login AND situacao = 1");
         $stmt->bindValue(":login", $login);
-        $stmt->bindValue(":senha", $senha);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($linha != false) {
             $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
-            inicializaSessao($usuario);
-        } else {
-            echo "<script>alert('Usuário ou senha inválidos.');</script>";
-            echo "<script>window.location.href = '../index.php';</script>";
+            if (validaSenha($senha, $usuario->getSenha())) {
+                    inicializaSessao($usuario);
+            }
         }
+        echo "<script>alert('Usuário ou senha inválidos.');</script>";
+        echo "<script>window.location.href = '../index.php';</script>";
     }
 
+    /**
+     * It starts a session, sets some session variables, and then redirects the user to a different page.
+     * 
+     * @param usuario is the user's object.
+     */
     function inicializaSessao($usuario) {
         session_start();
         $_SESSION['idUsuario'] = $usuario->getIdUsuario();
@@ -42,7 +70,7 @@
         $_SESSION['nivelAcesso'] = $usuario->getNivelAcesso();
         $_SESSION['setor'] = $usuario->getSetor();
         
-        if ($usuario->getNivelAcesso() == 1) {
+        if ($usuario->getNivelAcesso() === 1) {
             header("Location: ../cliente/homeCli.php");
         } else {
             header("Location: ../index.php");

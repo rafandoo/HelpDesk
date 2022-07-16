@@ -30,6 +30,10 @@
         return new usuario($idUsuario, $nome, $sobrenome, $email, $login, $senha, $nivelAcesso, $setor, $situacao);
     }
 
+    function criptSenha($senha) {
+        return password_hash($senha, PASSWORD_BCRYPT);
+    }
+
     function insertUsuario($usuario) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO usuario (nome, sobrenome, email, login, senha, nivelAcesso, setor, situacao) VALUES (:nome, :sobrenome, :email, :login, :senha, :nivelAcesso, :setor, :situacao)");
@@ -37,7 +41,7 @@
         $stmt->bindValue(":sobrenome", $usuario->getSobrenome());
         $stmt->bindValue(":email", $usuario->getEmail());
         $stmt->bindValue(":login", $usuario->getLogin());
-        $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+        $stmt->bindValue(":senha", criptSenha($usuario->getSenha()));
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
         $stmt->bindValue(":situacao", $usuario->getSituacao());
@@ -57,7 +61,7 @@
         if ($usuario->getSenha() == "") {
             $stmt->bindValue(":senha", getSenhaUsuario($usuario->getIdUsuario())['senha']);
         } else {
-            $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+            $stmt->bindValue(":senha", criptSenha($usuario->getSenha()));
         }
         $stmt->bindValue(":nivelAcesso", $usuario->getNivelAcesso());
         $stmt->bindValue(":setor", $usuario->getSetor());
@@ -123,7 +127,7 @@
         if ($usuario->getSenha() == "") {
             $stmt->bindValue(":senha", getSenhaUsuario($usuario->getIdUsuario())['senha']);
         } else {
-            $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+            $stmt->bindValue(":senha", criptSenha($usuario->getSenha()));
         }
         $stmt->bindValue(":id", $usuario->getIdUsuario());
         $stmt->execute();
@@ -140,7 +144,7 @@
         if ($usuario->getSenha() == "") {
             $stmt->bindValue(":senha", getSenhaUsuario($usuario->getIdUsuario())['senha']);
         } else {
-            $stmt->bindValue(":senha", sha1($usuario->getSenha()));
+            $stmt->bindValue(":senha", criptSenha($usuario->getSenha()));
         }
         $stmt->bindValue(":id", $usuario->getIdUsuario());
         $stmt->execute();
