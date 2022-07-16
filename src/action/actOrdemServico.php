@@ -34,9 +34,9 @@
     }
 
     /**
-     * It inserts a new record into the ordemServico table.
+     * It inserts a new order into the database.
      * 
-     * @param ordemServico 
+     * @param ordemServico object
      */
     function insertOrdemServico($ordemServico) {
         $pdo = Conexao::getInstance();

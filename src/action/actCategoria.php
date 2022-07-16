@@ -31,7 +31,7 @@
      * @param descricao string
      * @param situacao 1 = active, 0 = inactive
      * 
-     * @return a new instance of the class categoria.
+     * @return An object of type ordemServico.
      */
     function buildCategoria($idCategoria, $descricao, $situacao) {
         return new categoria($idCategoria, $descricao, $situacao);
