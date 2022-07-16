@@ -1,4 +1,5 @@
 <?php
+    /* It's a PHP code that is getting the data from the database and returning it to the ajax call. */
     require_once "autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";

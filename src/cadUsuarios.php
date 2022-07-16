@@ -65,7 +65,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><?php echo $title; ?></title>
+    <title><?php echo $title;?></title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Nunito.css">
     <link rel="stylesheet" href="assets/css/summernote.css">
@@ -163,12 +163,12 @@
                                                     <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $idUsuario;?>">
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="usuario"><strong>Usuário</strong></label>
-                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required minlength="3" value="<?php echo $login;?>" <?php if ($acao != 'alterar') echo 'onchange="callValidarPHP(\'login\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'login\', this.value,'.$idUsuario.', this)"';?>></div>
+                                                            <div class="input-group"><span class="input-group-text">@</span><input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required minlength="3" value="<?php echo $login;?>" onchange="callValidarPHP('login', this.value, this, <?=$idUsuario?>)"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label>
-                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required value="<?php echo $email;?>" <?php if ($acao != 'alterar') echo 'onchange="callValidarPHP(\'email\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'email\', this.value,'.$idUsuario.', this)"';?>>
+                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required value="<?php echo $email;?>" onchange="callValidarPHP('email', this.value, this, <?=$idUsuario?>)">
                                                         </div>
                                                     </div>
                                                 </div>

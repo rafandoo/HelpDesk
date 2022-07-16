@@ -3,31 +3,39 @@
     include_once "../config/default.inc.php";
 
     $acao = isset($_POST["acao"]) ? $_POST["acao"] : "";
-    $id = isset($_POST["id"]) ? $_POST["id"] : 0;
+    $idUsuario = isset($_POST["id"]) ? $_POST["id"] : 0;
 
     if ($acao == 'email') {
-        if ($id == 0) {
+        if ($idUsuario == 0) {
             echo existeEmailUsuario($_POST['valor'], 0);
         } else {
-            echo existeEmailUsuario($_POST['valor'], $id);
+            echo existeEmailUsuario($_POST['valor'], $idUsuario);
         }
     } else if ($acao == 'login') {
-        if ($id == 0) {
+        if ($idUsuario == 0) {
             echo existeLoginUsuario($_POST['valor'], 0);
         } else {
-            echo existeLoginUsuario($_POST['valor'], $id);
+            echo existeLoginUsuario($_POST['valor'], $idUsuario);
         }
     } else if ($acao == 'cpfCnpj') {
         echo existeCpfCnpj($_POST['valor']);
     }
 
-    function existeEmailUsuario($email, $id) {
+    /**
+     * It checks if the email exists in the database, but it doesn't count the current user.
+     * 
+     * @param email teste@teste.com
+     * @param id 1
+     * 
+     * @return a boolean value.
+     */
+    function existeEmailUsuario($email, $idUsuario) {
         $count = 0;
         $pdo = Conexao::getInstance();
 
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND idUsuario != :id");
         $stmt->bindValue(":email", $email);
-        $stmt->bindValue(":id", $id);
+        $stmt->bindValue(":id", $idUsuario);
         $stmt->execute();
         $count += $stmt->rowCount();
         
@@ -38,6 +46,14 @@
         }
     }
 
+    /**
+     * If the login exists in the database, return true, otherwise return false, but it doesn't count the current user.
+     * 
+     * @param login the login of the user
+     * @param id 1
+     * 
+     * @return a boolean value.
+     */
     function existeLoginUsuario($login, $id) {
         $count = 0;
         $pdo = Conexao::getInstance();
@@ -55,6 +71,13 @@
         }
     }
 
+    /**
+     * It checks if a given CPF/CNPJ exists in the database
+     * 
+     * @param cpfCnpj 12345678910
+     * 
+     * @return The number of rows that match the query.
+     */
     function existeCpfCnpj($cpfCnpj) {
         $count = 0;
         $pdo = Conexao::getInstance();

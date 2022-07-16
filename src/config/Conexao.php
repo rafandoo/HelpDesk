@@ -7,7 +7,7 @@
         private static $pdo;
     
         private function __construct() {  
-            // NÃO PRECISA INICIALIZAR A CLASSE
+            //
         } 
     
         public static function getInstance() {  

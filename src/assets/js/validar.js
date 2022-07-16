@@ -1,3 +1,9 @@
+/**
+ * If the value of the input field is not equal to the value of the password field, then set the custom
+ * validity of the input field to "Repita a senha corretamente". Otherwise, set the custom validity of
+ * the input field to an empty string
+ * @param input - The input element that is being validated.
+ */
 function validaSenha (input) { 
     if (input.value != document.getElementById('senha').value) {
         input.setCustomValidity('Repita a senha corretamente');
@@ -6,6 +12,11 @@ function validaSenha (input) {
     }
 }
 
+/**
+ * If the value of the input field is 0 or empty, alert the user that the ticket hasn't been included
+ * yet. Otherwise, redirect the user to the url.
+ * @param url - The URL to redirect to.
+ */
 function validaTicket (url) {
     var ticket = document.getElementById('idTicket').value;
     if (ticket == 0 || ticket == '') {
@@ -15,6 +26,12 @@ function validaTicket (url) {
     }
 }
 
+/**
+ * If the email exists, set the custom validity to "Email já cadastrado!"; otherwise, set the custom
+ * validity to an empty string.
+ * @param input - The input element that is being validated.
+ * @param existe - is a variable that is returned by the PHP script.
+ */
 function validarEmailUsuario (input, existe) { 
     if (existe == '1') {
         input.setCustomValidity('Email já cadastrado!');
@@ -23,6 +40,12 @@ function validarEmailUsuario (input, existe) {
     }
 }
 
+/**
+ * If the user exists, set the custom validity to 'Usuário já cadastrado!'; otherwise, set the custom
+ * validity to an empty string.
+ * @param input - The input element that is being validated.
+ * @param existe - is a variable that is returned by the the PHP script.
+ */
 function validarLoginUsuario (input, existe) {
     if (existe == '1') {
         input.setCustomValidity('Usuário já cadastrado!');
@@ -162,24 +185,13 @@ function validarCpfCnpj(input, existe) {
     input.value = formatarCpfCnpj(input.value);
 }
 
-function callValidarPHP(acao, valor, input) {
-    $.ajax({
-        type: "POST",
-        url: "util/validar.php",
-        data: "acao=" + acao + "&valor=" + valor,
-        dataType: "html"
-    }).done(function(resposta) {
-        if (acao == 'email') {
-            validarEmailUsuario(input, resposta);
-        } else if (acao == 'login') {
-            validarLoginUsuario(input, resposta);
-        } else if (acao == 'cpfCnpj') {
-            validarCpfCnpj(input, resposta);
-        }
-    });
-}
-
-function callValidarPHPAlterar(acao, valor, id, input) {
+/**
+ * It sends a request to a PHP file, and then does something with the response.
+ * @param acao - action
+ * @param valor - the value of the input
+ * @param input - the input field
+ */
+function callValidarPHP(acao, valor, input, id) {
     $.ajax({
         type: "POST",
         url: "util/validar.php",
@@ -190,6 +202,8 @@ function callValidarPHPAlterar(acao, valor, id, input) {
             validarEmailUsuario(input, resposta);
         } else if (acao == 'login') {
             validarLoginUsuario(input, resposta);
+        } else if (acao == 'cpfCnpj') {
+            validarCpfCnpj(input, resposta);
         }
     });
 }

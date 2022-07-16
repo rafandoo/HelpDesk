@@ -249,13 +249,13 @@
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="usuario"><strong>Usuário</strong></label>
                                                             <div class="input-group"><span class="input-group-text">@</span>
-                                                                <input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>" <?php if ($acao != 'alterarC') echo 'onchange="callValidarPHP(\'login\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'login\', this.value,'.$idCliente.', this)"';?>>
+                                                                <input class="form-control" type="text" id="usuario" placeholder="user.name" name="usuario" required="" minlength="3" value="<?php echo $login;?>" onchange="callValidarPHP('login', this.value, this, <?=$idUsuario?>)">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label>
-                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>" <?php if ($acao != 'alterarC') echo 'onchange="callValidarPHP(\'email\', this.value, this)"'; else echo 'onchange="callValidarPHPAlterar(\'email\', this.value,'.$idCliente.', this)"';?>>
+                                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email" required="" value="<?php echo $email;?>" onchange="callValidarPHP('email', this.value, this, <?=$idUsuario?>)">
                                                         </div>
                                                     </div>
                                                 </div>
