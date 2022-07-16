@@ -27,10 +27,34 @@
         situationCliente($_GET['idCliente']);
     }
 
+    /**
+     * It creates a new cliente object.
+     * 
+     * @param idCliente int
+     * @param nome string
+     * @param nomeFantasia "teste"
+     * @param cpfCnpj 11111111111
+     * @param endereco Street
+     * @param numero number
+     * @param bairro neighborhood
+     * @param cidade city
+     * @param email email@email.com
+     * @param telefone (11) 11111-1111
+     * @param observacoes text
+     * @param usuario is the user that is logged in
+     * @param situacao 1 = active, 0 = inactive
+     * 
+     * @return A new instance of the class cliente.
+     */
     function buildCliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao) {
         return new cliente($idCliente, $nome, $nomeFantasia, $cpfCnpj, $endereco, $numero, $bairro, $cidade, $email, $telefone, $observacoes, $usuario, $situacao);
     }
 
+    /**
+     * It inserts a client into the database.
+     * 
+     * @param cliente 
+     */
     function insertCliente($cliente) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO cliente (nome, nomeFantasia, cpfCnpj, endereco, numero, bairro, cidade, email, telefone, observacoes, idUsuario, situacao) VALUES (:nome, :nomeFantasia, :cpfCnpj, :endereco, :numero, :bairro, :cidade, :email, :telefone, :observacoes, :idUsuario, :situacao)");
@@ -51,6 +75,11 @@
         header("Location: ../clientes.php");
     }
 
+    /**
+     * It updates a cliente (client) in the database.
+     * 
+     * @param cliente 
+     */
     function updateCliente($cliente) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE cliente SET nome = :nome, nomeFantasia = :nomeFantasia, endereco = :endereco, numero = :numero, bairro = :bairro, cidade = :cidade, email = :email, telefone = :telefone, observacoes = :observacoes, idUsuario = :idUsuario, situacao = :situacao WHERE idCliente = :id");
@@ -71,6 +100,11 @@
         header("Location: ../clientes.php");
     }
 
+    /**
+     * It deletes a client from the database.
+     * 
+     * @param idCliente int(11)
+     */
     function deleteCliente($idCliente) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM cliente WHERE idCliente = :id");
@@ -79,6 +113,12 @@
         header('Location: index.php');
     }
 
+    /**
+     * It takes an id, checks if the row with that id has a 0 or 1 in the 'situacao' column, and then
+     * updates the row with the opposite value.
+     * 
+     * @param idCliente The id of the client
+     */
     function situationCliente($idCliente) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT situacao, idUsuario FROM cliente WHERE idCliente = :id");

@@ -24,10 +24,24 @@
         situationCategoria($_GET['idCategoria']);
     }
 
+    /**
+     * It creates a new object of the class "categoria" and returns it.
+     * 
+     * @param idCategoria int
+     * @param descricao string
+     * @param situacao 1 = active, 0 = inactive
+     * 
+     * @return a new instance of the class categoria.
+     */
     function buildCategoria($idCategoria, $descricao, $situacao) {
         return new categoria($idCategoria, $descricao, $situacao);
     }
 
+    /**
+     * It inserts a new category into the database.
+     * 
+     * @param categoria object
+     */
     function insertCategoria($categoria) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO categoria (descricao, situacao) VALUES (:descricao, :situacao)");
@@ -37,6 +51,11 @@
         header("Location: ../categorias.php");
     }
 
+    /**
+     * It updates a row in the database with the values of the object passed as parameter.
+     * 
+     * @param categoria object
+     */
     function updateCategoria($categoria) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE categoria SET descricao = :descricao, situacao = :situacao WHERE idCategoria = :id");
@@ -47,6 +66,12 @@
         header("Location: ../categorias.php");
     }
 
+    /**
+     * It deletes a row from the database table 'categoria' where the idCategoria column matches the
+     * idCategoria parameter.
+     * 
+     * @param idCategoria int(11)
+     */
     function deleteCategoria($idCategoria) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM categoria WHERE idCategoria = :id");
@@ -54,6 +79,12 @@
         $stmt->execute();
     }
 
+    /**
+     * It takes an id, checks if the row with that id has a 0 or 1 in the 'situacao' column, and then
+     * updates the row with the opposite value.
+     * 
+     * @param idCategoria 1
+     */
     function situationCategoria($idCategoria) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("SELECT situacao FROM categoria WHERE idCategoria = :id");
