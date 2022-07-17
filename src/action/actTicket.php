@@ -33,9 +33,13 @@
     } else if ($acao === 'excluir') {
         deleteLinhaTabela('ticket', "idTicket", $_GET['idTicket']);
         deleteLinhaTabela('tramite', "idTicket", $_GET['idTicket']);
+        header("Location: ../filaAtendimentos.php");
     } else if ($acao === 'editar') {
         $dataAtualizacao = date('Y-m-d H:i');
-        updateTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $dataAtualizacao, $dataFinalizacao, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['cliente'], $_POST['contato'], $_POST['usuario']));
+        if ($status === 4) {
+            $dataFinalizacao = $dataAtualizacao;
+        }
+        updateTicket(buildTicket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario));
     }
 
     /**
@@ -48,12 +52,12 @@
      * @param dataAtualizacao DateTime
      * @param dataFinalizacao date
      * @param categoria category
-     * @param prioridade 1 = low, 2 = medium, 3 = high
-     * @param status 1 = open, 2 = closed, 3 = pending
+     * @param prioridade
+     * @param status 
      * @param setor 1
      * @param cliente is a class
      * @param contato 
-     * @param usuario is the user who created the ticket
+     * @param usuario 
      * 
      * @return A new ticket object.
      */
@@ -109,19 +113,6 @@
     }
 
     /**
-     * It deletes a ticket from the database.
-     * 
-     * @param idTicket 1
-     */
-    function deleteTicket($idTicket) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM ticket WHERE idTicket = :idTicket");
-        $stmt->bindValue(":idTicket", $idTicket);
-        $stmt->execute();
-        header("Location: ../filaAtendimentos.php");
-    }
-
-    /**
      * Update the ticket table with the current date, the date of completion, and the status of the
      * ticket.
      * 
@@ -142,26 +133,5 @@
         $stmt->bindValue(":status", $status);
         $stmt->bindValue(":idTicket", $idTicket);
         $stmt->execute();
-    }
-
-    /**
-     * It inserts a ticket into the database.
-     * 
-     * @param ticket 
-     */
-    function insertTicketCliente($ticket) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, categoria, status, setor, cliente, contato, usuario) VALUES (:titulo, :descricao, :dataAbertura, :categoria, :status, :setor, :cliente, :contato, :usuario)");
-        $stmt->bindValue(":titulo", $ticket->getTitulo());
-        $stmt->bindValue(":descricao", $ticket->getDescricao());
-        $stmt->bindValue(":dataAbertura", $ticket->getDataAbertura());
-        $stmt->bindValue(":categoria", $ticket->getCategoria());
-        $stmt->bindValue(":status", $ticket->getStatus());
-        $stmt->bindValue(":setor", $ticket->getSetor());
-        $stmt->bindValue(":cliente", $ticket->getCliente());
-        $stmt->bindValue(":contato", $ticket->getContato());
-        $stmt->bindValue(":usuario", $ticket->getUsuario());
-        $stmt->execute();
-        header("Location: ../cliente/homeCli.php");
     }
 ?>

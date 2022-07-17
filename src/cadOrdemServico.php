@@ -163,7 +163,7 @@
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-5">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Valor do serviço R$</span><input class="bg-white form-control" type="text" id="valor" name="valor" placeholder="0,00" value="<?php echo $valor;?>"></div>
+                                                            <div class="input-group"><span class="input-group-text">Valor do serviço R$</span><input class="bg-white form-control" type="text" id="valor" name="valor" placeholder="0,00" value="<?php echo $valor;?>" required></div>
                                                         </div>
                                                     </div>
                                                 </div>
