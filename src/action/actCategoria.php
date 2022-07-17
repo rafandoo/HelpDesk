@@ -16,8 +16,6 @@
 
     if ($acao == 'salvar') {
         insertCategoria(buildCategoria(0, $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'excluir') {
-        deleteCategoria($_GET['idCategoria']);
     } else if ($acao == 'editar') {
         updateCategoria(buildCategoria($_POST['idCategoria'], $_POST['descricao'], $_POST['situacao']));
     } else if ($acao == 'situacao') {
@@ -66,18 +64,6 @@
         header("Location: ../categorias.php");
     }
 
-    /**
-     * It deletes a row from the database table 'categoria' where the idCategoria column matches the
-     * idCategoria parameter.
-     * 
-     * @param idCategoria int(11)
-     */
-    function deleteCategoria($idCategoria) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM categoria WHERE idCategoria = :id");
-        $stmt->bindValue(':id', $idCategoria);
-        $stmt->execute();
-    }
 
     /**
      * It takes an id, checks if the row with that id has a 0 or 1 in the 'situacao' column, and then

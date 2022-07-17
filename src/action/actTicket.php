@@ -2,6 +2,7 @@
     require_once "../util/autoload.php";
     require_once "../config/Conexao.php";
     include_once "../config/default.inc.php";
+    include_once "actDelete.php";
 
     $acao = "";
 
@@ -10,19 +11,31 @@
             $acao = $_GET["acao"];
             break;
         case "POST":
-            $acao = $_POST["acao"];
+            $acao = $_POST['acao'];
+            $idTicket = isset($_POST['idTicket']) ? $_POST['idTicket'] : null; 
+            $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : null; 
+            $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : null;
+            $dataAbertura = isset($_POST['dataAbertura']) ? $_POST['dataAbertura'] : null; 
+            $dataAtualizacao = isset($_POST['dataAtualizacao']) ? $_POST['dataAtualizacao'] : null; 
+            $dataFinalizacao = isset($_POST['dataFinalizacao']) ? $_POST['dataFinalizacao'] : null; 
+            $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null; 
+            $prioridade = isset($_POST['prioridade']) ? $_POST['prioridade'] : null; 
+            $status = isset($_POST['status']) ? $_POST['status'] : null; 
+            $setor = isset($_POST['setor']) ? $_POST['setor'] : null; 
+            $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : null;
+            $contato = isset($_POST['contato']) ? $_POST['contato'] : null; 
+            $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null; 
             break;
     }
 
-    if ($acao == 'salvar') {
-        insertTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $_POST['dataAtualizacao'], null, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['idCliente'], $_POST['contato'], $_POST['usuario']));
-    } else if ($acao == 'excluir') {
-        deleteTicket($_GET['idTicket']);
-    } else if ($acao == 'editar') {
+    if ($acao === 'salvar') {
+        insertTicket(buildTicket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario));
+    } else if ($acao === 'excluir') {
+        deleteLinhaTabela('ticket', "idTicket", $_GET['idTicket']);
+        deleteLinhaTabela('tramite', "idTicket", $_GET['idTicket']);
+    } else if ($acao === 'editar') {
         $dataAtualizacao = date('Y-m-d H:i');
         updateTicket(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], $dataAtualizacao, $dataFinalizacao, $_POST['categoria'], $_POST['prioridade'], $_POST['status'], $_POST['setor'], $_POST['cliente'], $_POST['contato'], $_POST['usuario']));
-    } else if ($acao == 'abrirTicketCliente') {
-        insertTicketCliente(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], NULL, NULL, $_POST['categoria'], NULL, 1, $_POST['setor'], $_POST['cliente'], $_POST['contato'], 0));
     }
 
     /**

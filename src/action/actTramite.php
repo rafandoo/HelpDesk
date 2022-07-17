@@ -15,11 +15,9 @@
             break;
     }
 
-    if ($acao == 'incluir') {
+    if ($acao === 'incluir') {
         updateTicketTramite($_POST['status'], $_POST['idTicket']);
         insertTramite(buildTramite(0, $_POST['data'], $_POST['horaInicial'], $_POST['horaFinal'], $_POST['descricao'], $_POST['idTicket'], $_POST['usuario']));
-    } else if ($acao == 'excluir') {
-        deleteTramite($_GET['idTramite']);
     }
 
     function buildTramite($idTramite, $data, $horaInicial, $horaFinal, $descricao, $idTicket, $usuario) {
@@ -37,13 +35,5 @@
         $stmt->bindValue(":usuario", $tramite->getUsuario());
         $stmt->execute();
         header("Location: ../listaTramites.php?idTicket=" . $tramite->getIdTicket());
-    }
-
-    function deleteTramite($idTramite) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM tramite WHERE idTramite = :id");
-        $stmt->bindValue(":id", $idTramite);
-        $stmt->execute();
-        header("Location: index.php");
     }
 ?>

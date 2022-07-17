@@ -16,8 +16,6 @@
 
     if ($acao == 'salvar') {
         insertSetor(buildSetor(0, $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'excluir') {
-        deleteSetor($_GET['idSetor']);
     } else if ($acao == 'editar') {
         updateSetor(buildSetor($_POST['idSetor'], $_POST['descricao'], $_POST['situacao']));
     } else if ($acao == 'situacao') {
@@ -65,14 +63,7 @@
         $stmt->execute();
         header("Location: ../setores.php");
     }
-
-    function deleteSetor($idSetor) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM setor WHERE idSetor = :id");
-        $stmt->bindValue(":id", $idSetor);
-        $stmt->execute();
-    }
-
+    
     /**
      * It takes an id, checks if the row with that id has a 0 or 1 in the 'situacao' column, and then
      * updates the row with the opposite value.

@@ -164,7 +164,7 @@
                                                         <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"></textarea></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-right: 10px;" value="abrirTicketCliente" name="acao">Salvar</button><a class="btn btn-primary" role="button" href="homeCli.php">Voltar</a></div>
+                                                <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-right: 10px;" value="salvar" name="acao">Salvar</button><a class="btn btn-primary" role="button" href="homeCli.php">Voltar</a></div>
                                             </form>
                                         </div>
                                     </div>

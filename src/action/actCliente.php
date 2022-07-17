@@ -18,8 +18,6 @@
     if ($acao == 'salvarC') {
         $usuario = insertUsuarioCliente(buildUsuario(0, $_POST['nome'], "", $_POST['email'], $_POST['usuario'], $_POST['senha'], 1, 0, $_POST['situacao']));
         insertCliente(buildCliente(0, $_POST['nome'], $_POST['nomeFantasia'], $_POST['cpfCnpj'], $_POST['endereco'], $_POST['numero'], $_POST['bairro'], $_POST['cidade'], $_POST['email'], $_POST['telefone'], $_POST['observacoes'],$usuario, $_POST['situacao']));
-    } else if ($acao == 'excluir') {
-        deleteCliente($_GET['idCliente']);
     } else if ($acao == 'editarC') {
         $usuario = updateUsuarioCliente(buildUsuario($_POST['idUsuario'], $_POST['nome'], "", $_POST['email'], $_POST['usuario'], $_POST['senha'], 1, 0, $_POST['situacao']));
         updateCliente(buildCliente($_POST['idCliente'], $_POST['nome'], $_POST['nomeFantasia'], $_POST['cpfCnpj'], $_POST['endereco'], $_POST['numero'], $_POST['bairro'], $_POST['cidade'], $_POST['email'], $_POST['telefone'], $_POST['observacoes'], $usuario, $_POST['situacao']));
@@ -98,19 +96,6 @@
         $stmt->bindValue(':id', $cliente->getIdCliente());
         $stmt->execute();
         header("Location: ../clientes.php");
-    }
-
-    /**
-     * It deletes a client from the database.
-     * 
-     * @param idCliente int(11)
-     */
-    function deleteCliente($idCliente) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM cliente WHERE idCliente = :id");
-        $stmt->bindValue(':id', $idCliente);
-        $stmt->execute();
-        header('Location: index.php');
     }
 
     /**
