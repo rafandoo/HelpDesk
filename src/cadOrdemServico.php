@@ -175,7 +175,8 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <button class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="<?php echo $value;?>">Salvar</button>
-                                                    <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="util/gerarPDF.php?idTicket=<?=$idTicket?>">Imprimir</a>
+                                                    <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="util/gerarPDF.php?idTicket=<?=$idTicket?>" target="_blank">Imprimir</a>
+                                                    <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="cadTickets.php?acao=alterar&idTicket=<?=$idTicket?>">Voltar</a>
                                                 </div>
                                             </form>
                                         </div>

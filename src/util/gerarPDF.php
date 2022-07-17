@@ -46,6 +46,30 @@
         return new cidade($linha['idCidade'], $linha['nome'], $linha['idEstado']);
     }
 
+    function countHoras($idTicket) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT horaInicial, horaFinal FROM tramite WHERE idTicket = :idTicket");
+        $stmt->bindValue(":idTicket", $idTicket);
+        $stmt->execute();
+        $horas = 0;
+
+        while($linha = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $horaInicial = $linha['horaInicial'];
+            $horaFinal = $linha['horaFinal'];
+            $horaInicial = strtotime($horaInicial);
+            $horaFinal = strtotime($horaFinal);
+            $diferenca = $horaFinal - $horaInicial;
+            $horas += $diferenca;
+        }
+
+        if ($horas == 0) {
+            $horas = ("00:00");
+        } else {
+            $horas = gmdate("H:i", $horas);
+        }
+        return $horas;
+    }
+
     class PDF extends FPDF {
         function Header() {
         
@@ -90,13 +114,17 @@
             $this->SetX(-60);
             $this->Cell(50,7,"Data: ".$ticket->getDataAtualizacao(), 0, 1);
 
+            $this->SetY(71);
+            $this->SetX(-60);
+            $this->Cell(50, 7, "Horas trabalhadas: ".countHoras($ticket->getIdTicket()), 0, 1);
+
             $this->Line(0, 95, 210, 95);
             
             //Display Table headings
             $this->SetY(105);
             $this->SetX(10);
             $this->SetFont('Arial','B',12);
-            $this->Cell(190, 9, utf8_decode("DESCRIÇÃO"), 1, 0);
+            $this->Cell(190, 9, utf8_decode("DESCRIÇÃO DO SERVIÇO"), 1, 0);
             //$this->Cell(40, 9, "VALOR", 1, 0, "C");
             $this->SetFont('Arial','',12);
             
