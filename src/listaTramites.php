@@ -154,7 +154,7 @@
                                 <div class="col-xl-2 col-xxl-2" style="padding-right: 0px;padding-left: 0px;">
                                     <div>
                                         <div style="margin-bottom: 15px;">
-                                            <div class="input-group"><span class="input-group-text">Ticket</span><input class="bg-white form-control" type="text" id="ticket" name="ticket" readonly="" style="margin-right: 10px;" value="<?php echo $idTicket;?>"></div>
+                                            <div class="input-group"><span class="input-group-text">Ticket #</span><input class="bg-white form-control" type="text" id="ticket" name="ticket" readonly="" style="margin-right: 10px;" value="<?php echo $idTicket;?>"></div>
                                         </div>
                                     </div>
                                 </div>

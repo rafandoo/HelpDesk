@@ -1,43 +1,67 @@
 <!DOCTYPE html>
-<?php 
+<?php
     include "validaSessao.php";
     require_once "util/autoload.php";
     require_once "config/Conexao.php";
     include_once "config/default.inc.php";
 
-    $title = "Cadastro de Tramites";
+    $title = "Cadastro de Ordem de Serviço";
 
-    if ($_SESSION['nivelAcesso'] == 1) {
-        header("Location: cliente/homeCli.php");
-    }
-
-    $idTicket = isset($_GET["idTicket"]) ? $_GET["idTicket"] : 0;
-    $idStatus = getTicket($idTicket)->getStatus();
-    $contato = getTicket($idTicket)->getContato();
-    $cliente = getTicket($idTicket)->getCliente();
-    $data = date("Y-m-d");
-    $horaInicial = date("H:i");
-
-    function getTicket($idTicket) {
+    function getOrdemServico($idTicket) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT * FROM ticket WHERE idTicket = :id");
+        $stmt = $pdo->prepare("SELECT * FROM ordemServico WHERE idTicket = :id");
         $stmt->bindValue(":id", $idTicket);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
+        if ($linha) {
+            return new ordemServico($linha['idOrdemServico'], $linha['valor'], $linha['descricao'], $linha['idTicket']);
+        } else {
+            return null;
+        }
     }
 
-    function getClientes($idCliente) {
+    $idTicket = $_GET['idTicket'];
+    $ordemServico = getOrdemServico($idTicket);
+
+    if ($ordemServico != null) {
+        $value = "editar";
+        $idOrdemServico = $ordemServico->getIdOrdemServico();
+        $valor = $ordemServico->getValor();
+        $descricao = $ordemServico->getDescricao();
+    } else {
+        $value = "salvar";
+        $idOrdemServico = 0;
+        $valor = "";
+        $descricao = "";
+    }
+
+    function countHoras($idTicket) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT * FROM cliente WHERE idCliente = :id");
-        $stmt->bindValue(":id", $idCliente);
+        $stmt = $pdo->prepare("SELECT horaInicial, horaFinal FROM tramite WHERE idTicket = :idTicket");
+        $stmt->bindValue(":idTicket", $idTicket);
         $stmt->execute();
-        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
-    }
+        $horas = 0;
 
+        while($linha = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $horaInicial = $linha['horaInicial'];
+            $horaFinal = $linha['horaFinal'];
+            $horaInicial = strtotime($horaInicial);
+            $horaFinal = strtotime($horaFinal);
+            $diferenca = $horaFinal - $horaInicial;
+            $horas += $diferenca;
+        }
+
+        if ($horas == 0) {
+            $horas = ("00:00");
+        } else {
+            $horas = gmdate("H:i", $horas);
+        }
+        return $horas;
+    }
 ?>
+
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -117,74 +141,41 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Trâmites</h3>
+                    <h3 class="text-dark mb-4">Ordem de serviço</h3>
                     <div class="row mb-3">
                         <div class="col-11 col-xl-12 col-xxl-11 offset-xl-0">
                             <div class="row">
-                                <div class="col-xl-11 col-xxl-9">
+                                <div class="col-xl-11 col-xxl-7">
                                     <div class="card shadow mb-3">
                                         <div class="card-body">
-                                            <form method="post" action="action/actTramite.php">
+                                            <form method="post" action="action/actOrdemServico.php">
                                                 <div class="row">
-                                                    <input type="hidden" name="idTicket" value="<?php echo $idTicket;?>">
-                                                    <input type="hidden" name="usuario" value="<?php echo $_SESSION['idUsuario'];?>">
                                                     <div class="col-xl-4 col-xxl-3">
+                                                        <input type="hidden" name="idOrdemServico" value="<?php echo $idOrdemServico;?>">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Contato</span><input class="bg-white form-control" type="text" id="contato" readonly="" name="Contato" value="<?php echo $contato;?>"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-8 col-xxl-5">
-                                                        <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Cliente</span><input class="bg-white form-control" type="text" id="cliente" name="cliente" readonly="" value="<?php echo getClientes($cliente)->getNome();?>"></div>
+                                                            <div class="input-group"><span class="input-group-text">Ticket #</span><input class="bg-white form-control" type="text" id="idTicket" readonly="" name="idTicket" value="<?php echo $idTicket;?>"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4 col-xxl-4">
                                                         <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Estado</span><select class="form-select" id="status" required="" name="status">
-                                                                    <option value="">Selecione uma opção</option>
-                                                                    <?php
-                                                                        $pdo = Conexao::getInstance();
-                                                                        $consulta = $pdo->query("SELECT * FROM status WHERE situacao = 1");
-                                                                        while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                                            $status = new status($linha['idStatus'], $linha['descricao'], $linha['situacao']);
-                                                                            if ($status->getId() == $idStatus) {
-                                                                                echo '<option value="'.$status->getId().'" selected>'.$status->getDescricao().'</option>';
-                                                                            } else {
-                                                                                echo '<option value="'.$status->getId().'">'.$status->getDescricao().'</option>';
-                                                                            }
-                                                                        }
-                                                                    ?>
-                                                                </select>
-                                                            </div>
+                                                            <div class="input-group"><span class="input-group-text">Total horas</span><input class="bg-white form-control" id="totalHoras" name="totalHoras" readonly="" type="time" value="<?php echo countHoras($idTicket);?>"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 col-xxl-5">
+                                                        <div class="mb-3">
+                                                            <div class="input-group"><span class="input-group-text">Valor do serviço R$</span><input class="bg-white form-control" type="text" id="valor" name="valor" placeholder="0,00" value="<?php echo $valor;?>"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <hr style="margin-top: 0px;">
                                                 <div class="row">
-                                                    <div class="col-xl-3 col-xxl-4">
-                                                        <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Data</span><input class="bg-white form-control" id="data" name="data" type="date" readonly="" value="<?php echo $data;?>"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-3 col-xxl-4">
-                                                        <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Hora inicial</span><input class="bg-white form-control" id="horaInicial" name="horaInicial" readonly="" type="time" value="<?php echo $horaInicial;?>"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-3 col-xxl-4">
-                                                        <div class="mb-3">
-                                                            <div class="input-group"><span class="input-group-text">Hora final</span><input class="bg-white form-control" id="horaFinal" name="horaFinal" readonly="" type="time" required=""><button class="btn btn-secondary" type="button" onclick="horaFinalAgora()"><i class="far fa-clock"></i></button></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="summernote" name="descricao"></textarea></div>
+                                                        <div class="mb-3"><label class="form-label" for="descricao"><strong>Descrição</strong><br></label><textarea class="form-control" id="descricao" name="descricao"><?php echo $descricao;?></textarea></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <button id="btnSalvar" disabled class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="incluir">Salvar</button>
-                                                    <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="listaTramites.php?idTicket=<?=$idTicket?>">Voltar</a>
+                                                    <button class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="<?php echo $value;?>">Salvar</button>
+                                                    <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="util/gerarPDF.php?idTicket=<?=$idTicket?>">Imprimir</a>
                                                 </div>
                                             </form>
                                         </div>
@@ -209,24 +200,6 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
-    <script language=javascript type="text/javascript">
-        function horaFinalAgora() {
-            now = new Date();
-            var hora = now.getHours();
-            var minutos = now.getMinutes();
-
-            if (hora < 10) {
-                hora = "0" + hora;
-            }
-            if (minutos < 10) {
-                minutos = "0" + minutos;
-            }
-            var horaFinal = hora + ":" + minutos;
-            document.getElementById("horaFinal").value = horaFinal;
-            document.getElementById("btnSalvar").disabled = false;
-        }
-
-    </script>
 </body>
 
-</.php>
+</html>

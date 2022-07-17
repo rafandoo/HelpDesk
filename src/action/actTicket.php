@@ -25,10 +25,34 @@
         insertTicketCliente(buildTicket($_POST['idTicket'], $_POST['titulo'], $_POST['descricao'], $_POST['dataAbertura'], NULL, NULL, $_POST['categoria'], NULL, 1, $_POST['setor'], $_POST['cliente'], $_POST['contato'], 0));
     }
 
+    /**
+     * It creates a new ticket object.
+     * 
+     * @param idTicket int
+     * @param titulo Title of the ticket
+     * @param descricao text
+     * @param dataAbertura date
+     * @param dataAtualizacao DateTime
+     * @param dataFinalizacao date
+     * @param categoria category
+     * @param prioridade 1 = low, 2 = medium, 3 = high
+     * @param status 1 = open, 2 = closed, 3 = pending
+     * @param setor 1
+     * @param cliente is a class
+     * @param contato 
+     * @param usuario is the user who created the ticket
+     * 
+     * @return A new ticket object.
+     */
     function buildTicket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario) {
         return new ticket($idTicket, $titulo, $descricao, $dataAbertura, $dataAtualizacao, $dataFinalizacao, $categoria, $prioridade, $status, $setor, $cliente, $contato, $usuario);
     }
 
+    /**
+     * It inserts a ticket into the database.
+     * 
+     * @param ticket 
+     */
     function insertTicket($ticket) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, dataAtualizacao, categoria, prioridade, status, setor, cliente, contato, usuario) VALUES (:titulo, :descricao, :dataAbertura, :dataAtualizacao, :categoria, :prioridade, :status, :setor, :cliente, :contato, :usuario)");
@@ -47,6 +71,11 @@
         header("Location: ../filaAtendimentos.php");
     }
 
+    /**
+     * It updates a ticket in the database.
+     * 
+     * @param ticket is the object that contains all the data that will be updated in the database.
+     */
     function updateTicket($ticket) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("UPDATE ticket SET titulo = :titulo, descricao = :descricao, dataAtualizacao = :dataAtualizacao, dataFinalizacao = :dataFinalizacao, categoria = :categoria, prioridade = :prioridade, status = :status, setor = :setor, cliente = :cliente, contato = :contato, usuario = :usuario WHERE idTicket = :idTicket");
@@ -66,6 +95,11 @@
         header("Location: ../cadTickets.php?acao=alterar&idTicket=" . $ticket->getIdTicket());
     }
 
+    /**
+     * It deletes a ticket from the database.
+     * 
+     * @param idTicket 1
+     */
     function deleteTicket($idTicket) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("DELETE FROM ticket WHERE idTicket = :idTicket");
@@ -74,6 +108,13 @@
         header("Location: ../filaAtendimentos.php");
     }
 
+    /**
+     * Update the ticket table with the current date, the date of completion, and the status of the
+     * ticket.
+     * 
+     * @param status 4
+     * @param idTicket 1
+     */
     function updateTicketTramite($status, $idTicket) {
         $dataAtualizacao = date('Y-m-d H:i');
         if ($status == 4) {
@@ -90,6 +131,11 @@
         $stmt->execute();
     }
 
+    /**
+     * It inserts a ticket into the database.
+     * 
+     * @param ticket 
+     */
     function insertTicketCliente($ticket) {
         $pdo = Conexao::getInstance();
         $stmt = $pdo->prepare("INSERT INTO ticket (titulo, descricao, dataAbertura, categoria, status, setor, cliente, contato, usuario) VALUES (:titulo, :descricao, :dataAbertura, :categoria, :status, :setor, :cliente, :contato, :usuario)");

@@ -1,5 +1,7 @@
 <?php
-    require_once "util/autoload.php";
+    require_once "../util/autoload.php";
+    require_once "../config/Conexao.php";
+    include_once "../config/default.inc.php";
     
     $acao = "";
 
@@ -13,11 +15,9 @@
     }
 
     if ($acao == 'salvar') {
-        insertOrdemServico(buildOrdemServico(0, $_POST['idUsuario'], $_POST['idSetor'], $_POST['descricao'], $_POST['situacao']));
-    } else if ($acao == 'excluir') {
-        deleteOrdemServico($_GET['idOrdemServico']);
+        insertOrdemServico(buildOrdemServico(0, $_POST['valor'], $_POST['descricao'], $_POST['idTicket']));
     } else if ($acao == 'editar') {
-        updateOrdemServico(buildOrdemServico($_POST['idOrdemServico'], $_POST['idUsuario'], $_POST['idSetor'], $_POST['descricao'], $_POST['situacao']));
+        updateOrdemServico(buildOrdemServico($_POST['idOrdemServico'], $_POST['valor'], $_POST['descricao'], $_POST['idTicket']));
     }
 
     /**
@@ -25,12 +25,13 @@
      * 
      * @param idOrdemServico int
      * @param valor is a decimal value
+     * @param descricao string
      * @param idTicket int
      * 
      * @return An object of type ordemServico.
      */
-    function buildOrdemServico($idOrdemServico, $valor, $idTicket) {
-        return new ordemServico($idOrdemServico, $valor, $idTicket);
+    function buildOrdemServico($idOrdemServico, $valor, $descricao, $idTicket) {
+        return new ordemServico($idOrdemServico, $valor, $descricao, $idTicket);
     }
 
     /**
@@ -40,40 +41,27 @@
      */
     function insertOrdemServico($ordemServico) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("INSERT INTO ordemServico (valor, idTicket) VALUES (:valor, :idTicket)");
+        $stmt = $pdo->prepare("INSERT INTO ordemServico (valor, descricao, idTicket) VALUES (:valor, :descricao, :idTicket)");
         $stmt->bindValue(':valor', $ordemServico->getValor());
+        $stmt->bindValue(':descricao', $ordemServico->getDescricao());
         $stmt->bindValue(':idTicket', $ordemServico->getIdTicket());
         $stmt->execute();
-        header('Location: index.php');
+        header("Location: ../cadOrdemServico.php?idTicket=" . $ordemServico->getIdTicket());
     }
 
+
     /**
-     * It updates the value of the column "valor" in the table "ordemServico" where the idOrdemServico
-     * is equal to the idOrdemServico of the object .
+     * It updates the table ordemServico with the values of the object .
      * 
-     * @param ordemServico 
+     * @param ordemServico is the object that contains the data to be updated.
      */
     function updateOrdemServico($ordemServico) {
         $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("UPDATE ordemServico SET valor = :valor, idTicket = :idTicket WHERE idOrdemServico = :id");
+        $stmt = $pdo->prepare("UPDATE ordemServico SET valor = :valor, descricao = :descricao WHERE idOrdemServico = :idOrdemServico");
         $stmt->bindValue(':valor', $ordemServico->getValor());
-        $stmt->bindValue(':idTicket', $ordemServico->getIdTicket());
-        $stmt->bindValue(':id', $ordemServico->getIdOrdemServico());
+        $stmt->bindValue(':descricao', $ordemServico->getDescricao());
+        $stmt->bindValue(':idOrdemServico', $ordemServico->getIdOrdemServico());
         $stmt->execute();
-        header('Location: index.php');
-    }
-
-    /**
-     * It deletes a row from the database table 'ordemServico' where the idOrdemServico column matches
-     * the value of the  variable.
-     * 
-     * @param idOrdemServico int(11)
-     */
-    function deleteOrdemServico($idOrdemServico) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM ordemServico WHERE idOrdemServico = :id");
-        $stmt->bindValue(':id', $idOrdemServico);
-        $stmt->execute();
-        header('Location: index.php');
+        header("Location: ../cadOrdemServico.php?idTicket=" . $ordemServico->getIdTicket());
     }
 ?>
