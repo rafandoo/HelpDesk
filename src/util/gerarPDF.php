@@ -51,11 +51,11 @@
         
         //Display Company Info
             $this->SetFont('Arial','B',14);
-            $this->Cell(50,10,"ABC COMPUTERS",0,1);
+            $this->Cell(50,10,"HELP DESK",0,1);
             $this->SetFont('Arial','',14);
-            $this->Cell(50,7,"West Street,",0,1);
-            $this->Cell(50,7,"Salem 636002.",0,1);
-            $this->Cell(50,7,"PH : 8778731770",0,1);
+            $this->Cell(50,7,"Rua Liberto Schutz, 138",0,1);
+            $this->Cell(50,7,"Rio do Sul - SC.",0,1);
+            $this->Cell(50,7,"Fone: (47) 93300-0961",0,1);
 
         //Display INVOICE text
             $this->SetY(15);
@@ -89,33 +89,40 @@
             $this->SetY(63);
             $this->SetX(-60);
             $this->Cell(50,7,"Data: ".$ticket->getDataAtualizacao(), 0, 1);
+
+            $this->Line(0, 95, 210, 95);
             
             //Display Table headings
-            $this->SetY(95);
+            $this->SetY(105);
             $this->SetX(10);
             $this->SetFont('Arial','B',12);
-            $this->Cell(120, 9, utf8_decode("DESCRIÇÃO"), 1, 0);
-            $this->Cell(40, 9, "VALOR", 1, 0, "C");
+            $this->Cell(190, 9, utf8_decode("DESCRIÇÃO"), 1, 0);
+            //$this->Cell(40, 9, "VALOR", 1, 0, "C");
             $this->SetFont('Arial','',12);
             
             //Display table product rows
-            $this->SetY(104);
+            $this->SetY(114);
             $this->SetX(10);
-            $this->Cell(120, 9, utf8_decode($ordemServico->getDescricao()), "LR", 0);
-            $this->Cell(40, 9, "R$ " . $ordemServico->getValor(), "R", 1, "R");
+            $this->Cell(190, 9, utf8_decode($ordemServico->getDescricao()), 1, 0);
+            //$this->Cell(40, 9, "R$ " . $ordemServico->getValor(), "R", 1, "R");
             
+            $this->SetY(123);
+            $this->SetX(140);
+            $this->SetFont('Arial','B',12);
+            $this->Cell(30, 9, "VALOR", 1, 0, "C");
+            $this->SetFont('Arial','',12);
+            $this->Cell(30, 9, "R$ " . $ordemServico->getValor() , 1, 0);
             
             
         }
             function Footer(){
                 //set footer position
                 $this->SetY(-50);
-                $this->SetFont('Arial','B',12);
-                $this->Cell(0,10,"for ABC COMPUTERS",0,1,"R");
-                $this->Ln(15);
                 $this->SetFont('Arial','',12);
                 
-                $this->Cell(0,10,"Assinatura do cliente",0,1,"R");
+                $this->Line(140, 250, 190, 250);
+                $this->Ln(5);
+                $this->Cell(175, 10, "Assinatura do cliente", 0, 1, "R");
                 $this->SetFont('Arial','',10);
             }
             
