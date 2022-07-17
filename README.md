@@ -29,6 +29,8 @@ The present Help Desk system project was developed for the WEB I Development cou
 
 [Summernote](https://github.com/summernote/summernote/)
 
+[FPDF](http://www.fpdf.org/)
+
 ## Functionalities :wrench:
 
 :heavy_check_mark: Enable tickets to be opened, both by a technician and by the customer.
