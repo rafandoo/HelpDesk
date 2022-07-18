@@ -22,7 +22,7 @@
             $prioridade = isset($_POST['prioridade']) ? $_POST['prioridade'] : null; 
             $status = isset($_POST['status']) ? $_POST['status'] : null; 
             $setor = isset($_POST['setor']) ? $_POST['setor'] : null; 
-            $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : null;
+            $cliente = isset($_POST['idCliente']) ? $_POST['idCliente'] : null;
             $contato = isset($_POST['contato']) ? $_POST['contato'] : null; 
             $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null; 
             break;

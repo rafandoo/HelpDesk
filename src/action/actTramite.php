@@ -16,7 +16,7 @@
     }
 
     if ($acao === 'incluir') {
-        updateTicket($_POST['status'], $_POST['idTicket']);
+        updateTicketTramite($_POST['status'], $_POST['idTicket']);
         insertTramite(buildTramite(0, $_POST['data'], $_POST['horaInicial'], $_POST['horaFinal'], $_POST['descricao'], $_POST['idTicket'], $_POST['usuario']));
     }
 

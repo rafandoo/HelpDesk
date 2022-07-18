@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <?php
     include "validaSessao.php";
-    include "util/permissao.php";
     require_once "util/autoload.php";
     require_once "config/Conexao.php";
     include_once "config/default.inc.php";
 
-    $title = "Categorias";
-    
-    $procurar = isset($_POST["procurar"]) ? $_POST["procurar"] : "";
-
-    function rowCounter($procurar) {
-        $pdo = Conexao::getInstance();
-        $stmt = $pdo->prepare("SELECT * FROM categoria WHERE descricao LIKE '%$procurar%'");
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
+    $title = "Relatórios";
 ?>
 <html lang="pt-br">
 
@@ -58,7 +48,7 @@
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button" class="nav-link"><i class="fas fa-chart-bar"></i>&nbsp;<span>Gerencial</span></a>
-                            <div class="collapse" id="collapse-2">
+                            <div class="collapse show" id="collapse-2">
                                 <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="404.php">Dashboard</a><a class="collapse-item" href="relatorios.php">Relatórios</a></div>
                             </div>
                         </div>
@@ -98,84 +88,99 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Categorias</h3>
-                    <div class="card shadow" style="width: 660px;">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <div id="dataTable_filter" class="dataTables_filter">
-                                        <form method="post">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <div class="input-group" style="width: 270px;">
-                                                        <input class="form-control form-control-sm" type="search" id="procurar" aria-controls="dataTable" placeholder="Buscar descrição" name="procurar" value="<?php echo $procurar?>">
-                                                        <button class="btn btn-primary" type="submit">
-                                                            <i class="fas fa-search"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">Relatórios</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 col-xxl-2 mb-4"><a style="text-decoration: none;" data-bs-target="#modal-1" data-bs-toggle="modal">
+                                <div class="card shadow border-start-primary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-danger fw-bold text-xs mb-1"><span>Contabilização de horas</span></div>
                                             </div>
+                                            <div class="col-auto"><i class="fas fa-hourglass-half fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Filtros</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="util/gerarPDFRelatorioHoras.php" method="post">
+                                        <div class="modal-body">
+                                            <div style="margin: 10px;">
+                                                <div class="input-group"><span class="input-group-text">Técnico</span>
+                                                    <select class="form-select" name="usuario" id="usuario">
+                                                        <option value="" selected="">Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance(); 
+                                                            $consulta = $pdo->query("SELECT * FROM usuario WHERE situacao = 1 AND nivelAcesso > 1");
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                                $usuario = new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+                                                                echo "<option value='".$usuario->getIdUsuario()."'>".$usuario->getNome()."</option>";
+                                                            }
+                                                        ?>
+                                                    </select></div>
+                                            </div>
+                                            <div style="margin: 10px;">
+                                                <div class="input-group"><span class="input-group-text">Data Inicial</span><input class="form-control" id="dataInicial" name="dataInicial" type="date"></div>
+                                            </div>
+                                            <div style="margin: 10px;">
+                                                <div class="input-group"><span class="input-group-text">Data Final</span><input class="form-control" id="dataFinal" name="dataFinal" type="date"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer"><button class="btn btn-primary" type="submit">Gerar</button></div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-xl-3">
-                                    <div class="text-end"><a class="btn btn-success" role="button" href="cadCategorias.php"><i class="fas fa-plus"></i><span>&nbsp;Novo</span></a></div>
-                                </div>
                             </div>
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Código</th>
-                                            <th>Descrição</th>
-                                            <th>Situação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $pdo = Conexao::getInstance();
-                                            $consulta = $pdo->query("SELECT * FROM categoria WHERE descricao LIKE '%$procurar%' ORDER BY 1 ASC");
-                                            while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
-                                                $categoria = new categoria($linha['idCategoria'], $linha['descricao'], $linha['situacao']);
-                                        ?>
-                                        <tr class="align-middle">
-                                            <td><?php echo $categoria->getId();?></td>
-                                            <td><?php echo $categoria->getDescricao();?></td>
-                                            <td><?php echo $categoria->getStrSituacao();?></td>
-                                            <td class="text-end align-middle">
-                                                <a class="btn btn-outline-success border rounded-circle" role="button" style="border-radius: 30px;width: 40px;margin-right: 10px;" href="cadCategorias.php?acao=alterar&idCategoria=<?=$categoria->getId()?>">
-                                                    <i class="fas fa-pen" style="width: 14px;height: 16px;"></i>
-                                                </a>
-                                                <a class="btn btn-outline-danger border rounded-circle" role="button" style="border-radius: 30px;border-width: 1px;margin-right: 10px;" href="action/actCategoria.php?acao=situacao&idCategoria=<?=$categoria->getId()?>">
-                                                    <i class="fas fa-ban"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                            }
-                                        ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td style="padding: 0px;"></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="row" hidden>
-                                <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando de 1 a 10 de <?php echo rowCounter($procurar);?></p>
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-xxl-2 mb-4"><a href="filaAtendimentos.php" style="text-decoration: none;" data-bs-target="#modal-2" data-bs-toggle="modal">
+                                <div class="card shadow border-start-primary py-2" hidden>
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Chamados por cliente&nbsp;</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-user fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
-                                        </ul>
-                                    </nav>
+                            </a>
+                            <div class="modal fade" role="dialog" tabindex="-1" id="modal-2">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Filtros</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="margin: 10px;">
+                                                <div class="input-group"><span class="input-group-text">Cliente</span><select class="form-select" id="cliente" name="cliente">
+                                                        <option value="" selected="">Selecione uma opção</option>
+                                                        <?php
+                                                            $pdo = Conexao::getInstance(); 
+                                                            $consulta = $pdo->query("SELECT * FROM cliente");
+                                                            while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                                                                $cliente = new cliente($linha['idCliente'], $linha['nome'], $linha['nomeFantasia'], $linha['cpfCnpj'], $linha['endereco'], $linha['numero'], $linha['bairro'], $linha['cidade'], $linha['email'], $linha['telefone'], $linha['observacoes'], $linha['idUsuario'], $linha['situacao']);
+                                                                echo "<option value='".$cliente->getIdCliente()."'>".$cliente->getNome()."</option>";
+                                                            }
+                                                        ?>
+                                                    </select></div>
+                                            </div>
+                                            <div style="margin: 10px;">
+                                                <div class="input-group"><span class="input-group-text">Data Inicial</span><input class="form-control" id="dataInicial-1" name="dataInicial" type="date"></div>
+                                            </div>
+                                            <div style="margin: 10px;">
+                                                <div class="input-group"><span class="input-group-text">Data Final</span><input class="form-control" id="dataFinal-1" name="dataFinal" type="date"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer"><button class="btn btn-primary" type="button">Gerar</button></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
