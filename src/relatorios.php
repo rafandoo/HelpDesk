@@ -48,7 +48,7 @@
                     </li>
                     <li class="nav-item">
                         <div><a data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button" class="nav-link"><i class="fas fa-chart-bar"></i>&nbsp;<span>Gerencial</span></a>
-                            <div class="collapse show" id="collapse-2">
+                            <div class="collapse" id="collapse-2">
                                 <div class="bg-white border rounded collapse-inner"><a class="collapse-item" href="404.php">Dashboard</a><a class="collapse-item" href="relatorios.php">Relatórios</a></div>
                             </div>
                         </div>
