@@ -46,6 +46,12 @@ The present Help Desk system project was developed for the WEB I Development cou
 
 This project is not yet in its final version.
 
+## Screenshots :framed_picture:
+<p>
+  <img src="https://github.com/rafandoo/HelpDesk/blob/76aaaced7757c9c238cbc95e7379517fc889b4b5/docs/Screenshots/Screenshot_index.png" style="width: 500px"/>
+  <img src="https://github.com/rafandoo/HelpDesk/blob/76aaaced7757c9c238cbc95e7379517fc889b4b5/docs/Screenshots/Screenshot_ticket.png" style="width: 500px"/>
+</p>
+
 ## Future enhancements :rocket:
 
 :heavy_check_mark: Internal chat.
