@@ -174,7 +174,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <button class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="<?php echo $value;?>">Salvar</button>
+                                                    <button class="btn btn-primary" type="submit" style="margin-right: 10px;" name="acao" value="<?php echo $value;?>" onclick="alertSalvo()">Salvar</button>
                                                     <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="util/gerarPDF.php?idTicket=<?=$idTicket?>" target="_blank">Imprimir</a>
                                                     <a class="btn btn-primary" role="button" style="margin-right: 10px;" href="cadTickets.php?acao=alterar&idTicket=<?=$idTicket?>">Voltar</a>
                                                 </div>
@@ -201,6 +201,7 @@
     <script src="assets/js/summernote.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/todo.js"></script>
+    <script src="assets/js/confirmMsg.js"></script>
 </body>
 
 </html>

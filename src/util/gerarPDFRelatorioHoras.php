@@ -75,7 +75,7 @@
     }
 
     function countHorasUsuario($tickets) {
-        $horas = strtotime("00:00");
+        $horas = -10800;
         foreach ($tickets as $ticket) {
             $horas += strtotime(countHoras($ticket));
         }

@@ -17,6 +17,15 @@
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
         return new ticket($linha['idTicket'], $linha['titulo'], $linha['descricao'], $linha['dataAbertura'], $linha['dataAtualizacao'], $linha['dataFinalizacao'], $linha['categoria'], $linha['prioridade'], $linha['status'], $linha['setor'], $linha['cliente'], $linha['contato'], $linha['usuario']);
     }
+    
+    function getUsuario($idUsuario) {
+        $pdo = Conexao::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new usuario($linha['idUsuario'], $linha['nome'], $linha['sobrenome'], $linha['email'], $linha['login'], $linha['senha'], $linha['nivelAcesso'], $linha['setor'], $linha['situacao']);
+    }
 ?>
 <html lang="pt-br">
 
@@ -124,7 +133,7 @@
                                             <td class="align-middle"><?php echo $tramite->getIdTramite(); ?></td>
                                             <td class="align-middle"><?php echo $tramite->getData(); ?></td>
                                             <td class="align-middle"><?php echo $tramite->getDescricao(); ?></td>
-                                            <td class="align-middle"><?php echo $tramite->getUsuario(); ?></td>
+                                            <td class="align-middle"><?php echo getUsuario($tramite->getUsuario())->getNome();?></td>
                                         </tr>
                                         <?php
                                             }

@@ -23,3 +23,7 @@ function alertExistEmail() {
 function alertSenha() {
     alert("A senha digitada não confere!");
 }
+
+function alertSalvo() {
+    alert("Salvo com sucesso!");
+}

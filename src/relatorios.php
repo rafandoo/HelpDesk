@@ -110,7 +110,7 @@
                                         <div class="modal-header">
                                             <h4 class="modal-title">Filtros</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="util/gerarPDFRelatorioHoras.php" method="post">
+                                        <form action="util/gerarPDFRelatorioHoras.php" method="post" target="_blank">
                                         <div class="modal-body">
                                             <div style="margin: 10px;">
                                                 <div class="input-group"><span class="input-group-text">Técnico</span>
