@@ -58,6 +58,8 @@ This project is not yet in its final version.
 
 :heavy_check_mark: Attachment management and control.
 
+:heavy_check_mark: TODO List.
+
 ## License :key:
 
 The [MIT License](https://github.com/rafandoo/HelpDesk/blob/8d524ce4f75316f660cb6e15084c3a64da69345c/LICENSE) (MIT)
